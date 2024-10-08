@@ -1,0 +1,167 @@
+angular.module('App').controller("manualCtrl", function($scope, $location, $rootScope, ErrorFactory, httpHitFactory) {
+
+  // this variable is for holding the content-type required for post hit and
+  // is used in every post hit
+  var contentType = 'application/json';
+
+  // DATEPICKER FUNCTIONLITY STARTS
+
+  $scope.currentDate = new Date();
+
+  $scope.$watch("tempData.entryDate", function(newValue, oldValue) {
+    if (angular.isUndefined(newValue)) {
+    } else {
+      $scope.entry.date = PORTAL.formatDate(newValue, "DD/MM/YYYY");
+    }
+  });
+
+  $scope.$watch("tempData.entryTime", function(newValue, oldValue) {
+  });
+
+  $scope.setTime = function() {
+    $scope.entry.time = PORTAL.formatTime($scope.tempData.entryTime, "HH:mm:ss");
+  }
+
+  $scope.dpObj = {
+    opened : false
+  };
+
+  $scope.openDatePicker = function() {
+    $scope.dpObj.opened = true;
+  };
+
+  $scope.onSelect = function($item, $model, $label) {
+    $scope._selectedEmp = angular.copy($item);
+  };
+
+  $rootScope.overlay = {
+    show : true
+  };
+
+  // reading json file(HTTP GET HIT)
+  httpHitFactory.makeHTTPHit(usersDataJsonURL).then(function mySuccess(response) {
+    $scope.empList = response.data.empList;
+    $scope.isAdmin = response.data.isAdmin;
+
+    // function to hide overlay
+    $rootScope.overlay = {
+      show : false
+    }
+  }, function myError(response) {
+    // HIDING overlay
+    $rootScope.overlay = {
+      show : false
+    }
+    // TODO:change this status to proper error message
+    if (response.status) {
+
+      ErrorFactory.setmsg("Error");
+      ErrorFactory.setURL($location.url());
+      // redirecting to error page if json http request return error
+      $location.url('/error.html');
+    }
+  });
+
+  $scope.getEmployees = function(val) {
+    val = val.toLowerCase();
+    var filteredItems = $scope.empList.filter(function(item) {
+      if (item.name.toLowerCase().includes(val)) {
+        return item;
+      } else {
+        return null;
+      }
+    });
+
+    if (filteredItems && filteredItems.length > 0) {
+      return filteredItems.map(function(item) {
+        return item;
+      });
+    } else {
+      return null;
+    }
+
+  }
+
+  $scope.isValid = function() {
+    if (!$scope._selectedEmp) {
+      return false;
+    }
+
+    if (!$scope.entry || !$scope.entry.date) {
+      return false;
+    }
+
+    if (!$scope.entry || !$scope.entry.time) {
+      return false;
+    }
+
+    return true;
+  }
+
+  $scope.saveChanges = function() {
+    var content = {
+      employee : angular.copy($scope._selectedEmp),
+      datetime : angular.copy($scope.entry)
+    };
+
+    var contentType = 'application/json';
+
+    $rootScope.overlay = {
+      show : true
+    }
+
+    var addManualAttendanceEntryURL = randomUtilitiesURL + "/manualEntry";
+
+    // reading json file(HTTP GET HIT)
+    httpHitFactory.makePOSTHTTPHit(addManualAttendanceEntryURL, content, contentType).then(function mySuccess(response) {
+      // function to hide overlay
+      $rootScope.overlay = {
+        show : false
+      }
+
+      if (response.data && response.data.status) {
+        var message;
+        if (response.data.status === "SUCCESS") {
+          message = "Entry saved";
+          $scope.resetPage();
+        } else {
+          message = "Could not save the attendance entry. Please contact the Administrator";
+        }
+
+        PORTAL.showMessage(message);
+      } else {
+        PORTAL.showMessage("Could not save the attendance entry. Please contact the Administrator");
+      }
+
+    }, function myError(response) {
+      // HIDING overlay
+      $rootScope.overlay = {
+        show : false
+      }
+      if (response.status) {
+        ErrorFactory.setmsg("Error");
+        ErrorFactory.setURL($location.url());
+        // redirecting to error page if json http request return error
+        $location.url('/error.html');
+      }
+    });
+
+  }
+
+  $scope.resetPage = function() {
+    $scope.tempData = {
+      entryDate : new Date(),
+      entryTime : new Date()
+    }
+    $scope.entry = {
+        // Placeholder for final date and time
+    };
+    
+    if ($scope._selectedEmp) {
+      delete $scope._selectedEmp
+    }
+  }
+  
+  $scope.resetPage();
+
+});

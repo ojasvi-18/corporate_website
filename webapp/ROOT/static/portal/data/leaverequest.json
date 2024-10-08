@@ -1,0 +1,126 @@
+{
+    "status": "SUCCESS",
+    "id": 1,
+    "user_leaves": [
+        {
+            "id": 1,
+            "type": {
+                "id": 1,
+                "name": "12 cha cha cha",
+                "days": 22
+            },
+            "requestor": {
+                "name": "Harsh Azad",
+                "id": 1
+            },
+            "start": "2017-08-15",
+            "end": "2017-08-15",
+            "reason": "Trying to add",
+            "status": "PENDING"
+        }
+    ]
+}
+
+
+
+--JSON format for moris pie chart resembling employee leave request status
+
+data : [
+        {
+          label : "approved",
+          value : 30
+        }, {
+          label : "pending",
+          value : 15
+        }, {
+          label : "un approved",
+          value : 45
+        },
+    ]
+    
+    
+    
+-- JSON format for leaves taken by  employee. label define the leave type and value define the number of leaves taken by employee of that particular type
+
+data : [
+        {
+          label : "work4mHome",
+          value : 30
+        }, {
+          label : "remainigLeaves",
+          value : 15
+        }, {
+          label : "unofficialLeaves",
+          value : 10
+        }, {
+          label : "TotalLeaves",
+          value : 60
+        }
+    ]
+  
+    
+--JSON format for moris bar chart for displaying status of approved, unaproved , pendsing leave request monthly 
+
+data = [
+      {
+        month : 'Jan',
+        approved : 10,
+        pending : 8,
+        un_approved : 10
+      }, {
+        month : 'Feb',
+        approved : 9,
+        pending : 5,
+        un_approved : 10
+      }, {
+        month : 'March',
+        approved : 10,
+        pending : 10,
+        un_approved : 5
+      }, {
+        month : 'April',
+        approved : 3,
+        pending : 7,
+        un_approved : 10
+      }, {
+        month : 'May',
+        approved : 10,
+        pending : 45,
+        un_approved : 7
+      }, {
+        month : 'June',
+        approved : 10,
+        pending : 70,
+        un_approved : 10
+      }, {
+        month : 'July',
+        approved : 45,
+        pending : 39,
+        un_approved : 8
+      }, {
+        month : 'August',
+        approved : 4,
+        pending : 10,
+        un_approved : 1
+      }, {
+        month : 'Sepet',
+        approved : 4,
+        pending : 2,
+        un_approved : 8
+      }, {
+        month : 'Oct',
+        approved : 4,
+        pending : 9,
+        un_approved : 8
+      }, {
+        month : 'Nov',
+        approved : 45,
+        pending : 10,
+        un_approved : 8
+      }, {
+        month : 'Dec',
+        approved : 4,
+        pending : 7,
+        un_approved : 30
+      }
+  ]         

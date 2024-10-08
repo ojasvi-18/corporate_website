@@ -1,0 +1,25 @@
+//ADD json/EDIT Teams
+{
+		  //only when action is Edit
+		    "id" : <team id if action not add>,
+ 			
+ 			//for both add and edit
+ 			"EmailGroups": "dev@zillious.com",
+			"Supervisor": {"id" : <user id of supervisor>, "name" : "ADMIN"},
+			"TeamName": "developer"
+}
+
+
+//DELETE TEAM
+
+{
+"id" : <id of the team>
+}
+
+Response format : 
+{
+
+"status" : SUCCESS/ERROR
+"id" : <id generated in case of add/same id as sent for edit>
+"error-msg" : ""
+}

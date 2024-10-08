@@ -1,0 +1,47 @@
+
+/* Header I18N internationalization
+================================================================ */
+/*css for nice select drop down menu*/
+/*@import "nice-select";*/
+
+#langNav {
+	text-align: left;
+    position: absolute;
+    left: auto;
+    right: 0;
+    width: 10%;
+	color: #fff;
+	form {
+		font-size: 0.9rem;
+	}
+	
+	&.rtl{
+		text-align: right;
+	    left: 0;
+	    right: auto;
+	    width: 30%;
+	}
+	
+	/*select {
+	   -moz-appearance: none;
+	    background: #00a0de none repeat scroll 0 0;
+	    border: 0 none;
+	    border-radius: 4px;
+	    color: #fff;
+	    cursor: pointer;
+	    display: inline-block;
+	    margin: 0;
+	    outline: 0 none;
+	    padding: 2px;
+	}
+	
+	@media screen and (-webkit-min-device-pixel-ratio:0) {
+    	select {padding-right:18px}
+	}*/
+	
+	a {
+		background-color: #00a0de;
+		color: #fff;
+	}
+	
+} // end Header Internationalization

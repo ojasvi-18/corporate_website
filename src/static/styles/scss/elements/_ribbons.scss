@@ -1,0 +1,145 @@
+
+/* Ribbons
+================================================================ */
+
+.ribbon {
+	position: absolute;
+	top: 0;
+	right: 0;
+	.text, .banner {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		outline: 0;
+		font-size: 100%;
+		vertical-align: baseline;
+		background: transparent;
+	}
+	a {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		outline: 0;
+		font-size: 100%;
+		vertical-align: baseline;
+		background: transparent;
+		color: #fff;
+		text-decoration: none;
+	}
+}
+
+.ribbon .banner {
+	transform: rotate(45deg);
+	color: #fff;
+	display: block;
+	float: right;
+	position: relative;
+	right: -14px;
+	top: 22px;
+	width: 100px;
+}
+
+.ribbon-large .banner {
+	right: -20px;
+	top: 32px;
+	width: 150px;
+}
+
+.ribbon .banner {
+	&::after, &::before {
+		content: '';
+		display: block;
+		height: 12px;
+		position: absolute;
+		width: 30px;
+	}
+}
+
+.ribbon-large .banner {
+	&::after, &::before {
+		height: 18px;
+		width: 45px;
+	}
+}
+
+.ribbon .banner::before {
+	transform: skewY(-45deg) translate(50%, 15px);
+	transform-origin: 100% center;
+	left: -45px;
+}
+
+.ribbon-large .banner::before {
+	top: 10px;
+	left: -68px;
+}
+
+.ribbon .banner::after {
+	transform: translate(100%, -100%) skewY(45deg) translateX(-58%);
+	transform-origin: 0 center;
+	right: -17px;
+}
+
+.ribbon-large .banner::after {
+	top: 45px;
+	right: -25px;
+}
+
+.ribbon .text {
+	position: relative;
+	z-index: 2;
+	padding: 6px 0;
+	font-size: 12px;
+	font-weight: bold;
+	min-height: 18px;
+	line-height: 18px;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.ribbon-large .text {
+	padding: 9px 0;
+	font-size: 18px;
+	min-height: 28px;
+	line-height: 28px;
+}
+
+.ribbon {
+	.text {
+		&::before, &::after {
+			content: '';
+			display: block;
+			height: 30px;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			z-index: -1;
+		}
+	}
+	&.ribbon-large .text {
+		&::before, &::after {
+			height: 46px;
+		}
+	}
+	.text {
+		&::before {
+			transform: translateX(-15%) skewX(-45deg);
+		}
+		&::after {
+			transform: translateX(15%) skewX(45deg);
+		}
+	}
+}
+
+.ribbon {
+	.banner {
+		&::after, &::before {
+			background-color: #51a351;
+		}
+	}
+	.text {
+		&::before, &::after {
+			background-color: #62c462;
+		}
+	}
+}

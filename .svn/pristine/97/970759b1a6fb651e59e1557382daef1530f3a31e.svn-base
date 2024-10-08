@@ -1,0 +1,118 @@
+
+/* Team Section
+================================================================ */
+
+.team {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+	&.inactive {
+		.team-member {
+			top: 5em;
+			opacity: 0;
+		}
+	}
+
+	.team-member {
+		position: relative;
+		transition: 0.4s;
+		top: 0;
+		opacity: 1;
+		&:nth-child(2) {
+			transition-delay: 0.4s;
+		}
+		&:nth-child(3) {
+			transition-delay: 0.8s;
+		}
+	}
+
+	h4 {
+		font-family: $font-1;
+		font-size: $font-size-3;
+		font-weight: 900;
+		margin-bottom: 0.25em;
+	}
+	h5 {
+		font-size: $font-size-2;
+		margin-top: 0;
+		font-weight: 300;	
+		color: $brand-1;	
+	}
+	p {
+		font-weight: lighter;
+	}
+	.mask {
+		background: rgba(0,0,0,0.7);
+		position: absolute;
+		z-index: 2;
+		height: 100%;
+		width: 100%;
+		text-align: center;
+		opacity: 0;
+		transition: 0.4s;
+		&:before {
+		    content: "";
+			border: 2px solid $brand-1;
+		    bottom: 1.25rem;
+		    left: 1.25rem;
+		    position: absolute;
+		    right: 1.25rem;
+		    top: 1.25rem;
+		    z-index: 4;
+		    opacity: 0;
+		    transform: scale(1.15);		   
+		    transition: 0.4s;
+		}
+		[class^="icon-"] {
+			position: absolute;
+			top: 42.5%;
+			transform: translateY(-50%);
+			display: inline-block;
+			left: 0;
+			right: 0;
+			margin: auto;
+			z-index: 6;
+		}
+	}
+	.team-pic {
+		position: relative;
+		overflow: hidden;
+		img {
+			transition: 0.4s;
+			min-width: 100%;
+			display: block;
+		}
+		&:hover {			
+			.mask {
+				opacity: 1;
+				&:before {
+					opacity: 1;
+					transform: scale(1);
+				}
+			}
+			[class^="icon-"] {
+				top: 50%;
+			}
+			img {
+				transform: scale(1.25);
+			}
+		}
+	}
+
+//-----------------------------------------------------------------
+// Smaller Resolutions
+//-----------------------------------------------------------------
+
+	@media (max-width: $breakpoint-2) {
+		.team-member {
+			&:not(:last-child) {
+				padding-bottom: 2rem;
+				margin-bottom: 2rem;
+				border-bottom: 1px dotted rgba(0,0,0,0.1);
+			}
+		}
+	}
+
+} // end .team

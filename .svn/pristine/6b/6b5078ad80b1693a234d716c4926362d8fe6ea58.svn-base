@@ -1,0 +1,7 @@
+corp.client.contact.invalidquery=Invalid Query Type
+corp.client.contact.invalidphone=Invalid Phone Number
+corp.client.contact.invalidname=Invalid Name
+corp.client.newsletter.successfulsubscription=You have successfully subscribed!
+corp.client.newsletter.errorinsubscription=There has been an error!
+corp.client.contact.invalidMessage=Invalid Message
+corp.client.contact.incompleteCaptcha=Re-captcha not filled

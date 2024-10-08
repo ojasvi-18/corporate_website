@@ -1,0 +1,55 @@
+
+/* Bottom Bar
+================================================================ */
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+.bottom-bar {
+
+	padding: 1.5em 0;
+	font-size: $font-size-0;
+	background: $dark-grey;
+	position: relative;
+	z-index: 2;
+	text-align: center;
+
+	.footer-nav {
+		margin-top: 1.5em;
+		ul {
+		    @extend ul.reset;
+		}
+	    li {
+		    display: inline-block;
+		    &:not(:last-child) {
+				margin-right: 1em;
+		    }
+	    }
+	    a {
+	    	color: rgba(255,255,255,0.75);
+			font-weight: lighter;
+			&:hover {
+				border-color: inherit;
+				color: white;
+			}
+	    }
+	}
+
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+	@media (min-width: $breakpoint-2) {
+		text-align: left;
+		.copyright, .footer-nav {
+			display: table-cell;
+			vertical-align: middle;
+		}
+		.footer-nav {
+			text-align: right;
+			margin-top: 0;
+		}
+	}
+
+} // end .bottom-bar

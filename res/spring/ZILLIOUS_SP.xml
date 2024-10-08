@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" ID="https___ob.test_portal" entityID="https://ob.test/portal"><md:SPSSODescriptor AuthnRequestsSigned="false" WantAssertionsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol"><md:KeyDescriptor use="signing"><ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:X509Data><ds:X509Certificate>MIIEBzCCAu+gAwIBAgIJANteh9kqmzEuMA0GCSqGSIb3DQEBCwUAMIGZMQswCQYD
+VQQGEwJJTjEOMAwGA1UECAwFRGVsaGkxDjAMBgNVBAcMBVNha2V0MSUwIwYDVQQK
+DBxaaWxsaW91cyBTb2x1dGlvbnMgUHZ0LiBMdGQuMRkwFwYDVQQDDBBpZHAuemls
+bGlvdXMuY29tMSgwJgYJKoZIhvcNAQkBFhloZW1hbnQua29obGlAemlsbGlvdXMu
+Y29tMB4XDTE2MDUwMTEwMDkyN1oXDTI2MDUwMTEwMDkyN1owgZkxCzAJBgNVBAYT
+AklOMQ4wDAYDVQQIDAVEZWxoaTEOMAwGA1UEBwwFU2FrZXQxJTAjBgNVBAoMHFpp
+bGxpb3VzIFNvbHV0aW9ucyBQdnQuIEx0ZC4xGTAXBgNVBAMMEGlkcC56aWxsaW91
+cy5jb20xKDAmBgkqhkiG9w0BCQEWGWhlbWFudC5rb2hsaUB6aWxsaW91cy5jb20w
+ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDAt7P5IpQG5uDAWjTRIBta
+ix0J0f/1DOKjWFPw7CwoIZuYvscnhviS10ZET3AHN5v80VNJgobDJB0gVjG/1IMQ
+x2vKHLk5QQy4RvwfwCWlrloWyHMfemEWHSMCBMdvYuHeVUNU2Wk4pqITrtsORWGm
+bZP6nRFWPRq+acLsDSeXIA6t7aKVOZPV44w7IEPsFIcPsyIiTXTravAF9rjs/+4x
+6njPeNlCh8l2+OvVBs3JEwdQGbiSaSa0ZBmKznwwdfFguEugfCvAnZV4XFmXpSmh
+2jBeeHZhZOHrYVRJEVq3y1LRJaGxDoL1SiydaHFMkXXSq/BVRXCAwz69M+bKBa/f
+AgMBAAGjUDBOMB0GA1UdDgQWBBQtXNMNEnLNdhQUvDruvDbljtF44zAfBgNVHSME
+GDAWgBQtXNMNEnLNdhQUvDruvDbljtF44zAMBgNVHRMEBTADAQH/MA0GCSqGSIb3
+DQEBCwUAA4IBAQBH4wEHHrJl5jnsI1w2nsG5zDljg+17HziK5NWmar+I2vh5qJVt
+SLKVtjLV9YbvQ/53eTLqmlis6SFlc6Y12g+h6P7lUfwKLYE+FHzOew3sUr4ykb5H
+tzL4/n/rsYoTzC7BZnJgYhpUyhZRBseKcYFeS/CrT+lzTJ+egD7EazWOVUDdepzY
+Rs0TL6L3RqFm7QF3TGOeNHF+HUteym9YaciIIAikrsh/Mtz/ecp0d+3fWuQbp49i
+/xtyNLDPlaRHuao1BXkuA3WpSxU+A+FJSBd4dnjqx7Hlua3XwvDH5lXcrXL/wyWS
+IN/AYWOIsJ76el8UBN+HRmMX1O6i/izPgSMN</ds:X509Certificate></ds:X509Data></ds:KeyInfo></md:KeyDescriptor><md:KeyDescriptor use="encryption"><ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:X509Data><ds:X509Certificate>MIIEBzCCAu+gAwIBAgIJANteh9kqmzEuMA0GCSqGSIb3DQEBCwUAMIGZMQswCQYD
+VQQGEwJJTjEOMAwGA1UECAwFRGVsaGkxDjAMBgNVBAcMBVNha2V0MSUwIwYDVQQK
+DBxaaWxsaW91cyBTb2x1dGlvbnMgUHZ0LiBMdGQuMRkwFwYDVQQDDBBpZHAuemls
+bGlvdXMuY29tMSgwJgYJKoZIhvcNAQkBFhloZW1hbnQua29obGlAemlsbGlvdXMu
+Y29tMB4XDTE2MDUwMTEwMDkyN1oXDTI2MDUwMTEwMDkyN1owgZkxCzAJBgNVBAYT
+AklOMQ4wDAYDVQQIDAVEZWxoaTEOMAwGA1UEBwwFU2FrZXQxJTAjBgNVBAoMHFpp
+bGxpb3VzIFNvbHV0aW9ucyBQdnQuIEx0ZC4xGTAXBgNVBAMMEGlkcC56aWxsaW91
+cy5jb20xKDAmBgkqhkiG9w0BCQEWGWhlbWFudC5rb2hsaUB6aWxsaW91cy5jb20w
+ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDAt7P5IpQG5uDAWjTRIBta
+ix0J0f/1DOKjWFPw7CwoIZuYvscnhviS10ZET3AHN5v80VNJgobDJB0gVjG/1IMQ
+x2vKHLk5QQy4RvwfwCWlrloWyHMfemEWHSMCBMdvYuHeVUNU2Wk4pqITrtsORWGm
+bZP6nRFWPRq+acLsDSeXIA6t7aKVOZPV44w7IEPsFIcPsyIiTXTravAF9rjs/+4x
+6njPeNlCh8l2+OvVBs3JEwdQGbiSaSa0ZBmKznwwdfFguEugfCvAnZV4XFmXpSmh
+2jBeeHZhZOHrYVRJEVq3y1LRJaGxDoL1SiydaHFMkXXSq/BVRXCAwz69M+bKBa/f
+AgMBAAGjUDBOMB0GA1UdDgQWBBQtXNMNEnLNdhQUvDruvDbljtF44zAfBgNVHSME
+GDAWgBQtXNMNEnLNdhQUvDruvDbljtF44zAMBgNVHRMEBTADAQH/MA0GCSqGSIb3
+DQEBCwUAA4IBAQBH4wEHHrJl5jnsI1w2nsG5zDljg+17HziK5NWmar+I2vh5qJVt
+SLKVtjLV9YbvQ/53eTLqmlis6SFlc6Y12g+h6P7lUfwKLYE+FHzOew3sUr4ykb5H
+tzL4/n/rsYoTzC7BZnJgYhpUyhZRBseKcYFeS/CrT+lzTJ+egD7EazWOVUDdepzY
+Rs0TL6L3RqFm7QF3TGOeNHF+HUteym9YaciIIAikrsh/Mtz/ecp0d+3fWuQbp49i
+/xtyNLDPlaRHuao1BXkuA3WpSxU+A+FJSBd4dnjqx7Hlua3XwvDH5lXcrXL/wyWS
+IN/AYWOIsJ76el8UBN+HRmMX1O6i/izPgSMN</ds:X509Certificate></ds:X509Data></ds:KeyInfo></md:KeyDescriptor><md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://ob.test/portal/saml/SingleLogout"/><md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://ob.test/portal/saml/SingleLogout"/><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</md:NameIDFormat><md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat><md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</md:NameIDFormat><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</md:NameIDFormat><md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://ob.test/portal/saml/SSO" index="0" isDefault="true"/><md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://ob.test/portal/saml/SSO" index="1"/></md:SPSSODescriptor></md:EntityDescriptor>

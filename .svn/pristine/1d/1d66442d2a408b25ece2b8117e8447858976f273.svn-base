@@ -1,0 +1,24 @@
+<div class = "row">
+	<div class="col-md-12 panel-warning" ng-controller = "ErrorPageCtrl">
+		<div class="content-box-header panel-title">
+					<div class="panel-title ">Error Page</div>
+		</div>	
+		<div class="content-box-large box-with-header">
+		  	<div class = "panel-body">
+		  		<div class="panel-body">
+		  	<div class="form-group" ng-if = "errormsg" style="text-align: center; font-size:bold;">ERROR : {{errormsg}} </div>
+	  		<div class="form-group" ng-if = "!errormsg" style="text-align: center;font-size:bold;">Could not process your request. Please contact System Administrator</div>
+	  		
+			<div class="form-group" style="text-align: center;">
+		  	   <div class="col-sm-12">
+			     	<button class="btn btn-primary" type="button" ng-click="retryButton()">Retry</button>
+			     	<button class="btn btn-primary" type="button" ng-click="homeButton()">Home</button>
+			    </div>
+			</div>
+		</div>
+		</div>
+		</div>
+	 </div>
+</div>
+
+

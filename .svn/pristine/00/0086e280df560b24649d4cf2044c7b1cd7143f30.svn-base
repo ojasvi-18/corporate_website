@@ -1,0 +1,102 @@
+
+/* Widgets
+================================================================ */
+
+.widget {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+    color: $main-text-color;
+    border-bottom: none;
+    text-align: center;
+    &:hover {
+        path {
+            fill: $brand-1;
+        }
+    }
+
+    .title {
+        margin-bottom: 0.75em;
+        > * {
+            margin: 0.25em 0;
+            &:first-child {
+                margin-top: 0;
+            }
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+        &:not(:first-child) {
+            margin-top: 0.75em;
+        }
+    }
+
+    h4 {
+        font-size: $font-size-3;
+        font-weight: 700;
+    }
+
+    h5 {
+        font-size: $font-size-2;
+        font-weight: 300;
+        color: $brand-1;
+    }
+
+    p,
+    ul {
+        margin-top: 0.25em;
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+        li {
+            position: relative;
+            &:before {
+                font-family: FontAwesome;
+                content: "\f105";
+                margin-right: 0.5rem;
+                color: #C1C1C1;
+            }
+        }
+    }
+
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+    @media (min-width: $breakpoint-3) {  
+        padding: 0;
+        text-align: left;
+        > .fa,
+        > .livicon {
+            &, 
+            + .widget-content {
+                display: table-cell;
+                vertical-align: middle;
+            }
+            + .widget-content {
+                padding-left: 1em;
+            }
+        }
+        .widget-content {
+            header {
+                width: 100%;
+                display: table;
+                text-align: left;
+                .fa,
+                .livicon,
+                .title {
+                    display: table-cell;
+                    vertical-align: middle;
+                }
+                .title {
+                    padding-left: 0.5em;
+                }
+            }
+        }
+    }
+
+} // end .widget

@@ -1,0 +1,56 @@
+
+/* Services Section
+================================================================ */
+
+.section.services {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+	.row {
+		margin-top: 4rem;
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+
+	.services-slider {
+		transition: 0.4s;
+		top: 0;
+	}
+	
+	.nav-carousel {		
+		transition-delay: 1s;
+	}
+
+	&.inactive {
+		.services-slider {
+			top: 3rem;
+			opacity: 0;
+		}
+		.nav-carousel {
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+
+//-----------------------------------------------------------------
+// Smaller Resolutions
+//-----------------------------------------------------------------
+
+	@media (max-width: $breakpoint-3) {
+		> .container {
+			position: relative;
+		}
+		.nav-carousel {	
+			.nav-prev {
+				left: 0;
+			}
+			.nav-next {
+				right: 0;
+			}
+		}
+	}
+
+} // end .feature.services

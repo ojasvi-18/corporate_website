@@ -1,0 +1,123 @@
+
+/* Buttons
+================================================================ */
+
+.button {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+	background: $grey;
+	display: inline-block;
+	padding: 0 1.25em;
+	color: $white;
+	cursor: pointer;
+	text-decoration: none;
+	line-height: 2.4;
+    border: 2px solid transparent;
+    font-family: $font-1;
+    transition: 0.4s;
+	&:hover {
+		background: darken($grey, 10%);	
+		border-color: transparent;
+	}
+	.fa {
+		margin-right: 0.2em;
+	}
+
+//-----------------------------------------------------------------
+// Sizes
+//-----------------------------------------------------------------
+
+	&.small {
+		font-size: 0.8em;
+	}
+
+	&.large {
+		font-size: $font-size-2;
+	}
+
+//-----------------------------------------------------------------
+// Styles
+//-----------------------------------------------------------------
+ 
+	&.border {
+		background: none;		
+    	border: 2px solid;
+		color: $main-text-color;
+	}
+
+	&.disabled {
+		opacity: 0.6;
+		cursor: default;
+		transition-delay: 999s;
+	}
+
+	&.full-width {
+		width: 100%;
+		text-align: center;
+		padding: 0.4em;
+	}
+
+	&.round {
+		border-radius: 1.5em;
+	}
+
+//-----------------------------------------------------------------
+// Colors
+//-----------------------------------------------------------------
+ 
+	/* Brand Colors */
+
+	&.brand-1 {
+		background: $brand-1;
+		&:hover {
+			background: darken($brand-1, 10%);
+		}
+	}
+
+	&.brand-2 {
+		background: $brand-2;
+		&:hover {
+			background: darken($brand-2, 10%);
+		}
+	}
+
+} // end .button
+
+// Button Set
+.button-set {
+	.button {
+		margin-left: 0.5em;
+		&:first-child {
+			margin-left: 0;
+		}
+	}
+	.text-div {
+		margin: 0 0.5rem;
+	}
+	a:not([class*="button"]) {
+		border-bottom: 1px dotted;
+		color: $main-text-color;
+		&:hover {
+			color: $brand-1;
+		}
+	}
+}
+
+button {
+	&,
+	.fa {
+		transition: 0.4s;
+	}
+}
+
+// Makes input, button and .button elements equal height in Firefox
+input::-moz-focus-inner,
+button::-moz-focus-inner { 
+    border: 0;
+    padding: 0;
+	margin-top: 1px; 
+	margin-bottom: 1px;
+}

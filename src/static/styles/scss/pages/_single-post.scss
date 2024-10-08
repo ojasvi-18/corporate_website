@@ -1,0 +1,45 @@
+
+/* Single Post
+================================================================ */
+
+body.single-post {
+
+	.sub-header {
+		background-size: cover;
+		background-image: url('/static/images/stock13.jpg');
+	}
+
+	.hidden-comment {
+		display: none;
+	}
+
+	.metro-blocks {
+		margin: 4rem 0 0;
+	}
+	
+//-----------------------------------------------------------------
+// Smaller Resolutions
+//-----------------------------------------------------------------
+
+	@media (max-width: $breakpoint-3) {
+		.blog-item {
+			&:not(:last-child) {
+				padding-bottom: 2rem;
+				margin-bottom: 2rem;
+				border-bottom: 1px dotted rgba(0,0,0,0.1);
+			}
+		}
+	}
+	
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+	@media (min-width: $breakpoint-2) {
+		.post-content {
+			font-size: $font-size-3;
+			text-align: justify;
+		}
+	}
+
+} // end body.single-post

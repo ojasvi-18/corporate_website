@@ -1,0 +1,113 @@
+
+/* Testimonials
+================================================================ */
+
+.section.testimonials {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+	.container {
+		position: static;
+	}
+
+	.testimonial {
+		blockquote {
+			cite {
+				background: $brand-1;
+				line-height: 1.6;
+				margin-top: 1em;
+				display: inline-block;
+				padding: 0 0.35em;
+				font-weight: 300;
+			}
+			h5 {
+				font-weight: inherit;
+				font-size: inherit;
+				display: inline;
+				margin: 0;
+			}
+		}
+		p {
+			padding: 0;
+			&:after {
+				bottom: auto;
+			}
+		}
+	}
+
+	.testimonials-slider {
+		transition: 0.4s;
+		bottom: 0;
+		position: relative;
+		text-align: center;
+	}
+	
+	.nav-carousel {		
+		transition-delay: 1s;
+	}
+
+	&.inactive {
+		.testimonials-slider {
+			bottom: -2em;
+			opacity: 0;
+		}
+		.nav-carousel {
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+
+//-----------------------------------------------------------------
+// Smaller Resolutions
+//-----------------------------------------------------------------
+
+	@media (max-width: $breakpoint-3) {
+		> .container {
+			position: relative;
+		}
+		.nav-carousel {		
+			[class*="nav-"] {
+				top: 2.5em;
+			}
+			.nav-prev {
+				left: 0;
+			}
+			.nav-next {
+				right: 0;
+			}
+		}
+	}
+
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+	@media (min-width: $breakpoint-2) {
+		.testimonial {
+			p {
+				font-size: $font-size-2;
+			}
+		}
+	}
+
+	@media (min-width: $breakpoint-2) and (max-width: $breakpoint-3) {
+		.testimonial {
+			blockquote {
+				padding: 0 3em;
+			}
+		}
+	}
+
+	@media (min-width: $breakpoint-3) {
+		.testimonial {			
+			width: 80%;
+			margin: auto;
+			p {
+				padding: 0 2em;
+			}
+		}
+	}
+
+} // end .testimonials

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="https://idp.zillious.com/simplesaml/saml2/idp/metadata.php">
+  <md:IDPSSODescriptor WantAuthnRequestsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    <md:KeyDescriptor use="signing">
+      <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <X509Data>
+          <X509Certificate>MIIEBzCCAu+gAwIBAgIJANteh9kqmzEuMA0GCSqGSIb3DQEBCwUAMIGZMQswCQYD
+VQQGEwJJTjEOMAwGA1UECAwFRGVsaGkxDjAMBgNVBAcMBVNha2V0MSUwIwYDVQQK
+DBxaaWxsaW91cyBTb2x1dGlvbnMgUHZ0LiBMdGQuMRkwFwYDVQQDDBBpZHAuemls
+bGlvdXMuY29tMSgwJgYJKoZIhvcNAQkBFhloZW1hbnQua29obGlAemlsbGlvdXMu
+Y29tMB4XDTE2MDUwMTEwMDkyN1oXDTI2MDUwMTEwMDkyN1owgZkxCzAJBgNVBAYT
+AklOMQ4wDAYDVQQIDAVEZWxoaTEOMAwGA1UEBwwFU2FrZXQxJTAjBgNVBAoMHFpp
+bGxpb3VzIFNvbHV0aW9ucyBQdnQuIEx0ZC4xGTAXBgNVBAMMEGlkcC56aWxsaW91
+cy5jb20xKDAmBgkqhkiG9w0BCQEWGWhlbWFudC5rb2hsaUB6aWxsaW91cy5jb20w
+ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDAt7P5IpQG5uDAWjTRIBta
+ix0J0f/1DOKjWFPw7CwoIZuYvscnhviS10ZET3AHN5v80VNJgobDJB0gVjG/1IMQ
+x2vKHLk5QQy4RvwfwCWlrloWyHMfemEWHSMCBMdvYuHeVUNU2Wk4pqITrtsORWGm
+bZP6nRFWPRq+acLsDSeXIA6t7aKVOZPV44w7IEPsFIcPsyIiTXTravAF9rjs/+4x
+6njPeNlCh8l2+OvVBs3JEwdQGbiSaSa0ZBmKznwwdfFguEugfCvAnZV4XFmXpSmh
+2jBeeHZhZOHrYVRJEVq3y1LRJaGxDoL1SiydaHFMkXXSq/BVRXCAwz69M+bKBa/f
+AgMBAAGjUDBOMB0GA1UdDgQWBBQtXNMNEnLNdhQUvDruvDbljtF44zAfBgNVHSME
+GDAWgBQtXNMNEnLNdhQUvDruvDbljtF44zAMBgNVHRMEBTADAQH/MA0GCSqGSIb3
+DQEBCwUAA4IBAQBH4wEHHrJl5jnsI1w2nsG5zDljg+17HziK5NWmar+I2vh5qJVt
+SLKVtjLV9YbvQ/53eTLqmlis6SFlc6Y12g+h6P7lUfwKLYE+FHzOew3sUr4ykb5H
+tzL4/n/rsYoTzC7BZnJgYhpUyhZRBseKcYFeS/CrT+lzTJ+egD7EazWOVUDdepzY
+Rs0TL6L3RqFm7QF3TGOeNHF+HUteym9YaciIIAikrsh/Mtz/ecp0d+3fWuQbp49i
+/xtyNLDPlaRHuao1BXkuA3WpSxU+A+FJSBd4dnjqx7Hlua3XwvDH5lXcrXL/wyWS
+IN/AYWOIsJ76el8UBN+HRmMX1O6i/izPgSMN</X509Certificate>
+        </X509Data>
+      </KeyInfo>
+    </md:KeyDescriptor>
+    <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</md:NameIDFormat>
+    <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
+    <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</md:NameIDFormat>
+    <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:encrypted</md:NameIDFormat>
+    <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat>
+	<md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://idp.zillious.com/simplesaml/saml2/idp/SSOService.php" />
+    <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://idp.zillious.com/simplesaml/saml2/idp/SSOService.php" />
+  </md:IDPSSODescriptor>
+  <md:Organization>
+    <md:OrganizationName xml:lang="en">ZILLIOUS</md:OrganizationName>
+    <md:OrganizationDisplayName xml:lang="en">ZILLIOUS</md:OrganizationDisplayName>
+    <md:OrganizationURL xml:lang="en">www.zillious.com</md:OrganizationURL>
+  </md:Organization>
+  <md:ContactPerson contactType="technical">
+    <md:Company>ZILLIOUS</md:Company>
+    <md:GivenName>ABHISHEK</md:GivenName>
+    <md:SurName>VERMA</md:SurName>
+    <md:EmailAddress>abhishek.verma@zillious.com</md:EmailAddress>
+    <md:TelephoneNumber />
+  </md:ContactPerson>
+</md:EntityDescriptor>

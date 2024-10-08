@@ -1,0 +1,135 @@
+
+/* Single Project
+================================================================ */
+
+body.single-project {
+
+	.sub-header {
+		background-size: cover;
+		background-image: url('/static/images/stock7.jpg');
+	}
+
+	.lede {
+		margin: auto;
+		margin-bottom: 4rem;
+		text-align: center;
+	}
+
+	.what-we-did {
+		width: 100% !important;
+		margin-bottom: 4rem;
+	}
+
+	.feature-block-wrapper {
+		transition: 0.4s;
+		position: relative;
+		&:nth-child(2) {
+			transition-delay: 0.4s;
+		}
+		&:nth-child(3) {
+			transition-delay: 0.8s;
+		}
+		&:nth-child(4) {
+			transition-delay: 1.2s;
+		}
+	}
+
+	.info-graphic {
+		header {
+			text-align: left;
+			width: 100%;
+		}
+		h4,
+		h5 {
+			margin: 0.25em 0;	
+		    &:first-child {
+		    	margin-top: 0;
+		    }
+		    &:last-child {
+		        margin-bottom: 0;
+		    }
+		}
+		h4 {
+			font-size: $font-size-4;
+		}
+		h5 {
+			font-size: $font-size-3;
+			font-weight: lighter;
+			color: $brand-1;
+		}
+	}
+
+	// Animations
+
+	.feature-blocks {
+		&.inactive {
+			.feature-block-wrapper {
+				bottom: -3em;
+				opacity: 0;			
+			}
+		}
+		&.active {
+			.feature-block-wrapper {
+				bottom: 0;
+				opacity: 1;			
+			}
+		}
+	}
+
+	.section.testimonials {
+		.nav-carousel {
+			display: none;
+		}
+	}
+
+//-----------------------------------------------------------------
+// Smaller Resolutions
+//-----------------------------------------------------------------
+
+	@media (max-width: $breakpoint-2) {
+		.info-graphic {
+			[class*="span"] {
+				margin-top: 4em;
+				text-align: left !important;
+				vertical-align: middle;
+				&:first-child {
+					margin-top: 0;
+				}
+			}
+			.lead {
+				font-size: $font-size-1;
+			}
+			.text-right {
+				text-align: left !important;
+			}
+		}
+	}
+	@media (max-width: $breakpoint-4) {
+		.info-graphic {
+			[class*="span"] {
+				vertical-align: middle;
+			}
+		}
+	}
+
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+	@media (min-width: $breakpoint-2) {
+		.lede {
+			width: 80%;
+		}
+	}
+
+	@media (min-width: $breakpoint-3) {
+		.section.single-project {
+			header {
+				ul {
+					font-size: $font-size-3;
+				}
+			}
+		}
+	}
+
+} // end body.single-project

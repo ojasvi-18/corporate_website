@@ -1,0 +1,193 @@
+
+/* Portfolio Items
+================================================================ */
+
+.portfolio-items {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+	@extend .cf;
+
+	.portfolio-item {
+		height: 0;
+		padding-top: 33.3333333%;
+		width: 50%;
+		float: left;
+		overflow: hidden;
+		position: relative;
+		color: white;
+		&:before {
+		    content: "";
+			border: 2px solid $brand-1;
+		    bottom: 1.25rem;
+		    left: 1.25rem;
+		    position: absolute;
+		    right: 1.25rem;
+		    top: 1.25rem;
+		    z-index: 2;
+		    opacity: 0;
+		    transform: scale(1.15);		   
+		    transition: 0.4s;
+		}
+		&:after {
+			content: "";
+			background: rgba(0,0,0,0.7);
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			opacity: 0;
+			transition: 0.4s;
+		}
+		a {
+			color: white;
+		}
+		img {
+			display: block;
+			transition: 0.65s;
+			position: absolute;
+			top: 0;
+		}
+		.controls {
+			position: absolute;
+			z-index: 2;
+			transform: translateY(-50%);
+			top: 35%;
+			right: 0;
+			left: 0;
+			margin: auto;
+			text-align: center;
+			opacity: 0;
+			visibility: hidden;
+			transition: 0.4s;
+		}
+		.fa {		
+			display: inline-block;	
+			margin-left: 0.25rem;
+			&:first-child {
+				margin-left: 0;
+			}
+		}
+		.fa-link {
+			line-height: 1.75rem;
+		}
+		h4, 
+		p {
+			position: absolute;
+			z-index: 2;
+			left: 2.5rem;
+			transition: 0.4s;
+			opacity: 0;
+		}
+		h4 {
+			font-size: $font-size-3;
+			bottom: -2rem;
+			&:hover {
+				a {
+					border-color: white;
+				}
+			}
+		}
+		p {
+			bottom: -1em;
+			margin: 0;
+		}
+		&:hover {
+			&:before {
+				opacity: 1;
+				transform: scale(1);
+			}
+			&:after {
+				opacity: 1;
+			}
+			.controls {
+				opacity: 1;
+				visibility: visible;
+				top: 50%;
+			}
+			img {
+				transform: scale(1.25);
+			}
+		}
+	}
+
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+	@media (min-width: $breakpoint-2) {
+		.portfolio-item {
+			padding-top: 22.2222222%;
+			width: 33.3333333%;
+		}
+	}
+
+	@media (min-width: $breakpoint-4) {
+		.portfolio-item {
+			.controls {
+				top: 0;
+				right: 2.5rem;
+				bottom: auto;
+				left: auto;
+				transform: none;
+			}			
+			&:hover {
+				&:before {
+					opacity: 1;
+					transform: scale(1);
+				}
+				&:after {
+					opacity: 1;
+				}
+				.controls {
+					opacity: 1;
+					top: 2.5rem;
+				}
+				h4, p {
+					opacity: 1;
+					bottom: 2.5rem;
+				}
+			}
+		}
+	}
+
+} // end .portfolio-items
+
+/* Portfolio Carousel
+================================================================ */
+
+.portfolio-carousel {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+	position: relative;
+
+	.owl-dots {
+		text-align: center;
+		padding-top: 2em;
+		div {
+			height: 14px;
+			width: 14px;
+			border-radius: 50%;
+			background: rgba(0,0,0,0.2);
+			display: inline-block;
+			margin-left: 0.5em;
+			transition: 0.4s;
+			span {
+				display: none;
+			}
+			&:first-child {
+				margin-left: 0;
+			}
+			&.active {
+				background: $brand-1;
+			}
+		}
+	}
+
+} // end .portfolio-carousel

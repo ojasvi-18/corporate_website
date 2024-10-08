@@ -1,0 +1,117 @@
+
+/* Footer Testimonials
+================================================================ */
+
+.footer-testimonials {
+	.owl-nav {
+		position: absolute;
+		top: -4rem;
+		right: 0;
+		font-size: $font-size-1;
+		div {
+			display: inline-block;
+			color: $grey;
+			cursor: pointer;
+			height: 1em;
+			width: 1em;
+			outline: 0;
+			&:after {
+				font-family: FontAwesome;
+				transition: 0.4s;
+			}
+			&.owl-prev {
+				margin-right: 0.3em;
+				&:after {
+					content: "\f137";
+				}
+			}
+			&.owl-next {
+				&:after {
+					content: "\f138";
+				}
+			}
+			&:hover {
+				color: $white;
+				text-decoration: none;
+			}
+		}
+	}
+	blockquote {
+		margin: 0;
+		margin-bottom: 1.3em;
+		background: $brand-1;
+		border-radius: 10px;
+		border: 0;
+		color: white;
+		padding: 12px 42px;
+		position: relative;
+		p {
+			margin: 0;
+			padding: 0;
+			font-weight: 300 !important;
+			font-size: 0.75rem;
+			&:before, &:after {
+				position: absolute;
+				font-family: FontAwesome;
+				font-size: 1.75rem;
+			}
+			&:before {
+				content: "\f10d";
+				top: 0.25em;
+				left: 0.3em;
+			}
+			&:after {
+				content: "\f10e";
+				right: 0.3em;
+				bottom: 0.1em;
+			}
+		}
+		&:after {
+			top: 100%; 
+			left: 50%; 
+			border: solid transparent; content: " "; 
+			height: 0; 
+			width: 0; 
+			position: absolute; 
+			left: 3em;
+			pointer-events: none; 
+			border-color: rgba(136, 183, 213, 0); 
+			border-top-color: $brand-1; 
+			border-width: 12px; 
+			margin-left: -12px;
+		}
+	}
+	div {
+		color: white;
+		font-style: normal;
+		display: block;
+		.profile, 
+		cite {
+			float: left;
+		}
+		.profile {
+			width: 44px;
+			margin-bottom: 0;
+		}
+		cite {				
+			width: calc(100% - 52px);
+			padding-left: 0.75em;
+			strong {
+				display: block;
+				font-style: normal;
+			}
+		}
+		i {
+			color: $grey;
+			font-style: normal;
+		}
+	}
+	.profile {
+		height: 44px;
+		width: 44px;
+	}
+	.bx-wrapper {
+		position: relative;
+	}
+
+} // end .testimonial-carousel

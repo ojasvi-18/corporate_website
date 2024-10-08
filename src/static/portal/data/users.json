@@ -1,0 +1,39 @@
+{ "empList" : [
+	{
+		"id": "E_01",
+		"role": {"code": "A", "name": "Administrator"},
+		"name": "John doe",
+		"status" : {"id":1, "status" : "enabled"},
+		"email":"abc@zillious.com",
+		"d_id": "D_01"
+	  }, {
+		"id": "E_02",
+		"role": {"code": "C", "name": "Accounts"},
+		"name": "John Loe",
+		"status" : {"id":1, "status" : "enabled"},
+		"email":"abc@zillious.com",
+		"d_id": "D_01"
+	}, {
+		"id": "E_03",
+		"role": {"code": "E", "name": "Employee"},
+		"name": "Emp3",
+		"status" : {"id":1, "status" : "enabled"},
+		"email":"abc@zillious.com",
+		"d_id": "D_01"
+	}, {
+		"id": "E_04",
+		"role": {"code": "E", "name": "Employee"},
+		"name": "Random name",
+		"status" : {"id":1, "status" : "enabled"},
+		"email":"abc@zillious.com",
+		"d_id": "D_01"
+	}, {
+		"id": "E_05",
+		"role": {"code": "H", "name": "HR"},
+		"name": "Silver Surfer",
+		"status" : {"id":1, "status" : "enabled"},
+		"email":"abc@zillious.com"
+	}
+],
+"roles" : [{"code": "E", "name": "Employee"},{"code": "A", "name": "Administrator"}, {"code": "C", "name": "Accounts"}, {"code": "H", "name": "HR"}]
+}

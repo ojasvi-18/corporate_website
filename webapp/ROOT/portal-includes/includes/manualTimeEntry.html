@@ -1,0 +1,117 @@
+<!-- MAIN CONTENT BOX -->
+<div class="row" ng-controller="manualCtrl">
+	<div class="col-md-12">
+		<div class="content-box-large box-with-header">
+			<div class="panel-body">
+				<div class="rootwizard">
+					<!-- Navbar ends -->
+					<!-- tab content starts  -->
+					<div class="tab-content">
+
+						<!-- Employees display block starts here -->
+						<div class="row">
+							<div class="col-md-12">
+								<div class="content-box-header">
+									<div class="panel-title">Employees : {{empList.length}}</div>
+								</div>
+								<div class="content-box-large box -with-header">
+									<div class=panel-body>
+										<div class="form-group">
+											<label class="col-sm-2 col-md-2 col-lg-2">Date</label>
+											<div class="col-sm-10 col-md-10 col-lg-10">
+												<p class="input-group">
+													<input type="text" class="form-control" id="date"
+														name="date" ng-model="tempData.entryDate"
+														uib-datepicker-popup="dd/MM/yyyy" is-open="dpObj.opened"
+														datepicker-options="dateOptions" show-button-bar="false"
+														required="required" ng-click="openDatePicker()" /> <span
+														class="input-group-btn"> <span
+														class="btn btn-default" ng-click="openDatePicker() ">
+															<i class="glyphicon glyphicon-calendar"></i>
+													</span>
+													</span>
+												</p>
+											</div>
+										</div>
+
+										<div class="table-responsive" ng-if="isDataFetched">
+											<table class="table table-bordered table-hover">
+												<thead>
+													<tr>
+														<th>S.No</th>
+														<th ng-click="sortBy('name')"
+															title="click to sort by name">Employee Name<span
+															class="glyphicon" ng-show="sortProperty === 'name'"
+															ng-class="{'glyphicon-arrow-up' : reverse,'glyphicon-arrow-down' : !reverse}"></span>
+														</th>
+														<th ng-click="sortBy('id')" title="click to sort by id">Employee
+															Id<span class="glyphicon" ng-show="sortProperty === 'id'"
+															ng-class="{'glyphicon-arrow-up' : reverse,'glyphicon-arrow-down' : !reverse}"></span>
+														</th>
+														<th>Email</th>
+														<th>In Time</th>
+														<th>Out Time</th>
+														<th>Edit Time</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr
+														ng-repeat="emp in empList | orderBy:sortProperty:reverse"
+														ng-include="getTemplate(emp)">
+													</tr>
+												</tbody>
+											</table>
+
+											<script type="text/ng-template" id="display">
+															<td>{{$index+1}}</td>
+															<td>{{emp.name}}</td>
+															<td>{{emp.id}}</td>
+															<td>{{emp.email}}</td>
+															<td ng-if="isInTimeSet(emp.in_time)">{{emp.in_time}}  </td>	
+															<td ng-if="!isInTimeSet(emp.in_time)">{{currentDate |  date:'HH:mm:ss'}}</td>
+															<td ng-if="isOutTimeSet(emp.out_time)">{{emp.out_time}}  </td>	
+															<td ng-if="!isOutTimeSet(emp.out_time)">{{currentDate |  date:'HH:mm:ss'}}</td>																	
+															<td><button class="btn btn-sm btn-primary" ng-click="editTimeEntryData(emp,$index)"  title="Edit Time Entry"><i class="glyphicon glyphicon-pencil"></i></button></td>								
+											</script>
+
+											<script type="text/ng-template" id="edit" ng-if="isAdmin">
+															<td>{{$index+1}}</td>
+															<td>{{emp.name}}</td>
+															<td>{{emp.id}}</td>
+															<td>{{emp.email}}</td>
+															<td>
+																	<div class="col-sm-10 col-md-10 col-lg-10"> <div uib-timepicker ng-model="tempData.inTime"
+																	show-spinners="false" hour-step="1" minute-step="15"
+																	show-scrollers="false" show-meridian="false"
+																	class="col-sm-10 col-md-10 col-lg-10"></div>
+															</td>
+															<td>
+																	<div class="col-sm-10 col-md-10 col-lg-10"> <div uib-timepicker ng-model="tempData.outTime"
+																	show-spinners="false" hour-step="1" minute-step="15"
+																	show-scrollers="false" show-meridian="false"
+																	class="col-sm-10 col-md-10 col-lg-10"></div>
+															</td>
+															<td><button class="btn btn-sm btn-primary"  ng-click="setTime(emp.id)" ng-model="time" title="Save Changes"><i class="glyphicon glyphicon-floppy-disk"></i> 
+																		</button>&nbsp;<button class="btn btn-sm btn-default" ng-click="cancelEdits()" title="Discard changes"><i class="glyphicon glyphicon-remove"></i></button>
+															</td>
+											</script>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<!-- employees display block ends here -->
+					</div>
+					<!-- tab-content ends -->
+				</div>
+				<!-- Root wizard ends -->
+			</div>
+			<!-- panel body ends -->
+		</div>
+		<!-- content box large ends -->
+	</div>
+	<!-- top div ends -->
+</div>
+<!-- div for controller -->

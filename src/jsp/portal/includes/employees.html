@@ -1,0 +1,256 @@
+<!-- MAIN CONTENT BOX -->
+<!--Team display block starts here -->
+<div class="row">
+	<div class="col-md-12">
+		<div class="content-box-header">
+			<div class="panel-title">Employees : {{empList.length}}</div>
+		</div>
+		<div class="content-box-large box-with-header">
+			<div class="panel-body">
+				<div class="pull-right" ng-show="empList.length">
+					<p class="input-group">
+						<input class="form-control" type="text"
+							placeholder="Search from the list" ng-model="empNameFilter">
+					</p>
+				</div>
+				<table class="table  table-responsive table-bordered text-center"
+					ng-show="empList.length">
+					<thead>
+						<tr>
+							<th ng-click="sortBy('id')" title="click to sort by id">ID <span
+								class="glyphicon" ng-show="sortProperty === 'id'"
+								ng-class="{'glyphicon-arrow-up' : reverse,'glyphicon-arrow-down' : !reverse}"></span>
+							</th>
+							<th>Password <span class="glyphicon"
+								ng-show="sortProperty === 'password'"
+								placeholder="password is set click edit to change password"></span>
+							</th>
+
+							<th ng-click="sortBy('name')" title="click to sort by name">
+								Name <span class="glyphicon" ng-show="sortProperty === 'name'"
+								ng-class="{'glyphicon-arrow-up' : reverse,'glyphicon-arrow-down' : !reverse}"></span>
+							</th>
+							<th ng-click="sortBy('role.name')" title="click to sort by Role">
+								Role <span class="glyphicon"
+								ng-show="sortProperty === 'role.name'"
+								ng-class="{'glyphicon-arrow-up' : reverse,'glyphicon-arrow-down' : !reverse}"></span>
+							</th>
+							<th ng-click="sortBy('status.status')"
+								title="click to sort by Status">Status <span
+								class="glyphicon" ng-show="sortProperty === 'status.status'"
+								ng-class="{'glyphicon-arrow-up' : reverse,'glyphicon-arrow-down' : !reverse}"></span>
+							</th>
+							<th ng-click="sortBy('email')" title="click to sort by Email-Id">
+								Email Id <span class="glyphicon"
+								ng-show="sortProperty === 'email'"
+								ng-class="{'glyphicon-arrow-up' : reverse,'glyphicon-arrow-down' : !reverse}"></span>
+							</th>
+							<th ng-click="sortBy('d_id')" title="click to sort by Device-id">
+								Device Id <span class="glyphicon"
+								ng-show="sortProperty === 'd_id'"
+								ng-class="{'glyphicon-arrow-up' : reverse,'glyphicon-arrow-down' : !reverse}"></span>
+							</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="emp in empList | orderBy:sortProperty:reverse | filter:empNameFilter"
+							ng-include="getTemplate(emp)">
+						</tr>
+					</tbody>
+				</table>
+				<div ng-show="!empList.length" class="col-md-12">No Data
+					Available</div>
+				<script type="text/ng-template" id="edit" ng-if="isAdmin">
+					<td> <span ng-disabled = "true"><i class="glyphicon glyphicon-arrow-right"></i>&nbsp;{{selectedEmployee.id}}<span/></td>
+					<td> <div class="col-sm-12"><input type="password" ng-class="{'error-border-red' : !dispEmpStatus.isPasswordIdValid}" ng-change = "isValidPassword(selectedEmployee.id)" ng-model="selectedEmployee.password" class="form-control" placeholder="Enter password"> </div></td>
+					<td> <div class="col-sm-12"><input type="text" ng-class="{'error-border-red' : !dispEmpStatus.isNameValid}" ng-change = "isValidName(selectedEmployee.id)" ng-model="selectedEmployee.name" class="form-control" placeholder="Enter valid Name"> </div></td>
+					<td> <div class="col-sm-12"><select ng-class="{'error-border-red' : !dispEmpStatus.isRoleValid}" ng-model = "selectedEmployee.role"  class="form-control" ng-options="roles.name for roles in getAllRoles() track by roles.code" ng-change="isValidRole(selectedEmployee.id)" /> </div></td>
+					<td> <div class="col-sm-12"><select ng-class="{'error-border-red' : !dispEmpStatus.isStatusValid}" ng-model = "selectedEmployee.status"  class="form-control" ng-options="status.status for status in getAllStatus() track by status.id" ng-change="isValidStatus(selectedEmployee.id)" /> </div></td>					
+					<td> <div class="col-sm-12"><input type="text" ng-class="{'error-border-red' : !dispEmpStatus.isEmailValid}" ng-change = "isValidEmail(selectedEmployee.id)" ng-model="selectedEmployee.email"  class="form-control"  placeholder="Enter valid team e-mail"> </div></td>
+					<td> <div class="col-sm-12"><input type="text" ng-class="{'error-border-red' : !dispEmpStatus.isDeviceIdValid}" ng-change = "isValidDeviceId(selectedEmployee.id)" ng-model="selectedEmployee.d_id" class="form-control" placeholder="Enter valid Device Id"> </div></td>
+					
+					<td ng-if="isAdmin">
+						<button ng-show="!isAllFieldsValid()" class="btn btn-sm btn-default" title="Incorrect Details"><i class="glyphicon glyphicon-warning-sign"></i></button>
+						<button ng-show="isAllFieldsValid()" class="btn btn-sm btn-primary" ng-click = "saveEdits()" title="Save Changes"><i class="glyphicon glyphicon-floppy-disk"></i></button>
+						&nbsp;
+						<button class="btn btn-sm btn-default" ng-click = "cancelEdits()" title="Discard Changes"><i class="glyphicon glyphicon-remove"></i></button>
+					</td>
+					<td ng-if="!isAdmin"></td>
+				</script>
+				<script type="text/ng-template" id="display">
+					<td>{{emp.id}}</td>
+					<td>SET</td>
+					<td><div class="col-sm-12">{{emp.name}}</div></td>
+					<td><div class="col-sm-12">{{emp.role.name}}</div></td>
+					<td><div class="col-sm-12">{{emp.status.status}}</div></td>					
+					<td><div class="col-sm-12">{{emp.email}}</div></td>
+					<td><div class="col-sm-12">{{emp.d_id}}</div></td>
+					<td >
+						<button ng-if = "isAdmin" class="btn btn-sm btn-primary" ng-click = "editEmpData(emp)" title="Edit Details" ng-if="isAdmin"><i class="glyphicon glyphicon-pencil"></i></button>
+&nbsp;
+						<button class="btn btn-sm btn-default" ng-click = "viewProfile(emp)" title="View Profile"><i class="glyphicon glyphicon-eye-open"></i></button>
+						</span>
+					</td>
+				</script>
+			</div>
+		</div>
+	</div>
+</div>
+<!--Team display block finishes here -->
+<div class="row" ng-if="isAdmin">
+	<div class="col-md-12">
+		<div class="content-box-header">
+			<div class="panel-title">Add a New Employee</div>
+			<div class="panel-options"></div>
+		</div>
+		<div class="content-box-large box-with-header">
+			<div class="panel-body">
+				<form class="form-horizontal" role="form" name="NewTeamForm">
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">Emp_ID</label>
+						<div class="col-sm-10">
+							<p ng-class="{'input-group' :!isNew}">
+								<input type="text" class="form-control" id="id"
+									placeholder="Employee ID(numeric)" ng-change="isValidEmpId()"
+									ng-model="newEmp.id" required="required" /> <span
+									class="input-group-btn" ng-show="!isNew"> <span
+									type="button" class="btn btn-default"> <i
+										ng-show="!newEmpStatus.isEmpIdValid"
+										class="glyphicon glyphicon-exclamation-sign"></i> <i
+										ng-show="newEmpStatus.isEmpIdValid"
+										class="glyphicon glyphicon-check"></i>
+								</span>
+								</span>
+							</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">Password</label>
+						<div class="col-sm-10">
+							<p ng-class="{'input-group' :!isNew}">
+								<input type="text" class="form-control" id="password"
+									placeholder="Password" ng-change="isValidPassword()"
+									ng-model="newEmp.password" /> <span class="input-group-btn"
+									ng-show="!isNew"> <span type="button"
+									class="btn btn-default"> <i
+										ng-show="!newEmpStatus.isPasswordIdValid"
+										class="glyphicon glyphicon-exclamation-sign"></i> <i
+										ng-show="newEmpStatus.isPasswordIdValid"
+										class="glyphicon glyphicon-check"></i>
+								</span>
+								</span>
+							</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" class="col-sm-2 control-label">Name</label>
+						<div class="col-sm-10">
+							<p ng-class="{'input-group' :!isNew}">
+								<input type="text" class="form-control" id="name"
+									placeholder="Name of the Employee" ng-change="isValidName()"
+									ng-model="newEmp.name" /> <span class="input-group-btn"
+									ng-show="!isNew"> <span type="button"
+									class="btn btn-default"> <i
+										ng-show="!newEmpStatus.isNameValid"
+										class="glyphicon glyphicon-exclamation-sign"></i> <i
+										ng-show="newEmpStatus.isNameValid"
+										class="glyphicon glyphicon-check"></i>
+								</span>
+								</span>
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="role" class="col-sm-2 control-label">Role</label>
+						<div class="col-sm-10">
+							<p ng-class="{'input-group' :!isNew}">
+								<select ng-model="newEmp.role" class="form-control"
+									ng-options="roles.name for roles in getAllRoles() track by roles.code"
+									ng-change="isValidRole()"><option
+										style="display: none" value="">select a Role</option></select> <span
+									class="input-group-btn" ng-show="!isNew"> <span
+									type="button" class="btn btn-default"> <i
+										ng-show="!newEmpStatus.isRoleValid"
+										class="glyphicon glyphicon-exclamation-sign"></i> <i
+										ng-show="newEmpStatus.isRoleValid"
+										class="glyphicon glyphicon-check"></i>
+								</span>
+								</span>
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="status" class="col-sm-2 control-label">Status</label>
+						<div class="col-sm-10">
+							<p ng-class="{'input-group' :!isNew}">
+								<select ng-model="newEmp.status" class="form-control"
+									ng-options="status.status for status in getAllStatus() track by status.id"
+									ng-change="isValidStatus()"><option
+										style="display: none" value="">select a Status</option></select> <span
+									class="input-group-btn" ng-show="!isNew"> <span
+									type="button" class="btn btn-default"> <i
+										ng-show="!newEmpStatus.isStatusValid"
+										class="glyphicon glyphicon-exclamation-sign"></i> <i
+										ng-show="newEmpStatus.isStatusValid"
+										class="glyphicon glyphicon-check"></i>
+								</span>
+								</span>
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="email" class="col-sm-2 control-label">Email Id</label>
+						<div class="col-sm-10">
+							<p ng-class="{'input-group' :!isNew}">
+								<input type="text" class="form-control" id="email"
+									placeholder="Email-id of the employee"
+									ng-change="isValidEmail()" ng-model="newEmp.email" /> <span
+									class="input-group-btn" ng-show="!isNew"> <span
+									type="button" class="btn btn-default"> <i
+										ng-show="!newEmpStatus.isEmailValid"
+										class="glyphicon glyphicon-exclamation-sign"></i> <i
+										ng-show="newEmpStatus.isEmailValid"
+										class="glyphicon glyphicon-check"></i>
+								</span>
+								</span>
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="device" class="col-sm-2 control-label">Device
+							Id</label>
+						<div class="col-sm-10">
+							<p ng-class="{'input-group' :!isNew}">
+								<input type="text" class="form-control" id="device"
+									placeholder="User Id in the attendance Device"
+									ng-change="isValidDeviceId()" ng-model="newEmp.d_id" /> <span
+									class="input-group-btn" ng-show="!isNew"> <span
+									type="button" class="btn btn-default"> <i
+										ng-show="!newEmpStatus.isDeviceIdValid"
+										class="glyphicon glyphicon-exclamation-sign"></i> <i
+										ng-show="newEmpStatus.isDeviceIdValid"
+										class="glyphicon glyphicon-check"></i>
+								</span>
+								</span>
+							</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="button" class="btn btn-md  btn-primary"
+								ng-disabled="!canSubmit()" ng-click="submitNewEmployee()">Add
+								Employee</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Employee code ends -->

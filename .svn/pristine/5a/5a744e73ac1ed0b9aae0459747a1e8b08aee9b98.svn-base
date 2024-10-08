@@ -1,0 +1,97 @@
+
+/* Contact Section
+================================================================ */
+
+.section.contact {
+
+	.container {
+		position: relative;
+		z-index: 2;
+	}
+
+	.contact-widgets {
+		margin-bottom: 4rem;
+	}
+
+	.send-message {
+		margin-bottom: 4rem;
+	}
+	
+	#errorDiv, #messageDiv {
+		color: #fff;
+		background-color: #00a0de;
+	    text-align: center;
+		font-weight: bold;
+		text-decoration: none;
+		text-transform: uppercase;
+		 font-family: "Raleway",sans-serif;
+	}
+	
+	#messageDiv {
+		color: #00a0de;
+		background-color: #f7f7f7;
+	}
+
+	/* Animations */
+
+	.form-element {
+		position: relative;
+		transition: 0.4s;
+		opacity: 1;
+		&:nth-child(1),
+		&:nth-child(2) {
+			bottom: 0;
+		}
+		&:nth-child(3),
+		&:nth-child(4) {
+			top: 0;
+		}
+	}
+
+	[type="submit"] {
+		opacity: 1;
+		transition: 0.4s;
+	}
+
+	&.inactive {
+		.form-element {
+			opacity: 0;
+			&:nth-child(1),
+			&:nth-child(2) {
+				bottom: -2em;
+			}
+			&:nth-child(3),
+			&:nth-child(4) {
+				top: -2em;
+			}
+		}
+		[type="submit"] {
+			opacity: 0;
+		}
+	}
+	
+//-----------------------------------------------------------------
+// Smaller Resolutions
+//-----------------------------------------------------------------
+
+    @media (max-width: $breakpoint-3) {
+        .widget {
+            &:not(:last-child) {
+                padding-bottom: 2rem;
+                margin-bottom: 2rem;
+                border-bottom: 1px dotted rgba(0,0,0,0.1);
+            }
+        }
+    }
+
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+	@media (min-width: $breakpoint-2) {
+		[type="submit"] {
+			font-size: $font-size-2;
+		}
+	}
+	
+} // end .section.contact

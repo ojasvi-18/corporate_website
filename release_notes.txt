@@ -1,0 +1,40 @@
+RELEASE v3.0.0
+==============
+Made UI Changes.
+
+
+RELEASE v1.2.4
+==============
+updated contact address
+
+
+RELEASE v1.2.3
+==============
+Contactus page fixed.
+
+
+RELEASE v1.2.2
+==============
+Fixed contact page.
+
+
+RELEASE v1.2.1
+==============
+Fixed product brochure typos.
+
+
+RELEASE v1.2.0
+==============
+Changed color scheme slightly as per corporate product brochure. Also added corporate Product Brochure.
+
+
+RELEASE v1.1.0
+==============
+Made changes for the corporate product.
+
+
+RELEASE v1.0.0
+==============
+Releasing first website online. Good luck and god bless
+
+

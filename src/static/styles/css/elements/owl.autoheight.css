@@ -1,0 +1,7 @@
+/*
+ * 	Owl Carousel - Auto Height Plugin
+ */
+/* line 5, ../../scss/elements/owl.autoheight.scss */
+.owl-height {
+  transition: height 500ms ease-in-out;
+}

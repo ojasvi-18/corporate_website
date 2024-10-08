@@ -1,0 +1,207 @@
+
+/* Helper Classes
+================================================================ */
+
+//-----------------------------------------------------------------
+// Visibility
+//-----------------------------------------------------------------
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+.visually-hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    &.focusable {
+        &:active, &:focus {
+            clip: auto;
+            height: auto;
+            margin: 0;
+            overflow: visible;
+            position: static;
+            width: auto;
+        }
+    }
+}
+
+.invisible {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+.visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+//-----------------------------------------------------------------
+// Element Seperators
+//-----------------------------------------------------------------
+
+%element-sep {
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px dotted rgba(0,0,0,0.1);
+}
+
+//-----------------------------------------------------------------
+// Clearfix
+//-----------------------------------------------------------------
+
+.clearfix, .cf {
+    zoom: 1;
+    &:before, &:after { 
+        content: ""; 
+        display: table; 
+    }
+    &:after { 
+        clear: both; 
+    }
+}
+
+//-----------------------------------------------------------------
+// Column Vertical Align
+//-----------------------------------------------------------------
+
+.va-top {
+    vertical-align: top !important;
+}
+.va-middle {
+    vertical-align: middle !important;
+}
+.va-bottom {
+    vertical-align: bottom !important;
+}
+
+//-----------------------------------------------------------------
+// Margin/Padding
+//-----------------------------------------------------------------
+
+.no-m {
+    margin: 0 !important;
+}
+.no-mt {
+    margin-top: 0 !important;
+}
+.no-mb {
+    margin-bottom: 0 !important;
+}
+
+//-----------------------------------------------------------------
+// Vertically Align Anything
+//-----------------------------------------------------------------
+
+//http://zerosixthree.se/vertical-align-anything-with-just-3-lines-of-css/
+
+%vam {    
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+//-----------------------------------------------------------------
+// Horizontal Rules
+//-----------------------------------------------------------------
+
+hr.line {
+    color: rgba(0,0,0,0.2);
+    margin: $base-margin 0;
+}
+hr.dotted {
+    color: rgba(0,0,0,0.2);
+    border-top: 1px dotted;
+    margin: 4rem 0;
+}
+hr.stripes {
+    width: 100%;
+    height: 10px;    
+    background-image: url(/static/images/stripe-overlay.png);
+    background-repeat: repeat;
+    opacity: 0.3;
+    border: none;
+    margin: 4rem 0;
+}
+hr.large {
+    margin: 6rem 0;
+}
+
+//-----------------------------------------------------------------
+// Horizontal Aligning
+//-----------------------------------------------------------------
+
+.text-left { 
+    text-align: left !important; 
+}
+.text-center { 
+    text-align: center !important; 
+}
+.text-right { 
+    text-align: right !important; 
+}
+
+.left  { 
+    float: left !important; 
+}
+.right { 
+    float: right !important; 
+}
+
+//-----------------------------------------------------------------
+// Responsive Visibility
+//-----------------------------------------------------------------
+
+/* Show only when resolution is at most X
+================================================================ */
+
+@function maxbp($name) {
+    @return nth($bp-values, index($bp-names, $name))
+}
+
+@each $name in $bp-names {
+    .max-#{$name} {
+        @media (min-width: maxbp($name)) {
+            display: none !important;
+        }
+    }
+}
+
+/* Show only when resolution is at least X
+================================================================ */
+
+@function minbp($name) {
+    @return nth($bp-values, index($bp-names, $name))
+}
+
+@each $name in $bp-names {
+    .min-#{$name} {
+        @media (max-width: minbp($name)) {
+            display: none !important;
+        }
+    }
+}
+
+//-----------------------------------------------------------------
+// Coloring
+//-----------------------------------------------------------------
+
+.hover-bg-brand-1 {
+    &:hover {
+        background: $brand-1 !important;
+        border-color: $brand-1 !important;
+    }
+}
+
+.brand-1-active {
+    &.active {
+        background-color: $brand-1 !important;
+        border-color: $brand-1 !important;
+    }
+}

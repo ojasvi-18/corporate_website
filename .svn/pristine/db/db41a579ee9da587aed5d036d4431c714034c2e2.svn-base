@@ -1,0 +1,20 @@
+package com.zillious.corporate_website.portal.dao;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+import com.zillious.corporate_website.portal.ui.model.AttendanceRecord;
+import com.zillious.corporate_website.portal.ui.model.User;
+
+/**
+ * @author nishant.gupta
+ *
+ */
+public interface AttendanceDao extends Dao {
+
+    List<AttendanceRecord> getAttendanceRecords(Date startDate, Date endDate, Set<User> forUser);
+
+    boolean saveAttendanceEntry(AttendanceRecord record);
+
+}

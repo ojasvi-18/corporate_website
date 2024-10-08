@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans.xsd
+	   		http://www.springframework.org/schema/context			http://www.springframework.org/schema/context/spring-context.xsd
+	   		http://www.springframework.org/schema/tx				http://www.springframework.org/schema/tx/spring-tx.xsd
+			http://www.springframework.org/schema/mvc				http://www.springframework.org/schema/mvc/spring-mvc.xsd
+			http://www.springframework.org/schema/task				http://www.springframework.org/schema/task/spring-task-4.0.xsd
+			http://www.springframework.org/schema/util 				http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<context:annotation-config />
+
+	<context:component-scan
+		base-package="com.zillious.corporate_website.portal.ui.controller, com.zillious.corporate_website.portal.service, com.zillious.corporate_website.portal.dao" />
+
+	<!-- Hibernate Configuration -->
+	<context:property-placeholder location="classpath:website_app_db.properties,classpath:website_app.properties" />
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan"
+			value="com.zillious.corporate_website.portal.ui.model" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${WEBSITE_DB.Driver}" />
+		<property name="url" value="${WEBSITE_DB.Url}" />
+		<property name="username" value="${WEBSITE_DB.User}" />
+		<property name="password" value="${WEBSITE_DB.Password}" />
+	</bean>
+
+
+
+	<task:annotation-driven />
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="persistenceExceptionTranslationPostProcessor"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+
+
+	<!-- Hibernate Configuration Ends -->
+	<mvc:annotation-driven />
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/home" />
+			<mvc:mapping path="/home/**" />
+			<mvc:mapping path="/login" />
+			<mvc:mapping path="/login/**" />
+			<mvc:mapping path="/logout" />
+			<mvc:mapping path="/logout/**" />
+			<bean
+				class="com.zillious.corporate_website.portal.ui.controller.PortalInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/home" />
+			<mvc:exclude-mapping path="/home/**" />
+			<mvc:exclude-mapping path="/login" />
+			<mvc:exclude-mapping path="/login/**" />
+			<mvc:exclude-mapping path="/logout" />
+			<mvc:exclude-mapping path="/logout/**" />
+			<bean
+				class="com.zillious.corporate_website.portal.ui.controller.RestfulInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<bean id="servletContext"
+		class="com.zillious.corporate_website.portal.ui.controller.ServletContextFactory" />
+
+	<bean id="templateResolver"
+		class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+		<property name="prefix" value="/WEB-INF/portal/pages/" />
+		<property name="suffix" value=".html" />
+		<property name="templateMode" value="HTML5" />
+		<!-- Template cache is set to false (default is true). -->
+		<property name="cacheable" value="false" />
+		<constructor-arg ref="servletContext" />
+	</bean>
+
+	<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+		<property name="templateResolver" ref="templateResolver" />
+	</bean>
+
+
+	<!-- - The ContentNegotiatingViewResolver delegates to the InternalResourceViewResolver 
+		and BeanNameViewResolver, - and uses the requested media type (determined 
+		by the path extension) to pick a matching view. - When the media type is 
+		'text/html', it will delegate to the InternalResourceViewResolver's JstlView, 
+		- otherwise to the BeanNameViewResolver. -->
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="contentNegotiationManager" ref="cnManager" />
+		<property name="viewResolvers">
+			<list>
+				<!-- Used here for 'xml' and 'atom' views -->
+				<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+					<property name="order" value="1" />
+				</bean>
+
+				<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+					<property name="templateEngine" ref="templateEngine" />
+					<property name="order" value="2" />
+					<!-- We need to set exclusions because Content Negotiation tries to 
+						resolve from -->
+					<!-- Thymeleaf even if a specific view bean (of a different class) is 
+						already -->
+					<!-- found, which might cause exceptions (e.g. ThymeleafView does not 
+						have a -->
+					<!-- 'marshaller' property). -->
+					<property name="excludedViewNames" value="*.xml" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Simple strategy: only path extension is taken into account -->
+	<bean id="cnManager"
+		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="favorPathExtension" value="true" />
+		<property name="ignoreAcceptHeader" value="true" />
+		<property name="defaultContentType" value="text/html" />
+
+		<property name="mediaTypes">
+			<map>
+				<entry key="html" value="text/html" />
+				<entry key="xml" value="application/xml" />
+				<entry key="atom" value="application/atom+xml" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename">
+			<value>bundles/messages</value>
+		</property>
+	</bean>
+</beans>

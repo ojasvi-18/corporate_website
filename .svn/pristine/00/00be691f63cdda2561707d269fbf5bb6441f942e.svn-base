@@ -1,0 +1,270 @@
+
+/* OControl Panel Nav
+================================================================ */
+
+body {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+	position: relative;
+	&:before, &:after {
+		content: "";
+		height: 15%;
+		position: fixed;
+		background: $dark-grey;	
+		width: 100%;	
+		z-index: 1;	
+		transition: 0s;
+	}
+	&:before {
+		top: -20%;
+	}
+	&:after {
+		bottom: -20%;
+	}
+	
+	.cp-nav-container {
+		z-index: 1;
+		position: fixed;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		padding-top: 1.25em;
+		font-size: $font-size-2;
+		transition: 0s;
+		visibility: hidden;
+		.logo {
+			padding: 1.5rem 0 1em 4rem;
+			font-size: 2em;
+			line-height: 1.2;
+			@extend .invisible;
+			a {
+				border: none;
+				background: none;
+				color: white;
+				display: inline-block;
+			}
+			.fa {
+				&:before {
+					top: 53%;
+				}
+			}
+		}
+		> ul {
+			transition: 0s;
+			margin-top: 0;
+			padding-left: 6rem;
+			width: 10%;
+			min-width: 250px;	
+			position: relative;
+			@extend .invisible;
+			li {
+				padding: 1em 0;
+				&.active {
+					> a {
+						color: $brand-1;
+					}
+				}
+				&:hover {
+					> ul {
+						@extend .visible;
+					}
+					a:not(:only-child) {						
+						&:after {
+							opacity: 1;
+						}
+					}
+					> a {
+						color: $brand-1;	
+					}
+				}
+				a:after {
+					transition: 0.4s;
+					content: "";
+					height: 20px;
+					width: 20px;
+					background: #1C1C1C;
+					transform: rotate(45deg);
+					position: absolute;
+					right: 1rem;
+					opacity: 0;
+				}
+			}
+			> li {				
+				> ul {
+					transition: 0.4s;
+					position: absolute;
+					top: 0;
+					left: 14rem;
+					background: #1C1C1C;
+					border-radius: 0.4rem;
+					font-size: 0.9em;
+					width: 88%;
+					height: 100%;
+					padding: 0.5rem 2rem;
+					margin: 0;
+					overflow: auto;
+					@extend .invisible;
+					li {						
+						a {
+							color: $white;
+							&:before,
+							&:after {
+								display: none;
+							}
+						}
+					}
+					ul {
+						display: none;
+					}
+				}
+			}
+			a {
+				color: $white;
+				display: block;
+				border-bottom: none;	
+				&:not(:only-child) {
+					&:before {
+						content: "\f105";
+						font-family: FontAwesome;
+						float: right;
+						margin-top: 0.025rem;
+						opacity: 0;
+						transition: 0.4s;
+					}					
+				}
+			}		
+		}
+		.main-search {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: -16%;
+			width: 65%;
+			margin: auto;
+			@extend .invisible;
+			.search-close {
+				display: none;
+			}
+			.button {			
+				font-size: 1.5em;
+			}
+			input {
+				width: 100%;
+				background: none;
+				color: white;
+				height: 3em;
+				border-bottom: 1px solid rgba(255,255,255,0.25);
+				padding: 0.5em 1em 0.5em 0;
+				transition: 0s;
+				font-size: 1.25em !important;
+			}
+			[type="submit"] {
+				color: rgba(255,255,255,0.5);
+				right: 0 !important;
+				&:hover {
+					color: $brand-1;
+				}
+			}
+			::placeholder { 
+				opacity: 0.3;
+				color: white;
+			}
+		}
+		.copyright {
+			color: white;
+			position: absolute;
+			padding-left: 4rem;
+			bottom: 15%;
+			font-weight: 300;
+			@extend .invisible;
+		}
+	}
+
+//-----------------------------------------------------------------
+// CP Nav is Active
+//-----------------------------------------------------------------
+
+	&.cp-active {
+		&:before,
+		&:after {
+			transition: 0.4s;
+		}
+		&:before {
+			top: 0;
+		}
+		&:after {
+			bottom: 0;
+		}
+		#site-content {
+			transform: scale(0.65);
+			transition: 0.4s;
+			height: 100%;
+			width: 100%;
+			position: absolute;
+			right: -8%;
+		}
+		.cp-nav-container {
+			visibility: visible;
+			.logo,
+			> ul,
+			.main-search,
+			.copyright {
+				transition: 0.4s;
+				transition-delay: 0.4s;
+				@extend .visible;
+			}
+			> ul {				
+				padding-left: 4rem;
+				a {					
+					&:not(:only-child) {
+						&:before {
+							opacity: 0.5;
+						}					
+					}
+				}
+			}
+			.main-search {
+				top: 3.6%;
+			}
+		}
+		.cp-trigger {			
+			@extend .visible;
+		}
+	}
+
+//-----------------------------------------------------------------
+// Smaller Resolutions
+//-----------------------------------------------------------------
+
+	@media (max-height: 800px) {
+		&:before, 
+		&:after {
+			height: 21%;
+		}
+		&:before {
+			top: -21%;
+		}
+		&:after {
+			bottom: -21%;
+		}
+		.cp-nav-container {
+			.logo {
+				font-size: 1.5em;
+			}
+			ul {
+				li {
+					padding: 0.65em 0em;
+				}
+			}
+			.copyright {
+				font-size: $font-size-2;
+				bottom: 21%;
+			}
+		}
+	}
+
+} // end body

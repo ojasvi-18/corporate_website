@@ -1,0 +1,165 @@
+
+/* Comments
+================================================================ */
+
+.comments {
+
+	.comment {
+		@extend .cf;
+		margin-top: 2em;
+		position: relative;
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+
+	.comment-quote {
+		background: $brand-1;
+		color: white;
+		padding: 1rem;
+		border-radius: 0.5em;
+		position: relative;
+		p {
+			padding-left: 2.25rem;
+			margin-top: 0;
+			&:before {
+				position: absolute;
+				top: 0.75rem;
+				left: 0.5rem;
+				content: "\f10d";
+				font-family: FontAwesome;
+				font-size: 2em;
+				color: rgba(0,0,0,0.25);
+			}
+		}
+	}
+
+	.profile,
+	.comment-content {
+		display: inline-block;
+		vertical-align: middle;
+	}
+
+	.profile {
+		margin-bottom: 0;
+	}
+
+	.comment-content {
+		background: rgba(255,255,255,0.75);
+		border-radius: 0.6em;
+		padding: 1.5em;
+		position: relative;
+		width: 100%;
+		&:before {
+			content: "";
+			height: 20px;
+			width: 20px;
+			background: #FBFBFB;
+			position: absolute;
+			left: -20px;
+			top: 50%;
+			transform: rotate(45deg) translateY(-50%);
+			z-index: 0;
+		}
+		h4 {
+			margin-bottom: 0.75em;
+		}
+		.post-date {
+			position: absolute;
+			font-size: $font-size-0;
+			right: 1.9em;
+			top: 1.75em;
+			font-family: $font-2;
+			font-weight: 600;
+		}
+		> p {
+			font-weight: 300;
+			margin-top: 0.75em;
+		}
+	}
+
+	.reply,
+	.report {
+		float: right;
+		margin-top: 1em;
+		margin-left: 1em;
+		font-size: $font-size-0;
+		line-height: 2.2;
+		padding: 0 1em;
+		&:hover {
+			background: $brand-1;
+		}
+	}
+
+	.report {
+		background: desaturate($red, 20%);
+		&:hover {
+			background: darken(desaturate($red, 20%), 7%);
+		}
+	}
+
+	.load-more-wrapper {
+		text-align: center;
+		margin-top: 2em;
+	}
+
+	.new-comment {
+		margin-top: 4rem;
+		position: relative;
+		z-index: 1;
+		header {
+			width: 100% !important;
+			margin-bottom: 4rem;
+		}
+	}
+
+//-----------------------------------------------------------------
+// Smaller Resolutions
+//-----------------------------------------------------------------
+
+	@media (max-width: $breakpoint-2) {
+		.profile {
+			position: absolute;
+			z-index: 2;
+			right: 1em;
+			top: 1em;
+			height: 35px;
+			width: 35px;
+			border: 1px solid white;
+		}
+		.comment-content {
+			.post-date {
+				position: static;
+			}
+		}
+		.comment-reply {
+			margin-left: 5%;
+			.comment-content {
+				border-left: 4px solid $brand-1;
+				&:before {
+					left: auto;
+					top: -4px;
+				}
+			}
+		}
+	}
+
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+	@media (min-width: $breakpoint-2) {
+		.comment-content {
+			width: 85%;
+			width: calc(100% - 137px);
+			margin-left: 2rem;			
+		}
+		.comment-reply {
+			padding-left: 9em;
+		}
+		[type="submit"] {
+			font-size: $font-size-2;
+		}
+	}
+	
+} // end .comments

@@ -1,0 +1,18 @@
+
+/* Progress Bars
+================================================================ */
+
+.progress-bar {
+	background: white;
+	border-radius: 0.25em;
+	height: 28px;
+	overflow: hidden;
+	.progress {
+		background: $brand-1;
+		height: 100%;
+		font-size: $font-size-0;
+		line-height: 1.85;
+		text-align: center;
+		padding: 0 1em;
+	}
+}

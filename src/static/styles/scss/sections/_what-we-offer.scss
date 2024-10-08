@@ -1,0 +1,34 @@
+
+/* What We Offer Section
+================================================================ */
+
+.section.what-we-offer {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+	&.inactive {
+		.feature-block-wrapper {
+			top: 3rem;
+			opacity: 0;
+		}
+	} 
+
+	.feature-block-wrapper {
+		position: relative;
+		transition: 0.4s;
+		top: 0;
+		opacity: 1;
+		&:nth-child(2) {
+			transition-delay: 0.4s;
+		}
+		&:nth-child(3) {
+			transition-delay: 0.8s;
+		}
+		&:nth-child(4) {
+			transition-delay: 1.2s;
+		}
+	}
+
+} // end .section.what-we-offer

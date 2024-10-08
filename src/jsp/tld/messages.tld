@@ -1,0 +1,13 @@
+<taglib>
+  <tlib-version>1.0</tlib-version>
+  <jsp-version>2.0</jsp-version>
+  <short-name>Zillious Messages</short-name>
+  <tag>
+    <name>message</name>
+    <tag-class>com.zillious.taglibs.ZilliousMessageTag</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+       <name>key</name>
+    </attribute>
+  </tag>
+</taglib>

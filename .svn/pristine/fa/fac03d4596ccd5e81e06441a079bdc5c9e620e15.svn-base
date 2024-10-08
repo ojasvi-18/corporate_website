@@ -1,0 +1,39 @@
+
+/* Stats Section
+================================================================ */
+
+.stats {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+   
+    .stat {
+        padding: 3rem;
+        text-align: center;
+        color: $white;
+        h4 {
+            font-size: $font-size-5;
+            margin-top: 1rem;
+            margin-bottom: 0.25rem;
+        }
+        p {
+            margin: 0;
+            font-size: $font-size-3;
+        }
+        &:nth-child(1) {
+            background: darken($brand-1, 6%);
+        }
+        &:nth-child(2) {
+            background: darken($brand-1, 2%);
+        }
+        &:nth-child(3) {
+            background: lighten($brand-1, 2%);
+        }
+        &:nth-child(4) {
+            background: lighten($brand-1, 6%);
+        }
+    }
+
+
+} // end .section.stats

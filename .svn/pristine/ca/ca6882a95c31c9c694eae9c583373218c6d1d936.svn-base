@@ -1,0 +1,79 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: #111 url("/static/images/stock5.jpg") repeat scroll 0 0;
+    font-family: "Lato",sans-serif;
+    font-size: 1.1rem;
+}
+#wrapper {
+    min-height: 100%;
+    position: relative;
+}
+#header {
+    padding: 10px;
+}
+#header .logo {
+    font-size: 1.65rem;
+    font-weight: 400;
+    margin: 0 auto;
+    max-width: 90%;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.25);
+    padding-bottom:2%;
+}
+#header .logo a {
+    border-bottom: 0 none;
+    color: white;
+    display: inline;
+    line-height: 1.3;
+    text-decoration: none;
+    transition: all 0.5s ease 0s;
+    vertical-align: top;
+    white-space: nowrap;
+}
+#header .logo a img {
+    border: 0 none;
+    display: block;
+    height: auto;
+    max-height: 45px;
+    max-width: 100%;
+    padding-bottom: 1px;
+}
+#content {
+    padding-bottom: 100px;
+}
+
+#content div.browser {
+	color: white;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 5%;
+}
+
+#content div.browser div.icon {
+display: inline;
+}
+
+.icon > a {
+    cursor: pointer;
+}
+
+
+#footer {
+    background: #111 none repeat scroll 0 0;
+    bottom: 0;
+    font-size: 0.9rem;
+    height: 8%;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+}
+
+#footer .bottom-bar {
+    color: white;
+ 	margin: 1% auto 0;
+}

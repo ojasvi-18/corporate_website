@@ -1,0 +1,96 @@
+
+/* Sub Header
+================================================================ */
+
+.hero.sub-header {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+	height: 25em;
+	min-height: 25em;
+	//background: darken($brand-1, 20%);
+	.container {
+		top: 57%;
+		h1 {
+			font-size: $font-size-4;
+		}
+	}
+	.sh-title-wrapper {
+		position: relative;
+	}
+	.cta {
+		font-size: $font-size-1;
+	}	
+
+//-----------------------------------------------------------------
+// Smaller Resolutions
+//-----------------------------------------------------------------
+
+	@media (max-width: $breakpoint-3) {
+		text-align: center;
+	}
+
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+	@media (min-width: $breakpoint-2) {
+		.container {
+			h1 {
+				font-size: $font-size-7;
+			}
+		}
+		.cta {
+			font-size: $font-size-2;
+		}
+	}
+
+	@media (min-width: $breakpoint-3) {
+		.container {
+			top: calc(50% + 2rem);
+			h1, 
+			p {
+				margin: 0;
+				width: 85%;
+				width: calc(100% - 16rem);
+			}
+			h1 {
+				margin-bottom: 0.2em;
+			}
+			// Animations
+			h1, 
+			p {
+				transition: 0.4s;
+				position: relative;
+			}
+	
+			&.inactive {
+				h1, p {
+					opacity: 0;
+				}
+				h1 {
+					top: 1em;
+				}
+				p {
+					top: 2em;
+				}
+			}
+			&.active {
+				h1, p {
+					opacity: 1;
+					top: 0;
+				}
+			}
+		}
+		.cta {
+			position: absolute;
+			right: 0;
+			top: 50%;
+			transform: translateY(-50%);
+			margin-top: 0;
+		}
+	}
+
+} // end .sub-header

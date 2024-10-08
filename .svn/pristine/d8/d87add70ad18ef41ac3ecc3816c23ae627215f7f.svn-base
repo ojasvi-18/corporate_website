@@ -1,0 +1,6 @@
+User-agent: Googlebot-Image
+Disallow: / 
+Allow: /static/images/logo.png
+
+User-agent: *
+Disallow: /nav/contact

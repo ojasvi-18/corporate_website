@@ -1,0 +1,42 @@
+
+/* Header
+================================================================ */
+
+.app-header {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+	position: absolute;
+	transition: 0.4s;
+	z-index: 2;
+	width: 100%;
+	top: 0;
+
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+	@media (min-width: $breakpoint-3) {
+		.header-wrapper {
+			padding-top: 1em;			
+			display: table;
+			width: 100%;
+		}	
+		.logo, .main-nav {
+			display: table-cell;
+			vertical-align: middle;
+		}
+	}
+	
+} // end .app-header
+
+@media (min-width: $breakpoint-3) {
+	.cp-trigger {
+		display: block;
+	}
+	.opera-trigger {
+		display: block !important;
+	}
+}

@@ -1,0 +1,47 @@
+[
+	{
+		"id" : "1",
+		"title" : "new year",
+		"start" : "2018-07-1",
+		"end"	: "2018-07-1",
+		"allDay":"allDay"
+	},
+	{
+		"id" : "2",
+		"title" : "republic day",
+		"start" : "2017-07-26",
+		"end"	: "2017-07-26",
+		"allDay":"allDay"
+	}
+	,
+	{
+		"id" : "3",
+		"title" : "valentine day",
+		"start" : "2017-07-21",
+		"end"	: "2017-07-27",
+		"allDay":"allDay"
+	}
+	,
+	{
+		"id" : "4",
+		"title" : "holi",
+		"start" : "2017-07-12",
+		"end"   : "2017-07-12",
+		"allDay":"allDay"	
+	}
+	,
+	{
+		"id" : "5",
+		"title" : "april fool",
+		"start" : "2017-07-1",
+		"end"	: "2017-07-1",
+		"allDay":"allDay"	
+	},
+	{
+		"id" : "6",
+		"title" : "rainy day",
+		"start" : "2017-07-19",
+		"end"	:	"2017-07-19",
+		"allDay":"allDay"
+	}
+]

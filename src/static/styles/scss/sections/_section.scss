@@ -1,0 +1,177 @@
+
+/* Section
+================================================================ */
+
+.section {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+	padding: 6rem 0;
+
+	.section {
+		padding: 0;
+	}
+
+	header {
+		text-align: center;
+		&.sep {
+			position: relative;
+			margin-bottom: 5.25em;
+			&:after {
+				position: absolute;
+				font-size: 24px;
+				font-weight: 600;
+				color: rgba(0,0,0,0.2);
+				bottom: -3.25rem;
+				left: 0;
+				right: 0;
+				margin: auto;
+			}
+		}
+		ul {
+			@extend ul.reset;
+			font-size: $font-size-1;
+			li {
+				display: inline-block;
+				&:after {
+					margin: 0 0.5em;
+					color: rgba(0,0,0,0.25);
+				}
+				&:last-child {
+					&:after {
+						display: none;
+					}
+				}
+				.fa {
+					color: $brand-1;
+				}
+				.fa-calendar {
+					font-size: $font-size-0;
+				}
+			}
+		}
+	}
+
+	.section-title {
+		h2,
+		h3 {
+			margin: 0.25em 0;	
+		    &:first-child {
+		    	margin-top: 0;
+		    }
+		    &:last-child {
+		        margin-bottom: 0;
+		    }
+		}
+		h2 {
+			font-size: $font-size-4;
+		}
+		h3 {
+			font-size: $font-size-3;
+			line-height: 1.2;
+			text-transform: uppercase;
+		}
+		p {
+			margin-top: 0;
+			margin-bottom: 0;
+			font-size: $font-size-4;
+			line-height: 1;
+			color: $brand-1;
+		}
+	}
+
+	&.section-map {
+		position: relative;
+		&:after {
+			display: none;
+			content: "";
+			background-image: url('/static/images/dot-map.png');
+			background-repeat: no-repeat;
+			background-size: 100%;
+			width: 60%;
+			left: 0;
+			right: 0;
+			margin: auto;
+			opacity: 0.05;
+			height: 20%;
+			position: absolute;
+			bottom: 0;
+		}
+	}
+
+	.lead {
+		font-size: $font-size-3;
+	}
+
+	.nav-carousel {
+		[class*="nav-"] {
+			position: absolute;
+			z-index: 2;
+			top: 50%;
+			transform: translateY(-50%);
+			cursor: pointer;
+			.fa {
+				cursor: pointer;
+			}
+		}
+		.nav-prev {
+			left: 3rem;
+		}
+		.nav-next {
+			right: 3rem;
+		}
+		// for animations
+		visibility: visible;
+		opacity: 1;
+		transition: 0.4s;
+	}
+
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+	@media (min-width: $breakpoint-2) {
+		header {
+			width: 80%;
+			margin-left: auto;
+			margin-right: auto;
+			ul {
+				font-size: $font-size-3;
+			}
+		}
+		.section-title {		
+			h2 {
+				font-size: $font-size-5;
+			}
+			h3 {
+				font-size: $font-size-4;
+				line-height: 0.9;
+			}
+		}
+	}
+
+	@media (min-width: $breakpoint-3) {
+		header {
+			p {
+				font-size: $font-size-3;
+			}
+		}
+		&.section-map {
+			padding-bottom: 11em !important;
+			&:after {
+				display: block;
+			}
+		}
+		.section-title {			
+			h2 {
+				font-size: $font-size-6;
+			}
+			h3 {
+				font-size: 2rem;
+			}
+		}
+	}
+
+} // end .section

@@ -1,0 +1,54 @@
+
+/* Blockquotes
+================================================================ */
+
+blockquote {
+
+	margin: 0;
+	border: 0;;
+	position: relative;
+	font-family: $font-2;
+	p, 
+	h4 {
+		margin: 0;
+		padding: 0 3rem;
+		font-weight: inherit;
+		&:before, &:after {
+			position: absolute;
+			font-family: FontAwesome;
+			font-size: $font-size-4;
+			color: rgba(0,0,0,0.5);
+		}
+		&:before {
+			content: "\f10d";
+			top: -0.25rem;
+			left: 0;
+		}
+		&:after {
+			content: "\f10e";
+			right: 0;
+			bottom: -0.25rem;
+		}
+	}
+	h4 {
+		line-height: 1;
+	}
+	cite {
+		font-weight: bold;
+		font-style: normal;
+	}
+
+//-----------------------------------------------------------------
+// Smaller Resolutions
+//-----------------------------------------------------------------
+
+	@media (max-width: $breakpoint-3) {
+		p {
+			&:before,
+			&:after {
+				display: none;
+			}
+		}
+	}
+
+} // end blockquote

@@ -1,0 +1,76 @@
+
+/* Lists
+================================================================ */
+
+ul.reset, 
+ol.reset {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+ul.clear, 
+ol.clear {
+	padding-left: 1em;
+}
+
+.block-list {
+	@extend .cf;
+	padding: 0;
+	list-style: none;
+	li {
+		background: rgba(0,0,0,0.05);
+		padding: 0.75em 1em;
+		margin-bottom: 0.5em;
+	}
+	.fa {
+		opacity: 0.75;
+		margin-right: 0.25em;
+	}
+	@media (min-width: $breakpoint-3) {
+		li {			
+			width: 48.75%;
+			float: left;
+			&:nth-child(even) {
+				margin-left: 2.5%;
+			}
+		}
+	}
+}
+
+[class*="bullet-list"] {
+	@extend ul.reset;
+	margin-bottom: 1.75rem;
+	li {
+		line-height: 1.6;
+		position: relative;
+		padding-left: 1.5em;
+		&:before,
+		&:after {
+			font-family: FontAwesome;
+			color: $brand-1;
+			position: absolute;
+		}
+		&:before {
+			content: "\f138";	
+			left: 0;	
+		}
+		&:after {
+			display: none;
+			content: "\f137";	
+			right: 0;				
+		}
+	}
+	&[class*="-right"] {
+		li {
+			padding-left: 0;
+			padding-right: 1.5em;
+			&:before {
+				display: none;
+			}
+			&:after {
+				display: inline-block;
+			}
+		}
+	}
+}

@@ -1,0 +1,67 @@
+
+/* Secondary Section
+================================================================ */
+
+.section.secondary {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+	position: relative;
+	background-size: cover;
+	background-image: url('/static/images/polygon-bg-blue.png');
+	color: white;
+	&:after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width:100%;
+		background: rgba(0,0,0,0.35);
+	}
+
+	.container {
+		position: relative;
+		z-index: 1;
+	}
+
+	.section-title {
+		h2 {
+			font-weight: 900;
+		}
+		h3 {
+			font-weight: 100;
+		}
+	}
+
+	.button {
+		&.border {
+			color: $white;
+			&:hover {
+				background: $white;
+				border-color: $white;
+				color: #071216;
+			}
+		}
+	}
+
+	.nav-carousel {
+		[class*="nav-"] {
+			border-color: $white;
+			color: $white;
+			&:hover {
+				background: $white;
+				color: #071216;
+			}
+		}
+	}
+
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+	@media (min-width: $breakpoint-3) {}
+
+} // end .section.secondary

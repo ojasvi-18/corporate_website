@@ -1,0 +1,97 @@
+
+/* Navigation Trigger
+================================================================ */
+
+.nav-trigger {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+	display: block;
+	position: fixed;
+	cursor: pointer;
+	backface-visibility: hidden;
+	&:hover {
+		text-decoration: none;
+	}
+
+	.fa {
+		cursor: pointer;
+	}
+
+	// Active Animation
+	&.nav-trigger-animate {
+		opacity: 1;
+		visibility: visible;
+		transform: rotate(-90deg);
+		outline: 0;
+		z-index: 10000;
+		.fa {
+			&:before {
+				content: "\f00d";
+			}
+		}
+	}
+
+	// Flyout Trigger
+	&.flyout-trigger {
+		top: 1.5em;
+		right: 1.5em;
+		z-index: 10;
+		&.rtl{
+			right: auto;
+			left: 1.5em
+		}
+	}
+
+	// Control Panel Trigger
+	&.cp-trigger {
+		z-index: 9;
+		top: 3rem;
+		right: 3rem;
+		opacity: 0;
+		visibility: hidden;
+	}
+
+	// navs are active
+	.flyout-active &,
+	.cp-active & {
+		z-index: 10000;
+	}
+
+//-----------------------------------------------------------------
+// Smaller Resolutions
+//-----------------------------------------------------------------
+
+	// hide the cp trigger on mobile devices
+	@media (max-width: $breakpoint-3) {
+		&.cp-trigger {
+			display: none;
+		}
+	}
+
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+	// hide the flyout trigger on desktops
+	@media (min-width: $breakpoint-3) {
+		&.flyout-trigger {
+			display: none;
+		}
+	}
+
+} // end .nav-trigger
+
+
+// we dont use the control panel nav in Opera, so we fallback to the flyout nav
+#flyout-trigger.opera-trigger {
+	@media (min-width: $breakpoint-3) {
+		top: 3rem !important;
+		right: 3rem;
+		display: block;
+		opacity: 0;
+		visibility: hidden;
+	}
+}

@@ -1,0 +1,13 @@
+
+/* About Page
+================================================================ */
+
+body.about {
+
+	.section.welcome {
+		.pin {
+			opacity: 1;
+		}
+	}
+
+} // end body.about

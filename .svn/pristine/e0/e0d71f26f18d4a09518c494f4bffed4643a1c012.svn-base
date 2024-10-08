@@ -1,0 +1,76 @@
+
+/* Main Navigation
+================================================================ */
+
+.main-nav {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+	// First level nav only
+	> ul {
+		@extend ul.reset;
+		display: none;
+		vertical-align: middle;
+	    > li {
+		    @import "dropdown-nav";
+		    margin-left: 0.25rem;
+		    &:hover,
+		    &.active {
+		    	> a {		    		
+					color: white;
+					border: 2px solid;
+		    	}
+		    }
+		    &.active {
+		    	> a {		    		
+					background: $brand-1;
+					border-color: $brand-1;
+		    	}
+		    }
+	    	> a {
+				color: $white;
+				font-weight: bold;
+				border-radius: 1.5em;
+				border: 2px solid transparent;
+				&:not(:only-child) {
+					&:after {
+						content: "\f107";
+						font-family: FontAwesome;
+						margin: 0.025em 0 0 0.4em;
+						opacity: 0.5;
+					}
+				}
+	    	}
+	    }
+	}
+	// All levels
+	ul {
+		li {
+			a {
+				display: block;	
+				line-height: 2.2;	
+				position: relative;		
+				padding: 0 1em;	
+			}
+		}
+	}
+
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+	@media (min-width: $breakpoint-3) {
+		text-align: right;
+		> ul {
+			display: inline-block;
+			white-space: nowrap;
+		    > li {
+				display: inline-block;
+				position: relative;
+		    }
+		}
+	}
+
+} // end .main-nav

@@ -1,0 +1,201 @@
+<div class="col-md-12">
+	<div class="content-box-large box-with-header">
+		<div class="panel-body">
+			<div class="rootwizard">
+				<div class="navbar">
+					<div class=" navbar-inner">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#attendancerecords"
+								target="_self " data-toggle="tab">Attendance Data</a></li>
+							<li><a href="#calendarview" target="_self "
+								data-toggle="tab">Calendar View</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tab-content">
+					<div class="tab-pane active" id="attendancerecords">
+						<div class="col-md-12">
+							<div class="row">
+								<form class="form-horizontal" role="form">
+									<div class="form-group">
+										<!-- Start date -->
+										<div ng-class="{'col-md-5' : !isAdmin, 'col-md-3': isAdmin}">
+											<label for="start" class="col-sm-4 control-label">Start
+												Date</label>
+											<div class="col-sm-8">
+												<p class="input-group">
+													<input type="text" class="form-control" id="start"
+														name="start" ng-model="attendanceStart"
+														uib-datepicker-popup="MM-dd-yyyy" is-open="dpStart.opened"
+														datepicker-options="dateOptions" ng-required="true"
+														show-button-bar="false" required="required"
+														ng-click="openStartDatePicker()" /> <span
+														class="input-group-btn"> <span
+														class="btn btn-default" ng-click="openStartDatePicker()">
+															<i class="glyphicon glyphicon-calendar"></i>
+													</span>
+													</span>
+												</p>
+											</div>
+										</div>
+										<!-- End Date -->
+										<div ng-class="{'col-md-5' : !isAdmin, 'col-md-3': isAdmin}">
+											<label for="end" class="col-sm-4 control-label">End
+												Date</label>
+											<div class="col-sm-8">
+												<p class="input-group">
+													<input type="text" class="form-control" id="end" name="end"
+														ng-model="attendanceEnd" uib-datepicker-popup="MM-dd-yyyy"
+														is-open="dpEnd.opened" datepicker-options="dateOptions"
+														ng-required="true" show-button-bar="false"
+														required="required" ng-click="openEndDatePicker()" /> <span
+														class="input-group-btn"> <span
+														class="btn btn-default" ng-click="openEndDatePicker()">
+															<i class="glyphicon glyphicon-calendar"></i>
+													</span>
+													</span>
+												</p>
+											</div>
+										</div>
+										<div ng-if="isAdmin" class="col-md-4">
+											<label class="col-sm-4 control-label">Employee</label>
+											<div class="input-group form" title="Search an employee">
+												<input type="text" name="emp" id="specificUser"
+													placeholder="Employee Name" ng-model="selectedName"
+													uib-typeahead="usr.name for usr in getTeamMembers($viewValue)"
+													typeahead-loading="loading"
+													typeahead-no-results="noResults"
+													typeahead-show-hint="false" typeahead-min-length="3"
+													class="form-control"
+													typeahead-on-select='onSelect($item, $model, $label)'
+													typeahead-editable="true" /> <i ng-show="loading"
+													class="glyphicon glyphicon-refresh"></i> <span
+													class="input-group" ng-show="noResults"> <i
+													class="glyphicon glyphicon-remove"></i> No Results Found
+												</span>
+											</div>
+										</div>
+										<!-- button to get attendance -->
+										<div class="col-md-2">
+											<button class="btn-default btn-sm col-md-10"
+												title="Get Attendance" ng-click="getAttendance()">
+												<i class="glyphicon glyphicon-download"></i>
+											</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="row"></div>
+						<div class="content-box-header" ng-if="!isPristine">
+							<div class="panel-title">Records :
+								{{attendance_data.length}}</div>
+						</div>
+						<div class="content-box-large box-with-header" ng-if="!isPristine">
+							<div class="panel-body">
+								<div class="pull-right" ng-show="attendance_data.length">
+									<p class="input-group">
+										<input class="form-control" type="text"
+											placeholder="Search from the list" ng-model="empFilter">
+									</p>
+								</div>
+								<div class="table-responsive">
+									<table class="table table-striped table-bordered text-center"
+										id="attendance_table">
+										<thead>
+											<tr>
+
+												
+
+												<th>Download</th>
+											</tr>
+										</thead>
+										<tbody>
+										<tr >
+											
+
+												
+
+
+												<td><button class="btn-default btn-sm"
+														ng-click="downloadAttendanceData()"
+														title="Download" ng-disabled="selectedUsers.length < 1">Download Attendance</button></td>
+											</tr>
+										</tbody>
+									</table>
+									<table class="table table-striped table-bordered text-center"
+										id="attendance_table">
+										<thead>
+											<tr>
+												<th>
+													<input type="checkbox" title="Select all users" ng-model="selectRecord.allSelected" ng-click="toggleSelectAll()"/></th>
+												<th>Employee Id</th>
+												<th>Name</th>
+												<th>Email</th>
+												<th style="background-color: #69bf56;">Present</th>
+												<th style="background-color: #e57650;">Absent</th>
+												<th style="background-color: #a7bf56;">Approved Leaves</th>
+												<th style="background-color: #f2ed71;">Half Days</th>
+												<th>Hours</th>
+												<th>Notes</th>
+												<th>Actions</th>
+												
+
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="record in attendance_data | filter:empFilter">
+												<td><input type="checkbox" ng-change="selectUser(record)" ng-model="record.selected" checked="checked" /></td>
+												<td>{{record.user_id}}</td>
+												<td>{{record.name}}</td>
+												<td>{{record.email}}</td>
+												<td>{{record.present}}</td>
+												<td>{{record.absent}}</td>
+												<td>{{record.approved}}</td>
+												<td>{{record.halfday}}</td>
+												<td>{{record.notes}}</td>
+												<td>{{record.hours}}</td>
+												
+												<td><button class="btn-default btn-sm"
+														ng-click="getCalendarData(record.user_id)"
+														title="Show More">Show More</button></td>
+
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div ng-if="!attendance_data || attendance_data <= 0">No
+									Records Found</div>
+							</div>
+						</div>
+						<!--Tab content ends-->
+					</div>
+					<div id="calendarview" class="tab-pane">
+						<!-- calendar-->
+						<div class="col-md-12">
+							<div class="row">
+								<div class="content-box-header">
+									<div class="panel-title">
+										<div ng-if="!calendarDispData">
+											<b>No User Selected</b>
+										</div>
+										<div ng-if="calendarDispData">
+											<b>{{calendarDispData.name}}</b> from <b>{{calendarDispData.startDate}}</b>
+											to <b>{{calendarDispData.endDate}}</b>
+										</div>
+									</div>
+								</div>
+								<div class="content-box-large box-with-header">
+									<div class="panel-body">
+										<div id='elaborateCalendar'></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--  End of the main ng-view div content -->

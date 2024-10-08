@@ -1,0 +1,59 @@
+[
+       {
+		    "id" :"01",
+ 			"EmailGroups": "dev@zillious.com",
+			"Supervisor": {"id" : 1, "name" : "ADMIN"},
+			"TeamName": "developer",
+			"numMembers" : 0,
+			"isEditable" : "false"
+			
+		},
+		{
+			"id" :"02",
+			"EmailGroups": "designer@zillious.com",
+			"Supervisor": {"id" : 1, "name" : "ADMIN"},
+			"TeamName": "designer",
+			"numMembers" : 0,
+			"isEditable": false
+		},
+		{
+			"id" :"03",
+			"EmailGroups": "testing@zillious.com",
+			"Supervisor": {"id" : 1, "name" : "ADMIN"},
+			"TeamName": "testing",
+			"numMembers" : 0,
+			"isEditable": false
+		},
+		{
+			"id" :"04",
+			"EmailGroups":"android@zillious.com",
+			"Supervisor": {"id" : 1, "name" : "ADMIN"},
+			"TeamName": "android",
+			"numMembers" : 0,
+			"isEditable": false
+		},
+		{
+			"id" :"05",
+			"EmailGroups": "support@zillious.com",
+			"Supervisor": {"id" : 1, "name" : "ADMIN"},
+			"TeamName": "support",
+			"numMembers" : 0,
+			"isEditable": false
+		},
+		{
+			"id" :"06",
+			"EmailGroups": "mac@zillious.com",
+			"Supervisor": {"id" : 1, "name" : "ADMIN"},
+			"TeamName": "MAC-OS",
+			"numMembers" : 0,
+			"isEditable": false
+		},
+		{
+			"id" :"07",
+			"EmailGroups": "intern@zillious.com",
+			"Supervisor": {"id" : 1, "name" : "ADMIN"},
+			"TeamName": "Intern",
+			"numMembers" : 0,
+			"isEditable": false
+		}
+]

@@ -1,0 +1,36 @@
+{
+ 	"PersonalDetails": {
+ 		"Name": "ABC EFG XYZ",
+ 		"DOB": "xdd-xx-xxxx",
+ 		"BloodGroup": "O+",
+ 		"Gender": "M",
+ 		"PassportNo": "3454343",
+		"isEditable": true
+ 	},
+	
+ 	"ContactDetails": {
+ 		"PersonalContact": "+912222222222",
+ 		"OfficeContact": "+910000000000",
+ 		"OtherContact": "+91232323",
+		"isEditable": true
+ 	},
+	
+ 	"TeamDetails": {
+ 		"TeamJoinDate": "xx-xx-xxxx",
+ 		"EmailGroups": "abc@gmail.com",
+ 		"SupTeam": "ADMIN",
+ 		"TeamName": "DEVLOPER",
+		"isEditable": false
+ 	},
+	
+ 	"AddressDetails": {
+ 		"HNo": "234",
+ 		"Street": "XYZ",
+ 		"City": "Delhi",
+ 		"State": "Delhi",
+ 		"Pin": "232323",
+ 		"Country": "India",
+		"isEditable": true
+ 	}
+	
+}

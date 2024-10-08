@@ -1,0 +1,70 @@
+{
+
+	"user_id" : "0",
+	"id" : 1112,
+
+ 	"PersonalDetails": {
+ 		"Name": "ABC EFG XYZ",
+ 		"DOB": "04-05-1995",
+ 		"BloodGroup": "O+",
+ 		"Gender": {"code" : "F" , "name" : "Female"},
+ 		"PassportNo": "3454343",
+ 		"Designation" : "Developer",
+		"isEditable": true
+ 	},
+	
+ 	"ContactDetails": {
+	 		"PERSONAL" : {
+	 			"type" : "P",
+	 			"number": "1111111111",
+	 		},
+	 		"OFFICE" : {
+	 			"type" : "F",
+		 		"number": "2222222222",
+	 		},
+	 		"OTHER" : {
+		 		"type" : "O",
+	 			"number": "3333333333",
+	 		},
+		"isEditable": true
+ 	},
+	
+ 	"TeamDetails": [
+		{
+		    "id" :"01",
+ 			"EmailGroups": "dev@zillious.com",
+			"TeamName": "developer1",
+			"isEditable" : "false"
+		}, 
+		{
+		"id" :"02",
+ 		"Supervisor": {"id" : 1, "name" : "ADMIN"},
+		"EmailGroups": "support@zillious.com",
+ 		"TeamName": "developer2",
+		"isEditable": false
+ 		}, 
+		{
+		"id" :"02",
+ 		"Supervisor": {"id" : 2, "name" : "Nishant"},
+		"EmailGroups": "interns@zillious.com",
+ 		"TeamName": "intern-1",
+		"isEditable": false
+ 		}, 
+		{
+		"id" :"02",
+ 		"Supervisor": {"id" : 1, "name" : "Saurabh"},
+ 		"TeamName": "intern-2",
+		"isEditable": false
+ 		}
+ 	],
+	
+ 	"AddressDetails": {
+ 		"HNoStreet": "234 XYZ",
+ 		"City": "Delhi",
+ 		"State": "Delhi",
+ 		"Pin": "232323",
+ 		"Country": "India",
+		"isEditable": true
+ 	}
+	
+}

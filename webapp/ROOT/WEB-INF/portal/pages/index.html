@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<title>PORTAL</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/static/images/favicon.png">
+
+<!-- Bootstrap -->
+<link href="/static/portal/css/vendors/bootstrap/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="/static/portal/css/vendors/bootstrap/ui-bootstrap-custom-2.5.0-csp.css"
+	rel="stylesheet">
+<link href="/static/portal/css/bootstrap.icon-large.min.css"
+	rel="stylesheet">
+<!-- styles -->
+<!-- jquery ui css -->
+<link href="/static/portal/css/vendors/jquery/jquery-ui.min.css"
+	rel="stylesheet" media="screen">
+
+<!-- css for fullcalendar -->
+<link href="/static/portal/css/vendors/fullcalendar.min.css"
+	rel="stylesheet">
+<link href="/static/portal/css/vendors/jquery/datatables.min.css"
+	rel="stylesheet">
+
+<!-- morris css -->
+<link href="/static/portal/css/vendors/morris.css?ver=15012018" rel="stylesheet">
+<link href="/static/portal/css/angular-styles-min.css?ver=15012018" rel="stylesheet">
+<link href="/static/portal/css/overlay.css?ver=15012018" rel="stylesheet">
+
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?ver=15012018"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js?ver=15012018"></script>
+    <![endif]-->
+
+<script src="/static/portal/js/vendors/angular/angular.min.js?ver=15012018"></script>
+<script src="/static/portal/js/vendors/angular/angular-route.js?ver=15012018"></script>
+<script src="/static/portal/js/vendors/angular/angular-animate.min.js?ver=15012018"></script>
+<script src="/static/portal/js/vendors/angular/angular-aria.min.js?ver=15012018"></script>
+<script src="/static/portal/js/vendors/angular/angular-messages.min.js?ver=15012018"></script>
+<!-- <script
+	src="/static/portal/js/vendors/bootstrap/ui-bootstrap-custom-2.5.0.min.js?ver=15012018"></script>
+<script
+	src="/static/portal/js/vendors/bootstrap/ui-bootstrap-custom-tpls-2.5.0.min.js?ver=15012018"></script> -->
+<script
+	src="/static/portal/js/vendors/bootstrap/complete-ui-bootstrap-tpls-2.5.0.min.js?ver=22012018"></script>
+</head>
+
+<body ng-app="App">
+
+	<div class="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-5  pull-left" style="margin-top: .4em;">
+					<!-- Logo -->
+					<div class="logo col-md-5">
+						<a href="https://zillious.com"><img
+							src="/static/portal/images/logo.png"
+							style="width: 100%; height: 100%" /></a>
+					</div>
+				</div>
+
+				<div class="col-md-3"></div>
+
+				<div class="col-md-3" ng-controller="EmployeeSearchCtrl">
+					<div class="input-group form" title="Search an employee">
+						<input type="text" placeholder="Employee Name"
+							ng-model="_selectedEmp.name"
+							uib-typeahead="usr.name for usr in getEmployees($viewValue)"
+							typeahead-loading="loadingEmployees" typeahead-no-results="noResults"
+							typeahead-show-hint="true" typeahead-min-length="3"
+							class="form-control"
+							typeahead-on-select='onSelect($item, $model, $label)' /> 
+						<i ng-show="loadingEmployees" class="glyphicon glyphicon-refresh"></i> 
+						<span class="input-group" ng-show="noResults"> 
+							<i class="glyphicon glyphicon-remove"></i> 
+							No Results Found
+						</span>
+
+						<!-- <input type="text" class="form-control" ng-model="empId" placeholder="Employee Name"> -->
+						<span class="input-group-btn">
+							<button class="btn btn-primary" type="button"
+								ng-click="goToView()" ng-disable="!_selectedEmp.id">Search</button>
+						</span>
+
+					</div>
+				</div>
+				<!-- logout button  -->
+				<div class="col-md-1 pull-right" style="margin-top: .75em;"
+					title="Sign out">
+					<a th:href="@{|${logOutUrl}|}"><button class="btn btn-danger"
+							type="button" name="submit"
+							style="background-color: rgba(247, 15, 9, 0.88); border-color: rgba(228, 12, 12, 0.78);">
+							<i class="glyphicon glyphicon-log-out"></i>
+						</button> </a>
+				</div>
+				<!-- logout button ends -->
+
+			</div>
+		</div>
+	</div>
+
+	<div class="page-content">
+		<div class="row">
+			<div class="col-md-2">
+				<div class="sidebar content-box">
+					<div class="profile">
+						<!-- SIDEBAR USERPIC -->
+						<div class="profile-userpic">
+							<img th:src="@{${userProfilePicture}}" class="img-responsive"
+								alt="Picture Not Available" />
+						</div>
+						<!-- 						END SIDEBAR USERPIC -->
+						<!-- 	SIDEBAR USER TITLE -->
+						<div class="profile-usertitle">
+							<div class="profile-usertitle-name">[[${userName}]]</div>
+							<div class="profile-usertitle-job">[[${userDesignation}]]</div>
+						</div>
+
+
+						<!-- END SIDEBAR USER TITLE -->
+						<!-- 	SIDEBAR BUTTONS -->
+						<div class="profile-userbuttons">
+							<a th:text="${currentUser}"></a> <a
+								th:href="@{|#!profile/edit/${user_id}|}"
+								class="btn btn-default profile-button" title="Edit Profile">
+								<i class="glyphicon glyphicon-pencil"></i>
+							</a> <a th:href="@{|#!profile/view/${user_id}|}"
+								class="btn btn-default profile-button" title="View Profile">
+								<i class="glyphicon glyphicon-eye-open"></i>
+							</a>
+						</div>
+					</div>
+
+					<!-- 					END SIDEBAR BUTTONS SIDEBAR MENU -->
+					<div class="menu">
+						<ul class="nav" th:each="sidePanel : ${sidePanelItems}">
+							<li><a th:href="@{|${sidePanel.routingUrl}|} "><i
+									th:class="${sidePanel.glyphiconName}"></i><span
+									th:text="${sidePanel.dispName}"></span></a></li>
+						</ul>
+					</div>
+					<!-- END MENU -->
+				</div>
+				<!-- Birthdays Disp Block starts here -->
+				<div class="row" ng-controller="BirthdayController">
+					<div class="col-md-12">
+						<div class="content-box-header">
+							<div class="panel-title">
+								<i class="icon-large icon-birthday-cake"></i>Today
+							</div>
+							<div class="panel-options">
+								<a href="javascript:" data-toggle="collapse"
+									data-target="#birthdays"><i
+									class="glyphicon glyphicon-chevron-down"></i></a>
+							</div>
+						</div>
+						<div class="sidebar content-box">
+							<div id="birthdays" class="panel-collapse collapse in">
+								<ul class="nav" ng-show="birthdayList.length">
+									<li ng-repeat="bItem in birthdayList">
+										<p class="input-group">
+											<label class="form-control">{{bItem.name}}</label> <span
+												class="input-group-btn"> <span type="button"
+												class="btn btn-default" ng-click="viewProfile($index)">
+													<i class="glyphicon glyphicon-eye-open"
+													title="View Profile"></i>
+											</span> <span type="button" class="btn btn-primary"
+												ng-click="sendWishes($index)"> <i
+													class="glyphicon glyphicon-envelope" title="Wish them"></i>
+											</span>
+											</span>
+										</p>
+									</li>
+								</ul>
+								<ul class="nav" ng-show="!birthdayList.length">
+									<li><a href="javascript:">No Birthdays Today</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<!-- model for page -->
+						<div id='birthday-wish-model' class="row" style="display: none;"
+							title="Send Birthday Wishes">
+							<div class="col-md-12">
+								<div class="content-box">
+									<div class="panel-body">
+										<div class="form-horizontal" role="form">
+											<div class="form-group">
+												<label for="to" class="col-sm-2 control-label">To</label>
+												<div class="col-sm-10">
+													<label id="to" class="form-control">{{birthdayWishObject.to}}</label>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="inputPassword3" class="col-sm-2 control-label">Subject</label>
+												<div class="col-sm-10">
+													<input type="text" class="form-control" id="subject"
+														placeholder="Birthday Wishes"
+														ng-model="birthdayWishObject.subject">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-2 control-label">Textarea</label>
+												<div class="col-sm-10">
+													<textarea class="form-control"
+														placeholder="Wish you a very happy birthday" rows="3"
+														ng-model="birthdayWishObject.content"></textarea>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- MAIN CONTENT BOX -->
+
+			<div class="col-md-10 right-block-content">
+				<div ng-view></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- overlay  -->
+	<section class="overlay" ng-show="overlay.show">
+		<div class="reload row">
+			<span class="glyphicon glyphicon-repeat normal-right-spinner"></span>
+		</div>
+	</section>
+
+	<footer>
+		<div class="container">
+			<div class="copy text-center">
+				Copyright 2017 <a href='https://www.zillious.com/' target="_blank">ZILLIOUS</a>
+			</div>
+			<h6 th:text="${index}"></h6>
+		</div>
+	</footer>
+
+	<div id="dialog-message-modal" title="Message">
+		<p id="dialog-message">
+			Currently using <b>36% of your storage space</b>.
+		</p>
+	</div>
+
+	<script th:inline="javascript">
+	/*<![CDATA[*/
+	         
+		var userTeamDataJsonURL = [[${teamJsonUrl}]];	// jsonURL for team.html
+		var teamsByNameJsonURL = [[${teamsByNameJsonUrl}]];
+		var supervisorDataJsonURL = [[${supervisorDataJsonURL}]]; //"/static/portal/data/supervisorData.json";
+		var teamMemberSearchURL = [[${teamMemberSearchURL}]]; //"/static/portal/data/supervisorData.json";
+	    var userDataJsonURL = [[${userProfileJsonUrl}]]; // jsonURL for profile.html
+		var usersDataJsonURL = [[${employeesJsonUrl}]]; // jsonURL for employee.html
+		var holidayTypeJsonURL = "/static/portal/data/holidayTypeJsonData.json";
+		var empStatus = [(${userStatusrray})];
+		var leavePolicyJsonUrl = [[${leavePolicyJsonURL}]];//"/static/portal/data/holidayCalendarJsonData.json";
+		var leaveTypeJsonUrl = [[${leaveTypeJsonURL}]];
+		var leaveRequestsUrl = [[${leaveRequestsURL}]];
+		var birthdayList =[(${birthdayList})] //[{"id":1, "name" : "Nishant Gupta"},{"id":2, "name" : "Satyam Mittal"}];
+		var roles  = [(${userRoleArray})];
+		var leavesRequestStatus = [(${leaveRequestStatusArray})];
+		var wishBirthdayUrl = [[${wishBirthdayUrl}]];
+		var loggedInUserId = [[${user_id}]];
+		var loggedOutUrl  = [[${logOutUrl}]];
+		var attendanceUrl = [[${attendanceUrl}]];
+		var broadcastYearlyCalendarURL = [[${broadcastYearlyCalendarURL}]];
+		var isAdminCheckURL = [[${isAdminCheckURL}]];
+		var randomUtilitiesURL = [[${randomUtilitiesURL}]];
+		/*]]>*/
+			
+		
+	</script>
+
+	<!--Angular specific javascript files-custom -->
+	<script src="/static/portal/js/angular/angular-specific.js?ver=01062018a"></script>
+
+	<!-- Vendor specific -->
+	<script src="/static/portal/js/vendors/jquery/jquery-2.1.4-min.js?ver=15012018"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="/static/portal/js/vendors/bootstrap/bootstrap.min.js?ver=15012018"></script>
+	<script src="/static/portal/js/vendors/moment.min.js?ver=15012018"></script>
+	<script src="/static/portal/js/app-ui.js?ver=15012018"></script>
+	<script
+		src="/static/portal/js/vendors/jquery/fullcalendar/fullcalendar.min.js?ver=15012018"></script>
+	<script src="/static/portal/js/vendors/jquery/jquery-ui.min.js?ver=15012018"></script>
+
+	<script src="/static/portal/js/vendors/raphael-min.js?ver=15012018"></script>
+	<script src="/static/portal/js/vendors/morris.min.js?ver=15012018"></script>
+	<!-- <script src="/static/portal/js/vendors/stats.js?ver=15012018"></script> -->
+	<script src="/static/portal/js/vendors/datatables/datatables.min.js?ver=15012018"></script>
+
+	<script src="/static/portal/js/portalutility.js?ver=22012018"></script>
+</body>
+</html>

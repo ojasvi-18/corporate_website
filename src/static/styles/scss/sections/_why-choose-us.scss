@@ -1,0 +1,120 @@
+
+/* Why Choose Us Section
+================================================================ */
+
+.section.why-choose-us {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+    .wcu-content {
+        position: relative;
+        min-height: 500px;
+    }
+
+    .wcu-graphic {
+        width: 60%;
+        margin: auto;
+    }
+    
+    .wcu-feature {
+        text-align: center;
+        transition: 0.4s;
+        opacity: 1;
+        &:nth-child(1) {
+            top: 0;
+            left: 0;
+        }
+        &:nth-child(2) {
+            left: 0;
+            bottom: 0;
+        }
+        &:nth-child(3) {
+            top: 0;
+            right: 0;
+        }
+        &:nth-child(4) {
+            bottom: 0;
+            right: 0;
+        }
+        &:hover {
+            &:after {
+                border-bottom-color: $brand-1;
+            }
+        }
+    }
+
+    &.inactive {
+        .wcu-feature {
+            opacity: 0;
+        }
+        .wcu-left {
+            left: -3rem !important;
+        }
+        .wcu-right {
+            right: -3rem !important;
+        }
+    }
+
+    &.section-map {
+        &:after {
+            bottom: -5rem;
+        }
+    }
+
+//-----------------------------------------------------------------
+// Smaller Resolutions
+//-----------------------------------------------------------------
+
+    @media (max-width: $breakpoint-3) {
+        .wcu-graphic {
+            margin-bottom: 4rem;
+        }
+        .wcu-feature {
+            &:not(:last-child) {
+                padding-bottom: 2rem;
+                margin-bottom: 2rem;
+                border-bottom: 1px dotted rgba(0,0,0,0.1);
+            }
+        }
+    }
+
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+    @media (min-width: $breakpoint-3) {
+        .wcu-feature {
+            position: absolute;
+            width: 30%;
+            &:after {
+                content: "";
+                position: absolute;
+                top: 1.75rem;
+                left: 0;
+                right: 0;
+                margin: auto;
+                width: 130px;
+                transition: 0.4s;
+                border-bottom: 1px solid rgba(0,0,0,0.2);
+            }
+            &.wcu-left {
+                padding-right: 2rem;
+                &:after {
+                    transform: translateX(70%);
+                }
+            }
+            &.wcu-right {
+                padding-left: 2rem;
+                &:after {
+                    transform: translateX(-70%);
+                }
+            }
+        }
+        .wcu-graphic {
+            width: 40%;
+        }
+    }
+
+} // end .section.why-choose-us

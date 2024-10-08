@@ -1,0 +1,73 @@
+
+/* Twitter Feed
+================================================================ */
+
+#twitter-feed {
+
+    margin:auto;
+
+    a:hover {
+        text-decoration: none;
+    }    
+
+    .twitter-article {
+        margin-top: 1rem;
+        &:first-of-type {
+            margin-top: 0;
+        }
+    }   
+
+    .twitter-pic,
+    .twitter-text {
+        display: table-cell;
+        vertical-align: top;
+    }
+
+    .twitter-pic {
+        width: 16%;
+        width: calc(42px - 0.0000001em);
+        a,
+        img {
+            display: block;
+        }
+        img {
+            margin-top: 2px;
+            border:none;     
+        }
+    }
+
+    .twitter-text {
+        width: 70%;
+        width: calc(100% - 46px);
+        padding-left: 0.75rem;
+        p {
+            margin: 0px;
+        }
+    }
+
+    .tweetprofilelink {
+        strong a {
+            color: $white;
+            &:hover {
+                border-color: inherit;
+            }
+        }
+        > a {
+            font-size: 0.95em;
+        }
+    }
+
+    .tweet-time {
+        position: relative;
+        top: -1px;
+        text-align: center;
+        a {
+            background: $brand-1;
+            padding: 0 1px;
+            font-size: 0.75rem;
+            color: white;
+            text-shadow: none;
+        }
+    }
+
+}

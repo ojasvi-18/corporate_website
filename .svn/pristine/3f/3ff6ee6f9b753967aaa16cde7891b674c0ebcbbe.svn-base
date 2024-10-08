@@ -1,0 +1,125 @@
+<!-- MAIN Block Starts-->
+<div class="row" ng-controller="manualCtrl">
+	<div class="col-md-12" ng-if="isAdmin">
+		<div class="row">
+			<div class="content-box-large">
+				<div class="row">
+					<div class="col-sm-6 col-md-6 col-lg-6">
+						<div title="Search an employee">
+							<input type="text" placeholder="Employee Name"
+								ng-model="typeaheadValue"
+								uib-typeahead="usr.name for usr in getEmployees($viewValue)"
+								typeahead-loading="loadingEmployees"
+								typeahead-no-results="noResults" typeahead-show-hint="true"
+								typeahead-min-length="3" class="form-control"
+								typeahead-on-select='onSelect($item, $model, $label)' /> <i
+								ng-show="loadingEmployees" class="glyphicon glyphicon-refresh"></i>
+							<span class="input-group" ng-show="noResults"> <i
+								class="glyphicon glyphicon-remove"></i> No Results Found
+							</span>
+						</div>
+					</div>
+					<div class="col-sm-6 col-md-6 col-lg-6">
+						<form class="form-horizontal">
+							<fieldset>
+								<legend>Selected Employee</legend>
+								<div class="form-group">
+									<label class="col-sm-3 col-md-3 col-lg-3">Employee Id</label>
+									<div class="col-sm-9 col-md-9 col-lg-9" ng-show="!_selectedEmp">No
+										Employee Selected</div>
+									<div class="col-sm-9 col-md-9 col-lg-9" ng-show="_selectedEmp">{{_selectedEmp.id}}</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 col-md-3 col-lg-3">Name</label>
+									<div class="col-sm-9 col-md-9 col-lg-9" ng-show="!_selectedEmp">No
+										Employee Selected</div>
+									<div class="col-sm-9 col-md-9 col-lg-9" ng-show="_selectedEmp">{{_selectedEmp.name}}</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 col-md-3 col-lg-3">Email Id</label>
+									<div class="col-sm-9 col-md-9 col-lg-9" ng-show="!_selectedEmp">No
+										Employee Selected</div>
+									<div class="col-sm-9 col-md-9 col-lg-9" ng-show="_selectedEmp">{{_selectedEmp.email}}</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 col-md-3 col-lg-3">Device Id</label>
+									<div class="col-sm-9 col-md-9 col-lg-9" ng-show="!_selectedEmp">No
+										Employee Selected</div>
+									<div class="col-sm-9 col-md-9 col-lg-9" ng-show="_selectedEmp">{{_selectedEmp.d_id}}</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<form class="form-horizontal">
+							<fieldset>
+								<legend>Date and Time</legend>
+								<div class="form-group">
+									<label class="col-sm-2 col-md-2 col-lg-2">Date</label>
+									<div class="col-sm-10 col-md-10 col-lg-10">
+										<p class="input-group">
+											<input type="text" class="form-control" id="date" name="date"
+												ng-model="tempData.entryDate"
+												uib-datepicker-popup="dd/MM/yyyy" is-open="dpObj.opened"
+												datepicker-options="dateOptions" ng-required="true"
+												show-button-bar="false" required="required"
+												ng-click="openDatePicker()" /> 
+												<span class="input-group-btn">
+													<span class="btn btn-default" ng-click="openDatePicker()">
+														<i class="glyphicon glyphicon-calendar"></i>
+													</span>
+												</span>
+										</p>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 col-md-2 col-lg-2">Time</label>
+									<div class="col-sm-10 col-md-10 col-lg-10">
+										<div uib-timepicker ng-model="tempData.entryTime" 
+											show-spinners="false" 
+											hour-step="1" 
+											minute-step="15" 
+											show-scrollers="false"
+											show-meridian="false" 
+											class="col-sm-10 col-md-10 col-lg-10">
+										</div>
+										<span class="input-group-btn col-sm-2 col-md-2 col-lg-2">
+											<span class="btn btn-default" ng-click="setTime()" title="Set time">
+												<i class="glyphicon glyphicon-check"></i>
+											</span>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+					<div class="col-md-6">
+						<form class="form-horizontal">
+							<fieldset>
+								<legend>Date and Time</legend>
+								<div class="form-group">
+									<label class="col-sm-2 col-md-2 col-lg-2">Date</label>
+									<div class="col-sm-10 col-md-10 col-lg-10">
+										<span class="form-control">{{entry.date}}</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 col-md-2 col-lg-2">Time</label>
+									<div class="col-sm-10 col-md-10 col-lg-10">
+										<span class="form-control">{{entry.time}}</span>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+				<div class="row" style="text-align: center;">
+					<button class="btn btn-md btn-primary" ng-click="saveChanges()" ng-disabled="!isValid()">Add Entry</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Main Block ends -->

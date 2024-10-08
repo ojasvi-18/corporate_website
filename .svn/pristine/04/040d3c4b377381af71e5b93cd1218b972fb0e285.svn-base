@@ -1,0 +1,121 @@
+
+/* Dropdown Navigation
+   Used in: "modules/_main-nav.scss"
+================================================================ */
+
+ul {
+
+	@extend ul.reset;
+	opacity: 0;
+	visibility: hidden;
+	position: absolute;
+	z-index: 999;
+	transition: 0.4s;
+	min-width: 185px;
+	text-align: left;
+	font-weight: 400;
+
+	li {
+		position: relative;
+		a {
+			background: rgba($black, 0.85);
+			color: $white;
+			font-size: $font-size-0;
+			line-height: 3;
+			border-bottom: 1px solid rgba(0,0,0,0.1);
+			&:before, 
+			&:after {
+				font-family: FontAwesome;	
+				transition: 0.4s;		
+			}
+			&:before {
+				content: "\f138";
+				margin-right: 0.75em;
+				display: inline-block;
+				color: $brand-1;
+			}
+			&:after {
+				content: "\f105";
+				display: none;
+				position: absolute;
+				top: 0;
+				right: 1em;
+				color: rgba(255,255,255,0.3);
+			}
+			&:not(:only-child) {
+				padding-right: 2em;
+				&:after {
+					display: inline-block;
+				}
+			}
+		}
+		&:hover {
+			a {
+				background: $brand-1;
+				&:before {
+					color: $white;
+				}
+			}
+			> ul {
+				opacity: 1;
+				visibility: visible;
+			}
+		}
+		ul {
+			left: 100%;
+			margin-left: -1px;
+			top: 0;
+			li {
+				&:hover {
+					a {
+						background: darken($brand-1, 10%);
+					}
+				}
+			}
+		}
+	}
+
+}
+
+> ul {
+	left: 50%;
+	transform: translateX(-50%);
+	margin-top: 2.6em;
+	border-top: 8px solid darken($brand-1, 10%);
+	&:before,
+	&:after {
+		content: "";
+		position: absolute;
+	}
+	&:before {
+		height: 20px;
+		top: -20px;
+		width: 100%;
+	}
+	&:after {
+		height: 10px;
+		width: 10px;
+		background: darken($brand-1, 10%);
+		transform: rotate(45deg);
+		top: -12px;
+		left: 0;
+		right: 0;
+		margin: auto;
+	}
+	li {
+		&:first-child {
+			> ul {				
+				border-top: 8px solid darken($brand-1, 10%);
+				margin-top: -8px;
+			}
+		}
+	}
+}
+
+&:hover {
+	> ul {
+		opacity: 1;
+		visibility: visible;
+		margin-top: 1rem;
+	}
+}

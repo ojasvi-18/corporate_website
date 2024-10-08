@@ -1,0 +1,146 @@
+
+/* Welcome Section
+================================================================ */
+
+.section.welcome {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+	padding-bottom: 0 !important;
+	position: relative;
+
+	.container {
+		position: relative;
+	}
+
+	header {
+		transition: 0.2s;
+		transform: scale(0);
+		background: $background-color;
+		&:not(:first-of-type) {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			margin: auto;
+		}
+		&.active {
+			transform: scale(1);
+		}
+	}
+
+	.owl-dots {
+		margin-top: 1rem;
+		margin-bottom: 0.5rem;
+		.owl-dot {
+			span {
+				background: rgba($black, 0.2);
+			}
+			&.active {
+				span {
+					background: $brand-1;
+				}
+			}
+		}
+	}
+
+	.earth {
+		transition: 0.4s;
+		bottom: 0;
+		img {
+			animation-name: spin;
+			animation-delay: 1s;
+		}
+	}
+
+	.welcome-browsers {
+		margin-left: -0.31em;
+		.livicon {
+			margin-left: 0.5rem;
+			cursor: help;
+			display: inline-block;
+		}
+	}
+
+	.welcome-features {
+		width: 100%;
+		text-align: left;
+		.section-title {
+			margin-bottom: 2.4rem;
+			text-align: center;
+		}
+		p {
+			font-size: $font-size-1;
+		}
+	}
+
+	.tipr_container_top {
+		margin-top: -116px;
+	}
+
+	.pins {
+		opacity: 1;
+		transition: 0.4s;
+		transition-delay: 1s;
+	}
+
+	.nav-carousel {		
+		transition-delay: 1s;
+	}
+
+	&.inactive {
+		.earth {
+			bottom: -15em;
+			img {				
+				animation-name: none;
+			}
+		}
+		.pins {
+			opacity: 0;
+		}
+		.nav-carousel {
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+
+//-----------------------------------------------------------------
+// Smaller Resolutions
+//-----------------------------------------------------------------
+
+	@media (max-width: $breakpoint-1) {
+		.earth {
+			.pin {
+				transform: scale(0.75) rotate(-45deg);
+			}
+		}
+	}
+
+	@media (max-width: $breakpoint-2) {
+		.welcome-features {
+			h4 {
+				font-size: $font-size-1;
+			}
+		}
+	}
+
+	@media (max-width: $breakpoint-4) {
+		.welcome-features {
+			.livicon {
+				display: none;
+			}
+		}
+		.nav-carousel {
+			display: none;
+		}
+	}
+
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+	@media (min-width: $breakpoint-3) {}
+
+} // end .welcome

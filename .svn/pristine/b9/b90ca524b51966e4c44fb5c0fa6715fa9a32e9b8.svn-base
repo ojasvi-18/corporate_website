@@ -1,0 +1,118 @@
+
+/* Variables
+================================================================ */
+
+//-----------------------------------------------------------------
+// Skeleton
+//-----------------------------------------------------------------
+
+$main-width            :     1200px;
+$max-width             :     90%;
+$small-container-width :     960px;
+
+$columns               :     12;
+$gutter                :     4%;
+
+//-----------------------------------------------------------------
+// Breakpoints
+//-----------------------------------------------------------------
+
+$breakpoint-0          :     0px;
+$breakpoint-1          :     460px;
+$breakpoint-2          :     720px;
+$breakpoint-3          :     940px;
+$breakpoint-4          :     1200px;
+$breakpoint-5          :     1400px;
+
+$bp-values             :     $breakpoint-0, $breakpoint-1, $breakpoint-2, $breakpoint-3, $breakpoint-4, $breakpoint-5;
+
+$bp-names              :     bp0, bp1, bp2, bp3, bp4, bp5;
+
+//-----------------------------------------------------------------
+// Typography
+//-----------------------------------------------------------------
+
+/* Fonts */
+
+$font-1                :     'Lato', sans-serif;
+$font-2                :     'Raleway', sans-serif;
+
+/* Font Sizes */
+
+$base-font-size        :     1rem;
+
+$font-size-0           :     0.9rem;
+$font-size-1           :     1rem;
+$font-size-2           :     1.2rem;
+$font-size-3           :     1.4rem;
+$font-size-4           :     1.8rem;
+$font-size-5           :     2.2rem;
+$font-size-6           :     2.85rem;
+$font-size-7           :     3.5rem;
+
+//-----------------------------------------------------------------
+// Color Palette
+//-----------------------------------------------------------------
+
+// Greyscale Colors
+
+$white                 :     #ffffff;
+$dark-white            :     #f7f7f7;
+$light-grey            :     #b1b1b1;
+$grey                  :     #707070;
+$dark-grey             :     #111111;
+$black                 :     #000000;
+
+$greyscale-colors      :     $white, $light-grey, $grey, $dark-grey, $black;
+$greyscale-names       :     white, light-grey, grey, dark-grey, black;
+
+// Branding Colors
+
+$blue                  :	 #1795C5;
+$green                 :	 #1CBB9B;
+$pink                  :	 #bb1c4d;
+$red                   :	 #bb1c1c;
+
+$brand-1               :     #00A0DE;
+$brand-2               :     #3D5C6D;
+
+$brand-colors          :     $brand-1, $brand-2;
+$brand-names           :     brand-1, brand-2;
+
+// Alert Box Colors
+
+$help                  :     #e7d16c;
+$danger                :     #CB8888;
+$success               :     #9cc079;
+$info                  :     #79a9c0;
+
+$emotional-colors      :     $help, $danger, $success, $info;
+$emotional-names       :     help, danger, success, info;
+
+// Social Network Colors
+
+$facebook              :     #507CBD;
+$twitter               :     #63CEF2;
+$linkedin              :     #117BB8;
+$github                :     #1C1C1C;
+$skype                 :     #63CEF2;
+$pinterest             :     #CD2129;
+$instagram             :     #5280A5;
+$rss                   :     #FBA933;
+$youtube               :     #CB312E;
+$flickr                :     #ED1384;
+$vimeo                 :     #1EB8EB;
+$dribbble              :     #EB4C89;
+$behance               :     #0595FC;
+$deviantart            :     #B3C434;
+$reddit                :     #0D7CCD;
+$google-plus           :     #dd4b39;
+
+//-----------------------------------------------------------------
+// Theming
+//-----------------------------------------------------------------
+
+$base-margin           :     1.5rem;
+
+$main-text-color       :     $dark-grey;
+$background-color      :     $dark-white;

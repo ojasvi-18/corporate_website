@@ -1,0 +1,269 @@
+
+<div class="col-md-12">
+
+	<div class="content-box-large box-with-header">
+		<div class="panel-body">
+			<div class="rootwizard">
+				<div class="navbar">
+					<div class=" navbar-inner">
+
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#holidaycalendar"
+								target="_self " data-toggle="tab">Holiday Calendar</a></li>
+							<li class=""><a href="#holidaytype" target="_self "
+								data-toggle="tab">Holiday Type</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- tab content starts : add holidays in holiday calendar holiday calendar -->
+				<div class="tab-content">
+					<!--tab pane of  holiday calendar begins -->
+					<div class="tab-pane active" id="holidaycalendar">
+						<!-- search box a specific year holidays list ends-->
+						<!--display holiday calendar form -->
+						<div class="col-md-3 ">
+							<div class="content-box-header">
+								<div class="panel-title">
+									<i class="icon large "></i>
+									<h3>List</h3>
+								</div>
+								<div class="panel-options">
+									<a href="javascript:" data-toggle="collapse"
+										data-target="#holiday"><i
+										class="glyphicon glyphicon glyphicon-chevron-down"></i></a>
+								</div>
+							</div>
+							<!-- sidebar content -->
+							<div class=" sidebar content-box box-with-header">
+								<div class="panel-collapse collapse in" id="holiday">
+									<div id="external-events">
+
+										<!-- oderBy: start will arrage the data in list in assnding order for descemdingh order change start with (-start) -->
+										<div class="external-event"
+											ng-if="holidayCalendarList.length > 0"
+											ng-repeat="holidayCalendarData in holidayCalendarList | orderBy:'start'">
+											<div
+												ng-class="{'disableEvent' : disableEvent(holidayCalendarData.start), 'admin' : isAdmin}"
+												uib-tooltip="{{holidayCalendarData.start}}">
+												<div class='holiday-event' ng-click="goToHoliday(holidayCalendarData.id)">
+													<h4>{{holidayCalendarData.title}}</h4>
+												</div>
+											</div>
+											<span title="Notify Everyone" ng-if="isAdmin" class="admin">
+												<button class="btn btn-lg btn-default col-md-12" ng-click="broadcastYearlyCalendar(holidayCalendarData.id)">
+													<i class="glyphicon glyphicon-bullhorn"></i>
+												</button>
+											</span>
+										</div>
+										<div ng-if="!holidayCalendarList.length"
+											class="external-event">
+											<div class="disableEvent">
+												<div class='holiday-event'>
+													<h4>No Holiday Available</h4>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Events Calendar Begins  -->
+
+						<div class=" col-md-9 " id="holidaycalendar">
+							<div class="row">
+								<div class="col-md-3">
+									<p class="input-group">
+										<input
+											class="form-control ng-pristine ng-valid ng-not-empty ng-valid-minlength ng-valid-maxlength ng-touched"
+											type="text" placeholder="Year(Numeric value-4 Digits)"
+											ng-model="year" minlength="4" maxlength="4" style="">
+										<span class="input-group-btn" ng-click="fetchHolidayList()">
+											<span type="button" class="btn btn-default"> <i
+												class="glyphicon glyphicon-search"></i>
+											</span>
+										</span>
+									</p>
+								</div>
+								<div class="col-md-6"></div>
+								<div class="col-md-3" title="Notify Everyone" ng-if="isAdmin && holidayCalendarList.length"><p><button class="btn btn-info col-md-12" ng-click="broadcastYearlyCalendar()"><i class="glyphicon glyphicon-bullhorn"></i></button></p></div>
+							</div>
+							<div class="row">
+								<div id='holidayDispCalendar'></div>
+							</div>
+						</div>
+					</div>
+					<!-- holiday calendar tab pane ends -->
+
+					<!-- holiday type tab pane begins -->
+					<div class="tab-pane" id="holidaytype">
+						<div class="row">
+							<div class="col-md-12">
+								<table class="table  table-bordered table-hover"
+									ng-show="holidayTypeList.length">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>Types of leaves</th>
+											<th>No. of days</th>
+											<th ng-if="isAdmin">Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										<!-- holidayTypeList jolds json data of holiday type -->
+										<tr ng-repeat="holidayTypeData in holidayTypeList"
+											ng-include="getTemplate(holidayTypeData)">
+										</tr>
+									</tbody>
+								</table>
+								<div ng-show="!holidayTypeList.length" class="col-md-12">No
+									Holiday Available</div>
+
+							</div>
+						</div>
+
+						<div class="row" ng-if="isAdmin">
+							<div class="col-md-12">
+								<div class="">
+									<div class="panel-title" name="holidayType" id="holidayType">
+										Add Holiday Type</div>
+								</div>
+								<div ng-if="isAdmin">
+									<div class="panel-body">
+										<form class="form-horizontal" role="form"
+											name="holidayTypeForm">
+											<div class="form-group">
+												<label class="col-sm-2 control-label">Holiday Type</label>
+												<div class="col-sm-10">
+													<p ng-class="{'input-group' :!isNew}">
+														<input type="text" placeholder="Enter holiday type"
+															class="form-control" ng-change="isValidHolidayName()"
+															ng-model="newHolidayType.name"> <span
+															class="input-group-btn" ng-show="!isNew"> <span
+															type="button" class="btn btn-default"> <i
+																ng-show="!isHolidayNameValid"
+																class="glyphicon glyphicon-exclamation-sign"></i> <i
+																ng-show="isHolidayNameValid"
+																class="glyphicon glyphicon-check"></i>
+														</span>
+														</span>
+													</p>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-2 control-label">No. of Days</label>
+												<div class="col-sm-10">
+													<p ng-class="{'input-group' :!isNew}">
+														<input type="text" placeholder="Enter No. of days "
+															class="form-control" ng-change="isValidHolidayDays()"
+															ng-model="newHolidayType.days"> <span
+															class="input-group-btn" ng-show="!isNew"> <span
+															type="button" class="btn btn-default"> <i
+																ng-show="!isHolidayDaysValid"
+																class="glyphicon glyphicon-exclamation-sign"></i> <i
+																ng-show="isHolidayDaysValid"
+																class="glyphicon glyphicon-check"></i>
+														</span>
+														</span>
+													</p>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="col-sm-offset-2 col-sm-10">
+													<button type="button" class="btn btn-lg  btn-primary"
+														ng-disabled="!canSubmit()" ng-click="submitNewHoliday()">Add</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- holiday type tab pane ends -->
+
+				</div>
+				<!-- tab content ends -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- </div> -->
+
+<!-- add new holiday type model bloack -->
+
+
+
+<!-- 	 script for holiday type  data -->
+<script type="text/ng-template" id="editHolidayType" ng-if="isAdmin">
+											
+			<td> <span ng-disabled = "true">&nbsp;{{$index+1}}<span/> </td>
+			<td> <div class="col-sm-12"><input type= "text"   class="form-control" ng-class="{'error-border-red' : !dispHolidayTypeStatus.isNameValid}" placeholder="Enter valid holiday type name" ng-change = "isValidHolidayName($index)" ng-model = "selectedHolidayTypeData.name"> </div></td>
+			<td> <div class="col-sm-12"><input type="text" class="form-control" ng-class="{'error-border-red' : !dispHolidayTypeStatus.isDaysValid}" placeholder="Enter date" ng-change = "isValidHolidayDays($index)" ng-model = "selectedHolidayTypeData.days"></div></td>
+			<td  ng-show="!(dispHolidayTypeStatus.isNameValid && dispHolidayTypeStatus.isDaysValid )"> <i class="glyphicon glyphicon-warning-sign"></i>enter valid information  
+				<button class="btn btn-sm btn-default" ng-click = "cancelEdits()" title="Discard changes"><i class="glyphicon glyphicon-remove"></i></button> 
+			</td>
+			<td ng-show="(dispHolidayTypeStatus.isNameValid && dispHolidayTypeStatus.isDaysValid)"> 
+				<button class="btn btn-sm btn-primary"  ng-click = "saveEdits($index )" title="Save Changes"><i class="glyphicon glyphicon-floppy-disk"></i> </button>&nbsp;
+				<button class="btn btn-sm btn-default" ng-click = "cancelEdits( )" title="Discard changes"><i class="glyphicon glyphicon-remove"></i></button> 
+			</td>
+		</script>
+<script type="text/ng-template" id="displayHolidayType">
+			<td>{{$index+1}}</td>
+			<td><div class="col-sm-12"><span class="form-control"  >{{holidayTypeData.name}}</span></div></td>
+			<td><div class="col-sm-12"><span class="form-control" >{{holidayTypeData.days}}</span></div></td>
+			<td ng-if = "isAdmin">
+				<button class="btn btn-sm btn-primary" ng-click = "editHolidayData(holidayTypeData, $index)" title="Edit Holiday Details"><i class="glyphicon glyphicon-pencil"></i></button>
+				<button class="btn btn-sm btn-danger" ng-click = "deleteHoliday($index )" title="Delete this holiday"><i class="glyphicon glyphicon-trash"></i></button>
+			</td>
+		</script>
+<!-- SCRIPT ENDS -->
+
+<!--holiday calendar popup modal of add event begins -->
+<div id='modelContent' class="row" title="Holiday Details"
+	style="display: none;" ng-show="isAdmin">
+
+	<div class="col-md-12">
+		<div class="content-box">
+			<div class="panel-body">
+				<form class="form-horizontal " role="form" id="event-details-form">
+					<div class="form-group">
+						<label for="title" class="col-sm-2 control-label">Holiday
+							name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="title" name="title"
+								placeholder="Title">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="start" class="col-sm-2 control-label">Start
+							Date</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="start" name="start"
+								placeholder="Start date">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="end" class="col-sm-2 control-label">End Date</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="end" name="end"
+								placeholder="End date">
+						</div>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 	calendar popup modal of add event ends -->
+
+<!-- error dialog for calendar -->
+<div id="errorDialog" title="Error" style="display: none;"
+	ng-if="isAdmin">
+	<p>
+	<h4>You are not allowed to add, delete or edit events before
+		current date !</h4>
+	</p>
+</div>

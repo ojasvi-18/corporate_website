@@ -1,0 +1,381 @@
+<div class="col-md-12">
+	<div class="content-box-large box-with-header">
+		<div class="panel-body">
+			<div class="rootwizard">
+				<div class="navbar">
+					<div class=" navbar-inner">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#myleaverequests"
+								target="_self " data-toggle="tab">My Leave Requests</a></li>
+							<li class=""><a href="#othersrequest" target="_self "
+								data-toggle="tab">Team Requests :
+									{{othersGroup["PENDING"].length }}</a></li>
+							<li class=""><a href="#myrequest" target="_self "
+								data-toggle="tab">My Requests</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- tab content starts  -->
+				<div class="tab-content">
+
+					<!--tab pane of  my leave requests calendar begins -->
+					<div class="tab-pane active" id="myleaverequests">
+						<!-- list of leaves -->
+						<div class="col-md-3">
+							<div class="content-box-header">
+								<div class="panel-title">
+									<i class="icon large "></i>
+									<h3>Leaves</h3>
+								</div>
+								<div class="panel-options">
+									<a href="javascript:" data-toggle="collapse"
+										data-target="#leavesList"><i
+										class="glyphicon glyphicon glyphicon-chevron-down"></i></a>
+								</div>
+							</div>
+							<!-- sidebar content -->
+							<div class="sidebar content-box box-with-header">
+								<div class="panel-collapse collapse in" id="leavesList">
+									<div id="leaves-wrapper">
+
+										<!-- oderBy: start will arrage the data in list in assnding order for descemdingh order change start with (-start) -->
+										<div class="leave-event" ng-if="appliedLeaves.length > 0"
+											ng-repeat="leaveData in appliedLeaves | orderBy:'start'">
+											<div
+												ng-style="{'background-color' : leaveData.backgroundColor}"
+												uib-tooltip="{{leaveData.title}}">
+												<div class='leave-event-inner'
+													ng-click="goToLeave(leaveData.leave_id)">
+													<h4>{{leaveData.start}}</h4>
+												</div>
+											</div>
+										</div>
+										<div ng-if="!appliedLeaves.length" class="leave-event">
+											<div class="disableEvent">
+												<div class='leave-event-inner'>
+													<h4>No Leaves Info</h4>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- leave request calendar-->
+						<div class="col-md-6">
+							<div class="row">
+								<div class="pull-right col-md-3">
+									<p class="input-group">
+										<input
+											class="form-control ng-pristine ng-valid ng-not-empty ng-valid-minlength ng-valid-maxlength ng-touched"
+											type="text" placeholder="Year(Numeric value-4 Digits)"
+											ng-model="year" minlength="4" maxlength="4" style="">
+										<span class="input-group-btn" ng-click="fetchLeavesList()">
+											<span type="button" class="btn btn-default"> <i
+												class="glyphicon glyphicon-search"></i>
+										</span>
+										</span>
+									</p>
+								</div>
+							</div>
+							<div class="row">
+								<div id='applyLeaveCalendar'></div>
+							</div>
+						</div>
+
+						<!-- bar chart of employee monthly leaves-->
+						<div class="col-md-3">
+							<div class="content-box-heading">
+								<div class="panel-heading">
+									<div class="panel-title">Leave Types</div>
+								</div>
+							</div>
+							<div class="content-box-large">
+								<div class="panel-body">
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>#</th>
+													<th>Type</th>
+													<th>Approved</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="leave in chart_data.leaveTypes">
+													<td>{{$index+1}}</td>
+													<td>{{leave.label}}</td>
+													<td>{{leave.value}}</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<div class="content-box-heading">
+								<div class="panel-heading">
+									<div class="panel-title">Leaves Remaining</div>
+								</div>
+							</div>
+							<div class="content-box-large box-with-heading">
+								<div class="panel-body">
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>#</th>
+													<th>Type</th>
+													<th>Remaining</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="leave in chart_data.leavesRemaining">
+													<td>{{$index+1}}</td>
+													<td>{{leave.label}}</td>
+													<td>{{leave.value}}</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<!-- this is made to represent graphically user leave status year wise so if it is to be used then fetch json array and put in in JS file -->
+						<!-- 	<div class="row">
+								<div class="col-md-12">
+									<div id="leaveStatusBar" style="height: 15em;"></div>
+								</div>
+							</div> -->
+					</div>
+
+					<!-- leaves for approval tab pane begins -->
+					<div class="tab-pane" id="othersrequest">
+						<!-- requests raised by others -->
+						<div class="row">
+							<div class="content-box-large box-with-header">
+								<div class="">
+									<div class="panel"
+										ng-repeat="statusType in leavesRequestStatus">
+										<div class="panel-heading leave-status-heading"
+											ng-style="{'background-color' : statusType.color}">
+											<a style="color: black;" data-toggle="collapse"
+												data-parent="#othersrequest" target="_self "
+												href="#others{{statusType.status}}">{{statusType.status}}
+												: {{othersGroup[statusType.status].length }}</a>
+										</div>
+										<div id="others{{statusType.status}}"
+											ng-class="{'panel-collapse collapse in': $index == 0, 'panel-collapse collapse': $index != 0}">
+											<div class="panel-body">
+												<table class="table  table-bordered table-hover"
+													ng-if="othersGroup[statusType.status].length > 0">
+													<thead>
+														<tr>
+															<th>RAISED BY</th>
+															<th>LEAVE TYPE</th>
+															<th>STATUS</th>
+															<th>RAISED ON</th>
+															<th>START DATE</th>
+															<th>END DATE</th>
+															<th>REASON</th>
+															<th>COMMENTS</th>
+															<th>CHANGED BY</th>
+															<th>ACTION</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr
+															ng-repeat="leaveRequestsData in othersGroup[statusType.status]">
+															<td>{{leaveRequestsData.requestor.name}}</td>
+															<td>{{leaveRequestsData.title}}</td>
+															<td><select class="form-control"
+																ng-model="leaveRequestsData.status" name="leave_status"
+																ng-options="leaveStatus for leaveStatus in getLeaveRequestStatus() track by leaveStatus">
+																	<option style="display: none" value="">Select
+																		a Status</option>
+															</select></td>
+															<td>{{leaveRequestsData.raised}}</td>
+															<td>{{leaveRequestsData.start}}</td>
+															<td>{{leaveRequestsData.end}}</td>
+															<td>{{leaveRequestsData.reason}}</td>
+															<td><input type="text"
+																ng-model="leaveRequestsData.additionalComments"
+																class="form-control" id="additional_comments"
+																name="additional_comments" /></td>
+															<td>{{leaveRequestsData.changed_by.name}}</td>
+															<td>
+																<button
+																	ng-disabled="!canSaveChanges(statusType.status, $index)"
+																	class="btn btn-sm btn-primary"
+																	ng-click="changeRequestStatus(statusType.status, $index)"
+																	title="Save changes">
+																	<i class="glyphicon glyphicon-ok"></i>
+																</button>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+												<div
+													ng-if="!othersGroup[statusType.status] || othersGroup[statusType.status].length <= 0"
+													class="col-md-12">No Leave Requests here.</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- other's status tab pane ends -->
+
+					<div class="tab-pane" id="myrequest">
+						<div class="row">
+							<div class="content-box-large box-with-header">
+								<div class="panel-body">
+									<div class="panel"
+										ng-repeat="statusType in leavesRequestStatus">
+										<div class="panel-heading leave-status-heading"
+											ng-style="{'background-color' :statusType.color}">
+											<a style="color: black;" data-toggle="collapse"
+												data-parent="#myrequests" target="_self "
+												href="#my{{statusType.status}}">{{statusType.status}} :
+												{{myGroup[statusType.status].length }}</a>
+										</div>
+										<div id="my{{statusType.status}}"
+											ng-class="{'panel-collapse collapse in': $index == 0, 'panel-collapse collapse': $index != 0}">
+											<div class="panel-body">
+												<table class="table  table-bordered table-hover"
+													ng-if="myGroup[statusType.status].length > 0">
+													<thead>
+														<tr>
+															<th>LEAVE TYPE</th>
+															<th>STATUS</th>
+															<th>RAISED ON</th>
+															<th>START DATE</th>
+															<th>END DATE</th>
+															<th>REASON</th>
+															<th>COMMENTS</th>
+															<th>CHANGED BY</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr
+															ng-repeat="leaveRequestsData in myGroup[statusType.status]">
+															<td>{{leaveRequestsData.leave_type.name}}</td>
+															<td>{{leaveRequestsData.status}}</td>
+															<td>{{leaveRequestsData.raised}}</td>
+															<td>{{leaveRequestsData.start}}</td>
+															<td>{{leaveRequestsData.end}}</td>
+															<td>{{leaveRequestsData.reason}}</td>
+															<td>{{leaveRequestsData.additionalComments}}</td>
+															<td>{{leaveRequestsData.changed_by.name}} <span
+																ng-if="leaveRequestsData.canRemind === true"
+																title="Send a Reminder">
+																	<button
+																		ng-click="sendReminder(leaveRequestsData.leave_id)">
+																		<i class="glyphicon glyphicon-bell"></i>
+																	</button>
+															</span>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+												<div
+													ng-if="!myGroup[statusType.status] || myGroup[statusType.status].length <= 0"
+													class="col-md-12">No Leaves</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- content-box-large ends -->
+
+						</div>
+						<!-- Requests raised by myself ends -->
+					</div>
+				</div>
+				<!--Tab content ends-->
+			</div>
+			<!-- root wizard ends -->
+		</div>
+	</div>
+</div>
+<!-- add new holiday type model block -->
+<!-- model for raising leave request -->
+<div id='manage_leaves' class="row" style="display: none;"
+	title="Raise A Leave Request">
+	<div class="col-md-12">
+		<div class="content-box">
+			<div class="panel-body">
+				<form class="form-horizontal " role="form"
+					id="raise-leaveRequest-form">
+					<div class="form-group">
+						<label for="title" class="col-sm-2 control-label">Leave
+							Type</label>
+						<div class="col-sm-10">
+							<p>
+								<select class="form-control" ng-model="newLeave.leave_type"
+									name="leave_type"
+									ng-options="leaveType.name for leaveType in leaveTypes track by leaveType.id" ng-change="hasAdditionalComments(newLeave.leave_type)">
+									<option style="display: none" value="">select a leave
+										type</option>
+								</select>
+								<!-- <span class="input-group-btn" ng-show="true"> <span
+									type="button" class="btn btn-default"> <i ng-if="false"
+										class="glyphicon glyphicon-exclamation-sign"></i> <i
+										ng-if="true" class="glyphicon glyphicon-check"></i>
+								</span>
+								</span> -->
+							</p>
+							
+							<div ng-if="hasAdditionalComment">{{additionalComments}}
+					</div>
+						</div>
+					</div>
+					
+					
+					
+					<div class="form-group">
+						<label for="start" class="col-sm-2 control-label">Start
+							Date</label>
+						<div class="col-sm-10">
+							<!-- 							<input type="text" class="form-control" id="start" name="start"
+								placeholder="Start Date" ng-model=""> -->
+							<span class="form-control">{{newLeave.start}}</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="end" class="col-sm-2 control-label">End Date</label>
+						<div class="col-sm-10">
+							<!-- 							<input type="text" class="form-control" id="end" name="end"
+								placeholder="End Date" ng-model="newLeave.end"> -->
+							<span class="form-control">{{newLeave.end}}</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="event-desc" class="col-sm-2 control-label">Reason</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="reason" name="reason"
+								placeholder="reason for leave" ng-model="newLeave.reason" />
+						</div>
+					</div>
+
+					<div class="form-group" ng-if="newLeave.canRemind === true"
+						title="Send a Reminder" style="text-align: center">
+						<button class="btn-lg btn-default"
+							ng-click="sendReminder(newLeave.leave_id)">
+							<i class="glyphicon glyphicon-bell"></i>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- model ends -->
+<!--error dialog model	  -->
+<div id="errorDialog" title="Error" style="display: none;">
+	<p>
+	<h4>You are not allowed to modify a back-dated request</h4>
+	</p>
+</div>

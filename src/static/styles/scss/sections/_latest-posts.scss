@@ -1,0 +1,44 @@
+
+/* Blog Posts Section
+================================================================ */
+
+.section.latest-posts {
+
+	// Animations
+
+	&.inactive {
+		.blog-item {
+			top: 3rem;
+			opacity: 0;
+		}
+	} 
+
+	.blog-item {
+		position: relative;
+		transition: 0.4s;
+		top: 0;
+		opacity: 1;
+		&:nth-child(2) {
+			transition-delay: 0.4s;
+		}
+		&:nth-child(3) {
+			transition-delay: 0.8s;
+	
+		}
+	}
+
+//-----------------------------------------------------------------
+// Smaller Resolutions
+//-----------------------------------------------------------------
+
+	@media (max-width: $breakpoint-3) {
+		.blog-item {
+			&:not(:last-child) {
+				padding-bottom: 2rem;
+				margin-bottom: 2rem;
+				border-bottom: 1px dotted rgba(0,0,0,0.1);
+			}
+		}
+	}
+
+} // end .blog-posts

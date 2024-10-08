@@ -1,0 +1,7 @@
+corp.client.contact.invalidquery=نوع الاستعلام غير صالح
+corp.client.contact.invalidphone=رقم الهاتف غير صحيح
+corp.client.contact.invalidname=اسم غير صالح
+corp.client.newsletter.successfulsubscription=لقد اشتركت بنجاح!
+corp.client.newsletter.errorinsubscription=كان هناك خطأ!
+corp.client.contact.invalidMessage=رسالة غير صالحة
+corp.client.contact.incompleteCaptcha=اختبار reCAPTCHA لم تدخل

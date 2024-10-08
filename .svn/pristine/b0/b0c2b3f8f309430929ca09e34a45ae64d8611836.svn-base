@@ -1,0 +1,73 @@
+
+/* Newsletter
+================================================================ */
+
+.newsletter {
+
+	font-size: $font-size-0;
+	margin-bottom: 1.5rem;
+
+	.form-element {
+		position: relative;
+		input {
+			&:focus {
+				~ label {
+					top: -0.6em;
+				}
+				&:invalid ~ [type="submit"] {
+					&:hover {
+						background: #C23A2C;
+					}
+				}
+				&:valid ~ [type="submit"] {
+					&:hover {
+						background: #2DCC70;
+					}
+				}
+			}
+		}
+	}
+
+	.box {
+		background: $background-color;
+		padding: 0.5em;
+		padding-right: 2em;
+	}
+
+	label {
+		color: $main-text-color;
+	}
+
+	.message {
+		color: #FFF;
+		background-color: $brand-1;
+		text-align: center;
+		font-weight: bold;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-size: 0.7rem;
+		font-family: "Raleway",sans-serif;
+		padding: 5px;
+	}
+
+	[type="submit"], [type="button"] {
+		position: absolute;
+		background: rgba($black, 0.2);
+		height: 100%;
+		right: 0;
+		top: 0;
+		border: none;
+		padding: 0 0.75em;
+		.fa {
+			cursor: pointer;
+			color: rgba($black, 0.5);
+		}
+		&:hover {
+			background: $brand-1;
+			.fa {
+				color: $white;
+			}
+		}
+	}
+
+} // end .newsletter

@@ -1,0 +1,24 @@
+please log in
+okay
+
+shikha123
+
+perfect. let's commit this.
+
+
+you understood what i did?
+yess
+
+basically, PortalActions has the info on which url is available to which kind of user. so, i needed to make changes there as well, as well as
+the side panel item. Otherwise, that item would nit have been visible on the ui.
+
+
+Please go to harsh sir, and ask huim to help you commit this change.
+After that, write an email to harsh sir, keeping Shikha in CC to put a build on corporate website.
+
+go go go!!
+okay disconnect krdu ya aise hi?
+
+kar do.byE
+
+bbie

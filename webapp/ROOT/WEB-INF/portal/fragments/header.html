@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+  </head>
+<body>
+ <div>
+	 <div class = "header" th:fragment= "header_frag">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<!-- Logo -->
+					<div class="logo">
+						<h1>
+							<a th:href="@{|${actionUrl}|}" class="image-logo">
+								<img src="/static/images/logo.png" alt="Zillious Solutions">
+							</a>
+						</h1>
+					</div>
+			   </div>
+			</div>
+		
+	  </div>
+   </div>
+  </div>        
+ </body>
+</html>   

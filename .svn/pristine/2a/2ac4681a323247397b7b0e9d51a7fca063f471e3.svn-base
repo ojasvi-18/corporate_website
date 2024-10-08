@@ -1,0 +1,25 @@
+
+/* Further Pages
+================================================================ */
+
+body.further {
+
+	.app-header {
+		.header-wrapper {
+			padding: 0;
+			border-bottom: 1px dotted rgba(255,255,255,0.25);
+		}
+	}
+
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+	@media (min-width: $breakpoint-2) {
+		.lede {
+			font-size: $font-size-3;
+			font-weight: 300;
+		}
+	}
+	
+} // end body.further

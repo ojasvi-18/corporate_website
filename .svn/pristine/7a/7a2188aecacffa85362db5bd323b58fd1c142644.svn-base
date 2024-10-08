@@ -1,0 +1,430 @@
+<!-- MAIN CONTENT BOX -->
+<div class="col-md-12">
+	<div class="content-box-large box-with-header">
+		<div class="panel-body">
+			<div class="rootwizard">
+				<div class="navbar">
+					<div class=" navbar-inner">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#manageteams" target="_self "
+								data-toggle="tab">Manage Teams</a></li>
+							<li class="" ng-if="isAdmin && teamsList.length > 0"><a
+								href="#manageMembers" target="_self " data-toggle="tab">Manage
+									Members</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- Navbar ends -->
+				<!-- tab content starts  -->
+				<div class="tab-content">
+					<div class="tab-pane active" id="manageteams">
+						<!--Team display block starts here -->
+						<div class="row">
+							<div class="col-md-12">
+								<div class="content-box-header">
+									<div class="panel-title">Teams : {{teamsList.length}}</div>
+								</div>
+								<div class="content-box-large box-with-header">
+									<div class="panel-body">
+										<div class="pull-right" ng-show="teamsList.length">
+											<p class="input-group">
+												<input class="form-control" type="text"
+													placeholder="Search from the list"
+													ng-model="teamNameFilter">
+											</p>
+										</div>
+										<div class="table-responsive">
+											<table class="table table-bordered table-hover"
+												ng-show="teamsList.length">
+												<thead>
+													<tr>
+														<th>S. No.</th>
+														<th ng-click="sortTeamBy('TeamName')"
+															title="click to sort by name">Team Name <span
+															class="glyphicon"
+															ng-show="sortTeamProperty === 'TeamName'"
+															ng-class="{'glyphicon-arrow-up' : reverse,'glyphicon-arrow-down' : !reverse}"></span>
+														</th>
+														<th ng-click="sortTeamBy('EmailGroups')"
+															title="click to sort by Team Email-Id">Email Id <span
+															class="glyphicon"
+															ng-show="sortTeamProperty === 'EmailGroups'"
+															ng-class="{'glyphicon-arrow-up' : reverse,'glyphicon-arrow-down' : !reverse}"></span>
+														</th>
+														<th ng-click="sortTeamBy('Supervisor.name')"
+															title="click to sort by Supervisor">Team-Leader <span
+															class="glyphicon"
+															ng-show="sortTeamProperty === 'Supervisor.name'"
+															ng-class="{'glyphicon-arrow-up' : reverse,'glyphicon-arrow-down' : !reverse}"></span>
+														</th>
+														<th># of Members</th>
+														<th ng-if="isAdmin">Actions</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr
+														ng-repeat="teamsData in teamsList | orderBy:sortTeamProperty:reverse | filter : teamNameFilter"
+														ng-include="getTemplate(teamsData)">
+													</tr>
+												</tbody>
+											</table>
+											<div ng-show="!teamsList.length" class="col-md-12">No
+												Teams Available</div>
+											<script type="text/ng-template" id="edit" ng-if="isAdmin">
+											
+											<td> <span ng-disabled = "true"><i class="glyphicon glyphicon-arrow-right"></i>&nbsp;{{$index+1}}<span/> </td>
+											<td> <div class="col-sm-12"><input type= "text" ng-class="{'error-border-red' : !dispTeamStatus.isNameValid}" ng-change = "isValidTeamName($index)" ng-model = "selectedTeamData.TeamName"  class="form-control" style="" placeholder="Enter valid team name"/> </div></td>
+											<td> <div class="col-sm-12"><input type="email" ng-class="{'error-border-red' : !dispTeamStatus.isEmailValid}" ng-change = "isValidEmail($index)"ng-model="selectedTeamData.EmailGroups"  class="form-control" style="" placeholder="Enter valid team e-mail"> </div></td>
+											<td> <div class="col-sm-12">
+													<input type="text" placeholder="Supervisor Name" ng-class="{'error-border-red' : !dispTeamStatus.isSupervisorValid}" ng-change = "isValidSupervisor($index)" ng-model="selectedTeamData.Supervisor.name"
+														uib-typeahead="supervisor.name for supervisor in getSupervisorName($viewValue) " typeahead-loading="loadingTeams" 
+														typeahead-show-hint="true" typeahead-min-length="3"   typeahead-no-results="noResults" class="form-control" 
+														typeahead-on-select='onSelectForEdit($item, $model, $label)' />
+															<div ng-show="noResults" >
+																<i class="glyphicon glyphicon-remove"></i> No Results Found
+															</div>
+											</div></td>
+											<td>{{selectedTeamData.numMembers}}</td>
+											<td ng-if = "isAdmin" ng-show="!(dispTeamStatus.isNameValid && dispTeamStatus.isEmailValid && dispTeamStatus.isSupervisorValid )"> <i class="glyphicon glyphicon-warning-sign"></i>enter valid information  <button class="btn btn-sm btn-default" ng-click = "cancelEdits($index)" title="Discard changes"><i class="glyphicon glyphicon-remove"></i></button> </td>
+											<td ng-if = "isAdmin" ng-show="(dispTeamStatus.isNameValid && dispTeamStatus.isEmailValid && dispTeamStatus.isSupervisorValid)"> <button class="btn btn-sm btn-primary"  ng-click = "saveEdits($index)" title="Save Changes"><i class="glyphicon glyphicon-floppy-disk"></i> </button>&nbsp;<button class="btn btn-sm btn-default" ng-click = "cancelEdits($index)" title="Discard changes"><i class="glyphicon glyphicon-remove"></i></button> </td>
+				</script>
+											<script type="text/ng-template" id="display">
+											<td>{{$index+1}}</td>
+											<td><div class="col-sm-12"><span class="form-control"  >{{teamsData.TeamName}}</span></div></td>
+											<td><div class="col-sm-12"><span class="form-control" >{{teamsData.EmailGroups}}</span></div></td>
+											<td><div class="col-sm-12"><span class="form-control" >{{teamsData.Supervisor.name}}</span></div></td>
+											<td>
+												<div class="btn-group" uib-dropdown ng-if="teamsData.numMembers > 0">
+            										<button id="append-to-button{{teamsData.id}}" type="button" class="btn btn-primary" uib-dropdown-toggle ng-click="fetchMembers(teamsData.id)">
+              											{{teamsData.numMembers}} <span class="caret"></span>
+									            	</button>
+            										<div class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="append-to-button{{teamsData.id}}">
+														<div class="table-responsive">
+														<table class="table table-striped">
+											            	<thead>
+			                									<tr role="menuitem">
+			                  										<th>#</th>
+			                  										<th>Name</th>
+			                									</tr>
+			              									</thead>
+											            	<tbody>
+											                	<tr role="menuitem" ng-repeat="member in teamMembers">
+			                  										<td>{{$index + 1}}</td>
+			                  										<td>{{member.name}}</td>
+			                									</tr>
+											             	</tbody>
+			            								</table>
+													</div>
+													</div>
+          										</div>
+												<span ng-if="teamsData.numMembers == 0">{{teamsData.numMembers}}</span>
+											</td>											
+											<td ng-if = "isAdmin">
+												<button class="btn btn-sm btn-primary" ng-click = "editTeamData(teamsData, $index)" title="Edit Team Details"><i class="glyphicon glyphicon-pencil"></i></button>
+													&nbsp;
+												<button class="btn btn-sm btn-danger" ng-click = "deleteTeam($index)" title="Delete this team"><i class="glyphicon glyphicon-trash"></i></button>
+												<button class="btn btn-sm btn-default" ng-click="goToManageMembers(teamsData)" title="Manage Members"><i class="glyphicon glyphicon-user"></i></button>
+											</td>
+							</script>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--Team display block finishes here -->
+						<div class="row" ng-if="isAdmin">
+							<div class="col-md-12">
+								<div class="content-box-header">
+									<div class="panel-title">Add a New Team</div>
+									<div class="panel-options"></div>
+								</div>
+								<div class="content-box-large box-with-header">
+									<div class="panel-body">
+										<form class="form-horizontal" role="form" name="NewTeamForm">
+											<div class="form-group">
+
+												<label for="Team Name" class="col-sm-2 control-label">Team
+													Name </label>
+												<div class="col-sm-10">
+													<p ng-class="{'input-group' :!isNew}">
+														<input type="text" class="form-control" name=""
+															id="team-name" placeholder="Name of the Team"
+															ng-change="isValidTeamName()" ng-model="newTeam.TeamName" />
+														<span class="input-group-btn" ng-show="!isNew"> <span
+															type="button" class="btn btn-default"> <i
+																ng-show="!isTeamNameValid"
+																class="glyphicon glyphicon-exclamation-sign"></i> <i
+																ng-show="isTeamNameValid"
+																class="glyphicon glyphicon-check"></i>
+														</span>
+														</span>
+													</p>
+												</div>
+
+											</div>
+											<div class="form-group">
+
+												<label for="Team email" class="col-sm-2 control-label">Email
+													Group </label>
+												<div class="col-sm-10">
+													<p ng-class="{'input-group' :!isNew}">
+														<input type="text" class="form-control" name="" id="email"
+															placeholder="Email of the Team"
+															ng-change="isValidEmail()" ng-model="newTeam.EmailGroups" />
+														<span class="input-group-btn" ng-show="!isNew"> <span
+															type="button" class="btn btn-default"> <i
+																ng-show="!isEmailValid"
+																class="glyphicon glyphicon-exclamation-sign"></i> <i
+																ng-show="isEmailValid" class="glyphicon glyphicon-check"></i>
+														</span>
+														</span>
+													</p>
+												</div>
+
+											</div>
+											<div class="form-group">
+												<label for="Supervisor" class="col-sm-2 control-label">Supervisor</label>
+												<div class="col-sm-10">
+													<p ng-class="{'input-group' :!isNew}">
+														<input type="text" placeholder="Supervisor Name"
+															ng-model="newTeam.Supervisor.name"
+															uib-typeahead="supervisor.name for supervisor in getSupervisorName($viewValue) "
+															typeahead-loading="loadingTeams"
+															typeahead-show-hint="false" typeahead-min-length="3"
+															typeahead-no-results="noResults" class="form-control"
+															typeahead-on-select='onSelectForAdd($item, $model, $label)' />
+														<span ng-show="noResults"> <i
+															class="glyphicon glyphicon-remove"></i> No Results Found
+														</span> <span class="input-group-btn" ng-show="!isNew"> <span
+															type="button" class="btn btn-default"> <i
+																ng-show="!isSupervisorValid"
+																class="glyphicon glyphicon-exclamation-sign"></i> <i
+																ng-show="isSupervisorValid"
+																class="glyphicon glyphicon-check"></i>
+														</span>
+														</span>
+													</p>
+
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="col-sm-offset-2 col-sm-10">
+													<button type="button" class="btn btn-md  btn-primary"
+														ng-disabled="!canSubmit()" ng-if="isAdmin"
+														ng-click="submitNewTeam()">Add Team</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Teams code ends -->
+					</div>
+
+					<div class="tab-pane" id="manageMembers"
+						ng-if="isAdmin && teamsList.length > 0">
+						<div class="row">
+							<div class="content-box-large">
+								<div class="panel-title">
+									<div class="btn-group" uib-dropdown keyboard-nav>
+										<button id="simple-btn-keyboard-nav" type="button"
+											class="btn btn-primary" uib-dropdown-toggle>
+											Select Team <span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu" uib-dropdown-menu role="menu"
+											aria-labelledby="simple-btn-keyboard-nav">
+											<li role="menuitem" ng-repeat="teamsData in teamsList"
+												ng-click="selectTeam(teamsData)"><a>{{teamsData.TeamName}},
+													{{teamsData.Supervisor.name}}</a></li>
+										</ul>
+									</div>
+									<div class="col-md-5 pull-right" ng-if="selectedTeam.TeamName">{{selectedTeam.TeamName + ", Supervisor : " + selectedTeam.Supervisor.name}}</div>
+								</div>
+								<div class="panel-body"
+									ng-if="addToTeamArray.length > 0 || removeFromTeamArray.length > 0 || members.length > 0 || employeesWithoutMembers.length > 0">
+									<div class="row">
+										<div class="col-md-6" ng-if="members.length > 0 || addToTeamArray.length > 0 || removeFromTeamArray.length > 0">
+											<!-- Current Members -->
+											<div class="row" ng-if="members.length > 0">
+												<div class="content-box-large">
+													<div class="panel-title">Members</div>
+													<div class="panel-body">
+														<div class="row">
+															<div class="table-responsive">
+																<table class="table table-bordered table-hover"
+																	ng-if="members.length > 0">
+																	<thead>
+																		<tr>
+																			<th>S. No.</th>
+																			<th>Employee Id</th>
+																			<th>Name</th>
+																			<th>Email</th>
+																			<th>Actions</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<tr ng-repeat="member in members">
+																			<td>{{$index + 1}}</td>
+																			<td>{{member.id}}</td>
+																			<td>{{member.name}}</td>
+																			<td>{{member.email}}</td>
+																			<td title="Remove from the team"><button
+																					ng-click="removeFromTeam(member.id)">
+																					<i class="glyphicon glyphicon-minus-sign"></i>
+																				</button></td>
+																		</tr>
+																	</tbody>
+																</table>
+
+																<div ng-if="members.length < 1">No Members
+																	Currently</div>
+															</div>
+														</div>
+													</div>
+
+												</div>
+											</div>
+
+											<!-- New added Members -->
+											<div class="row" ng-if="addToTeamArray.length > 0">
+												<div class="content-box-large">
+													<div class="panel-title">Added To Team</div>
+													<div class="panel-body">
+														<div class="row">
+															<div class="table-responsive">
+																<table class="table table-bordered table-hover">
+																	<thead>
+																		<tr>
+																			<th>S. No.</th>
+																			<th>Employee Id</th>
+																			<th>Name</th>
+																			<th>Email</th>
+																			<th>Action</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<tr ng-repeat="member in addToTeamArray">
+																			<td>{{$index + 1}}</td>
+																			<td>{{member.id}}</td>
+																			<td>{{member.name}}</td>
+																			<td>{{member.email}}</td>
+																			<td title="undo add"><button
+																					ng-click="undoAddToTeam(member.id)">
+																					<i class="glyphicon glyphicon-repeat"></i>
+																				</button></td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													</div>
+
+												</div>
+											</div>
+
+
+
+											<!-- Deleted Members -->
+											<div class="row" ng-if="removeFromTeamArray.length > 0">
+												<div class="content-box-large">
+													<div class="panel-title">Removed From Team</div>
+													<div class="panel-body">
+														<div class="row">
+															<div class="table-responsive">
+																<table class="table table-bordered table-hover">
+																	<thead>
+																		<tr>
+																			<th>S. No.</th>
+																			<th>Employee Id</th>
+																			<th>Name</th>
+																			<th>Email</th>
+																			<th>Action</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<tr ng-repeat="member in removeFromTeamArray">
+																			<td>{{$index + 1}}</td>
+																			<td>{{member.id}}</td>
+																			<td>{{member.name}}</td>
+																			<td>{{member.email}}</td>
+																			<td title="undo remove"><button
+																					ng-click="undoRemoveFromTeam(member.id)">
+																					<i class="glyphicon glyphicon-repeat"></i>
+																				</button></td>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													</div>
+
+												</div>
+											</div>
+
+											<div class="row" style="text-align: center">
+												<button class="btn btn-md btn-primary"
+													ng-click="saveChanges()"
+													ng-disabled="addToTeamArray.length == 0 && removeFromTeamArray.length == 0">Save
+													Changes</button>
+											</div>
+										</div>
+										<!-- End of Team member block -->
+
+										<div class="col-md-6">
+											<div class="content-box-large">
+												<div class="panel-title">All Employees</div>
+												<div class="panel-body">
+													<div class="row">
+														<div class="table-responsive">
+															<table class="table table-bordered table-hover" ng-if="employeesWithoutMembers.length > 0">
+																<thead>
+																	<tr>
+																		<th>S. No.</th>
+																		<th>Employee Id</th>
+																		<th>Name</th>
+																		<th>Email</th>
+																		<th>Actions</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr ng-repeat="member in employeesWithoutMembers">
+																		<td>{{$index + 1}}</td>
+																		<td>{{member.id}}</td>
+																		<td>{{member.name}}</td>
+																		<td>{{member.email}}</td>
+																		<td title="add to team"><button
+																				ng-click="addToTeam(member.id)" ng-if="selectedTeam.Supervisor.id != member.id">
+																				<i class="glyphicon glyphicon-plus-sign"></i>
+																			</button>
+																			<span ng-if="selectedTeam.Supervisor.id === member.id">Supervisor</span>
+																			</td>
+																	</tr>
+																</tbody>
+															</table>
+														
+														<div ng-if="employeesWithoutMembers.length < 1">No More Employees To Add</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- End of other employees block -->
+									</div>
+								</div>
+								<!-- End of panel body -->
+							</div>
+						</div>
+					</div>
+					<!-- End of 2nd tab pane -->
+				</div>
+				<!-- End of Tab content block -->
+			</div>
+			<!-- Root wizard ends -->
+		</div>
+		<!-- panel body ends -->
+	</div>
+	<!-- content box large ends -->
+</div>
+<!-- top div ends -->

@@ -1,0 +1,225 @@
+
+/* Forms
+================================================================ */
+
+form {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+	font-size: $font-size-2;
+	font-weight: 100;
+
+	.form-element {
+		position: relative;
+		input, 
+		textarea {
+			&:focus {
+				outline: 0;
+				box-shadow: none;
+				~ label {
+					background: #1795c5;
+					color: white;
+					display: inline;
+					left: auto;
+					padding: 0 0.2em;
+					right: -0.025em;
+					top: 0;
+					z-index: 2;
+					margin-right: 0;
+					margin-left: 2em;
+					display: block !important;
+				}
+				&:invalid ~ label {
+					background: #C23A2C;
+				}
+				&:valid ~ label {
+					background: #2DCC70;
+				}
+			}
+		}
+	}
+	.box {
+		width: 100%;
+		border: 1px solid rgba(255,255,255,0);
+		transition: 0.4s;
+		padding: 0.75em;
+		background: rgba(0,0,0,0.075);
+		&:focus, &:hover {
+			border-color: $brand-1;
+		}
+		&:focus {
+			background: white;
+		}
+	}
+	fieldset {
+		@extend .cf;
+		padding: 0;
+		margin: 0;
+		border: none;
+		.form-element {
+			margin-bottom: 1em;
+		}
+	}
+	label {
+		display: inline-block;
+		position: absolute;
+		left: 1em;
+		top: 50%;
+		font-size: $font-size-0;
+		transform: translateY(-50%);
+		z-index: -1;
+		color: rgba(0,0,0,0.5);
+		transition: 0.4s;
+		margin-right: 2em;
+		margin-left: 0;
+	}
+	input, 
+	textarea {		
+		&:focus:invalid {
+			border-color: #C23A2C;
+		}
+		&:focus:valid {
+			border-color: #2DCC70;
+		}
+	}
+	input {
+		display: block;
+		transition: 0.4s;
+		&[type="checkbox"],
+		&[type="radio"] {
+			display: inline;
+		}
+		&[type="submit"], button {
+			background: $brand-1;
+			border: none;
+			color: white;
+			padding: 0.5em 1em;
+			display: inline-block;
+			width: 100%;
+		}
+		&:required {
+			box-shadow: none;
+		}
+	}
+	textarea {
+		height: 200px;
+		margin-bottom: 1em;
+		box-shadow: none;
+		font-size: $font-size-0;
+		color: rgba(0,0,0,0.5);
+	}
+	select {		
+		color: $main-text-color;
+		&.box {			
+			padding: 0.44em;
+		}
+	}
+
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+	@media (min-width: $breakpoint-1) {
+		fieldset {
+			.form-element {
+				float: left;
+				width: 49%;
+				margin-left: 2%;
+				margin-bottom: 2%;
+				&:nth-child(odd) {
+					margin-left: 0;
+				}
+			}
+		}
+		textarea {
+			margin-bottom: 2%;
+		}
+	}
+
+	@media (min-width: $breakpoint-3) {
+		label, 
+		textarea {
+			font-size: $font-size-1;
+		}
+		input {
+			&[type="submit"], button {
+				width: auto;
+			}
+		}
+	}
+
+} // end form
+
+// iOS6 toggle switch
+
+.input-toggle {
+	position: relative;
+	input {		
+		position: absolute;
+		opacity: 0;
+		+ label {
+			display: block;
+			position: relative;
+			box-shadow: inset 0 0 0px 1px #d5d5d5;
+			text-indent: -5000px;
+			height: 30px;
+			width: 50px;
+			border-radius: 15px;
+			cursor: pointer;			
+			background: rgba(0,0,0,0.05);
+			&:before {
+				content: "";
+				position: absolute;
+				display: block;
+				height: 30px;
+				width: 30px;
+				top: 0;
+				left: 0;
+				border-radius: 15px;
+				background: rgba(0,0,0,0.2);
+				transition: .25s ease-in-out;				
+			}	
+			&:after {
+				content: "";
+				position: absolute;
+				display: block;
+				height: 30px;
+				width: 30px;
+				top: 0;
+				left: 0px;
+				border-radius: 15px;
+				background: white;
+				box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
+				transition: .25s ease-in-out;				
+			}	
+		}
+		&:checked {
+			+ label {
+				&:before {
+					width: 50px;
+					background: $brand-1;					
+				}
+				&:after {
+					left: 20px;
+					box-shadow: inset 0 0 0 1px $brand-1;			
+				}
+			}
+		}
+	}
+}
+
+form, 
+input, 
+textarea, 
+label {
+	font-family: $font-1;
+}
+
+::placeholder { 
+	color: rgba(0,0,0,0.5); 
+	opacity: 1;
+	font-weight: lighter;
+	transition: 0.4s;
+}

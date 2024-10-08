@@ -1,0 +1,325 @@
+
+<!-- Profile View/Edit begins -->
+
+<!--The row for personal details  -->
+<div class="row">
+	<div class="row-md-12">
+		<div class="content-box-header">
+			<div class="panel-title" name="PersonalDetails" id="PersonalDetails">Personal
+				Details</div>
+		</div>
+
+		<div class="content-box-large box-with-header">
+			<div class="panel-body">
+
+				<div class="col-md-3 profile">
+					<div class="row">
+						<div class="panel-body">
+							<div class="profile-userpic">
+								<img
+									src="https://image.freepik.com/free-icon/user-male-shape-in-a-circle-ios-7-interface-symbol_318-35357.jpg"
+									class="img-responsive" alt="">
+							</div>
+							<br>
+						</div>
+						<!-- END SIDEBAR USERPIC -->
+						<!-- SIDEBAR USER TITLE -->
+						<div class="profile-usertitle">
+							<div class="profile-usertitle-name">Marcus Doe</div>
+							<div class="profile-usertitle-job">Developer</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- END SIDEBAR USER TITLE -->
+				<!-- SIDEBAR BUTTONS -->
+
+				<div class="col-md-9">
+					<div class="row">
+						<form class="form-horizontal" role="form" name="personalform"
+							onClick="submit()">
+							<div class="form-group">
+
+								<label for="Name" class="col-sm-2 control-label">Name</label>
+								<div class="col-sm-10" ng-if="isEdit">
+									<input type="text" class="form-control" id="Name"
+										placeholder={{rowContent.PersonalDetails.Name}}
+										ng-model="rowContent.PersonalDetails.Name">
+								</div>
+								<div class="col-sm-10" ng-if="!isEdit">
+									<label for="Name" class="col-sm-5 control-label">{{rowContent.PersonalDetails.Name}}</label>
+								</div>
+
+							</div>
+							<div class="form-group">
+								<label for="DOB" class="col-sm-2 control-label">Date-Of-Birth</label>
+								<div class="col-sm-10" ng-if="isEdit">
+									<input type="text" class="form-control" id="DOB"
+										placeholder={{rowContent.PersonalDetails.DOB}}
+										ng-model="rowContent.PersonalDetails.DOB">
+
+								</div>
+								<div for="DOB" class="col-sm-10" ng-if="!isEdit">
+									<label for="DOB" class="col-sm-3 control-label">{{rowContent.PersonalDetails.DOB}}</label>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Blood-Group</label>
+								<div class="col-sm-10" ng-if="isEdit">
+
+									<input type="text" class="form-control" id="BloodGroup"
+										placeholder={{rowContent.PersonalDetails.BloodGroup}}
+										ng-model="rowContent.PersonalDetails.BloodGroup">
+								</div>
+								<div class="col-sm-10" ng-if="!isEdit">
+									<label for="BloodGroup" class="col-sm-3 control-label">{{rowContent.PersonalDetails.BloodGroup}}</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Gender</label>
+								<div class="col-sm-offset-2 col-sm-10">
+									<div class="radio">
+										<label> <input type="radio"> Male
+										</label>
+
+									</div>
+									<div class="radio">
+										<label> <input type="radio"> Female
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Passport No.</label>
+								<div class="col-sm-10" ng-if="isEdit">
+
+									<input type="text" class="form-control" id="PassportNo"
+										placeholder="{{rowContent.PersonalDetails.PassportNo}}"
+										ng-model="rowContent.PersonalDetails.PassportNo">
+								</div>
+								<div class="col-sm-10" ng-if="!isEdit">
+									<label for="Passport" class="col-sm-3 control-label">{{rowContent.PersonalDetails.PassportNo}}</label>
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<!-- The Row for personal details end here -->
+
+<!-- The row for other details -->
+<div class="row">
+
+	<!-- Contact and address -->
+	<div class="col-md-6">
+		<div class="row">
+			<div class="content-box-header">
+				<div class="panel-title" name="ContactDetails" id="ContactDetails">Contact
+					Details</div>
+			</div>
+
+			<div class="content-box-large box-with-header">
+				<div class="panel-body">
+
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label for="PersonalContact" class="col-sm-2 control-label">Personal
+								contact </label>
+							<div class="col-sm-10" ng-if="isEdit">
+								<input type="text" class="form-control" id="PContact3"
+									placeholder="{{rowContent.ContactDetails.PersonalContact}}"
+									ng-model="rowContent.ContactDetails.PersonalContact">
+							</div>
+							<div class="col-sm-10" ng-if="!isEdit">
+								<label for="PersonalContact" class="col-sm-3 control-label">{{rowContent.ContactDetails.PersonalContact}}</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="OfficeContact" class="col-sm-2 control-label">Office
+							</label>
+							<div class="col-sm-10" ng-if="isEdit">
+								<input type="text" class="form-control" id="OfficeContact"
+									placeholder="rowContent.ContactDetails.OfficeContact"
+									ng-model="rowContent.ContactDetails.OfficeContact">
+							</div>
+							<div class="col-sm-10" ng-if="!isEdit">
+								<label for="OfficeContact" class="col-sm-3 control-label">{{rowContent.ContactDetails.OfficeContact}}</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="OtherContact" class="col-sm-2 control-label">Other
+							</label>
+							<div class="col-sm-10" ng-if="isEdit">
+								<input type="text" class="form-control" id="OtherContact"
+									placeholder="rowContent.ContactDetails.OtherContact"
+									ng-model="rowContent.ContactDetails.OtherContact">
+							</div>
+							<div class="col-sm-10" ng-if="!isEdit">
+								<label for="OtherContact" class="col-sm-3 control-label">{{rowContent.ContactDetails.OtherContact}}</label>
+							</div>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="row">
+			<div class="content-box-header">
+				<div class="panel-title" name="AddressDetails" id="AddressDetails">Address
+					Details</div>
+
+
+				<div class="panel-options">
+					<!-- 	<a href="#" data-rel="collapse"><i
+						class="glyphicon glyphicon-refresh"></i></a> <a href="#"
+						data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a> -->
+				</div>
+			</div>
+
+			<div class="content-box-large box-with-header">
+
+				<div class="panel-body">
+
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label for="HNo" class="col-sm-2 control-label">House-No</label>
+							<div class="col-sm-10" ng-if="isEdit">
+								<input type="text" class="form-control" id="HNo"
+									placeholder="{{rowContent.AddressDetails.HNo}}"
+									ng-model="rowContent.AddressDetails.HNo">
+							</div>
+							<div class="col-sm-10" ng-if="!isEdit">
+								<label for="HNo" class="col-sm-3 control-label">{{rowContent.AddressDetails.HNo}}</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="Street" class="col-sm-2 control-label">Street</label>
+							<div class="col-sm-10" ng-if="isEdit">
+								<input type="text" class="form-control" id="AddrStreet3"
+									placeholder="{{rowContent.AddressDetails.Street}}"
+									ng-model="rowContent.AddressDetails.Street">
+							</div>
+							<div class="col-sm-10" ng-if="!isEdit">
+								<label for="Street" class="col-sm-3 control-label">{{rowContent.AddressDetails.Street}}</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="City" class="col-sm-2 control-label">City</label>
+							<div class="col-sm-10" ng-if="isEdit">
+								<input type="text" class="form-control" id="City"
+									placeholder="{{rowContent.AddressDetails.City}}"
+									ng-model="rowContent.AddressDetails.City">
+							</div>
+							<div class="col-sm-10" ng-if="!isEdit">
+								<label for="City" class="col-sm-3 control-label">{{rowContent.AddressDetails.City}}</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="District" class="col-sm-2 control-label">District</label>
+							<div class="col-sm-10" ng-if="isEdit">
+								<input type="text" class="form-control" id="District"
+									placeholder="{{rowContent.AddressDetails.District}}"
+									ng-model="rowContent.AddressDetails.District">
+							</div>
+							<div class="col-sm-10" ng-if="!isEdit">
+								<label for="District" class="col-sm-3 control-label">{{rowContent.AddressDetails.District}}</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="State" class="col-sm-2 control-label">State</label>
+							<div class="col-sm-10" ng-if="isEdit">
+								<input type="text" class="form-control" id="State"
+									placeholder="{{rowContent.AddressDetails.State}}"
+									ng-model="rowContent.AddressDetails.State">
+							</div>
+							<div class="col-sm-10" ng-if="!isEdit">
+								<label for="State" class="col-sm-3 control-label">{{rowContent.AddressDetails.State}}</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="Pin" class="col-sm-2 control-label">Pin-Code</label>
+							<div class="col-sm-10" ng-if="isEdit">
+								<input type="" class="form-control" id="Pin"
+									placeholder="{{rowContent.AddressDetails.Pin}}"
+									ng-model="rowContent.AddressDetails.Pin">
+							</div>
+							<div class="col-sm-10" ng-if="!isEdit">
+								<label for="Pin" class="col-sm-3 control-label">{{rowContent.AddressDetails.Pin}}</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="Country" class="col-sm-2 control-label">Country</label>
+							<div class="col-sm-10" ng-if="isEdit">
+								<input type="text" class="form-control" id="Country"
+									placeholder="{{rowContent.AddressDetails.Country}}"
+									ng-model="rowContent.AddressDetails.Country">
+							</div>
+							<div class="col-sm-10" ng-if="!isEdit">
+								<label for="Country" class="col-sm-3 control-label">{{rowContent.AddressDetails.Country}}</label>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="content-box-header">
+			<div class="panel-title" name="TeamDetails" id="TeamDetails">Team
+				Details</div>
+
+		</div>
+
+		<div class="content-box-large box-with-header">
+
+			<div class="panel-body" ng-repeat="team in rowContent.TeamDetails">
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<label for="TeamName" class="col-sm-2 control-label">Team-Name</label>
+						<div class="col-sm-10" ng-if="isEdit">
+							<input type="text" class="form-control" id="TeamName"
+								placeholder="{{team.TeamName}}" ng-model="team.TeamName">
+						</div>
+						<div class="col-sm-10" ng-if="!isEdit">
+							<label for="TeamName" class="col-sm-3 control-label">{{team.TeamName}}</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Email-Id</label>
+						<div class="col-sm-10" ng-if="isEdit">
+							<input type="text" class="form-control" id="Email"
+								placeholder="{{team.EmailGroup}}" ng-model="team.EmailGroup">
+						</div>
+						<div class="col-sm-10" ng-if="!isEdit">
+							<label for="Email" class="col-sm-3 control-label">{{team.EmailGroup}}</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="SupTeam" class="col-sm-2 control-label">Superviser</label>
+						<div class="col-sm-10" ng-if="isEdit">
+							<input type="text" class="form-control" id="SupTeam"
+								placeholder="{{team.SupTeam}}" ng-model="team.SupTeam">
+						</div>
+						<div class="col-sm-10" ng-if="!isEdit">
+							<label for="SupTeam" class="col-sm-3 control-label">{{team.SupTeam}}</label>
+						</div>
+					</div>
+				</form>
+				<hr>
+			</div>
+		</div>
+	</div>
+
+</div>
+<!-- Profile View/Edit ends -->
+

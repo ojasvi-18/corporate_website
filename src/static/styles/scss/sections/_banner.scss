@@ -1,0 +1,107 @@
+
+/* Banner Section
+================================================================ */
+
+.section.banner {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+	position: relative;
+	padding: 5rem 0;
+	text-align: center;
+	background-color: $background-color;
+	&:after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width:100%;
+		background-image: url('/static/images/section-bg-1.jpg');
+		//background-size: cover;
+		opacity: 0.15;
+	}
+	.container {
+		@extend .cf;
+		position: relative;
+		z-index: 2;
+	}
+	h4 {
+		font-weight: 100;
+		font-size: $font-size-4;
+		margin: 0;
+		b {
+			font-weight: 900;
+		}
+	}
+	p, .meta {			
+		a:not(.button) {
+			border-bottom: 1px dotted;
+			&:hover {
+				color: darken($brand-1, 10%);
+			}
+		}
+	}
+	p {
+		font-size: $font-size-2;
+		font-weight: lighter;
+	}
+	.meta {
+		margin-top: 2em;
+		.button {
+			margin-right: 0.25em;
+		}
+	}
+	&.alt {
+		background: $brand-1;
+		&, 
+		a, 
+		h4 i {
+			color: white;
+		}
+		i {
+			font-weight: 300;
+		}
+		.button {
+			background: none;
+			border: 2px solid $white;
+			color: white;
+			&:hover {
+				background: none;
+				background: $white;
+				color: $brand-1;
+				border-color: $white;
+			}
+		}		
+		a:not(.button) {
+			&:hover {
+				color: $white;
+			}
+		}
+	}
+
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+	@media (min-width: $breakpoint-3) {		
+		text-align: left;
+		.content, .meta {
+			float: left;
+		}
+		.content {
+			width: 65%;
+			width: calc(100% - 310px);
+		}
+		.meta {
+			margin-top: 0.4em;
+			padding-left: 20px;
+		}
+		p {
+			margin-top: 0;
+		}
+	}
+
+} // end .section.banner

@@ -1,0 +1,47 @@
+
+/* Pagination
+================================================================ */
+
+.pagination {
+
+	text-align: right;
+	ul {
+		@extend ul.reset;
+		font-size: 0;
+	}
+	li {
+		display: inline-block;
+		font-size: $font-size-1;
+		a {
+			display: block;
+			padding: 0.75em 1em;
+			border-top: 1px solid rgba(0,0,0,0.25);
+			border-bottom: 1px solid rgba(0,0,0,0.25);
+			border-left: 1px solid rgba(0,0,0,0.25);
+			&:hover {
+				background: $brand-1;
+				border-color: $brand-1;
+				color: white;
+			}
+		}
+		&.active {
+			a {
+				background: $brand-1;
+				border-color: $brand-1;
+				color: white;				
+			}
+		}
+		&:first-child {
+			a {
+				border-radius: 0.4em 0 0 0.4em;
+			}
+		}
+		&:last-child {
+			a {
+				border-right: 1px solid rgba(0,0,0,0.25);
+				border-radius: 0 0.4em 0.4em 0;
+			}
+		}
+	}
+
+} // end .pagination

@@ -1,0 +1,593 @@
+<!-- CSS for error div  -->
+<style>
+	#status-div {
+	text-align: center;
+}
+
+.errorblock {
+    padding: 1% !important;
+    font-size: larger;
+    margin: .5em;
+    color: white;
+    border-radius: 1em;
+    background-color: #d32f2f;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.file {
+  visibility: hidden;
+  position: absolute;
+}
+</style>
+
+<!-- Profile View/Edit begins -->
+<!--The row for personal details  -->
+<div class="row" ng-show="!overlay.show">
+	<div class="col-md-12" >
+		<div class="content-box-header">
+			<div class="panel-title" name="PersonalDetails" id="PersonalDetails">Personal
+				Details
+			</div>
+			
+			<div class="panel-options" ng-if= "(!isEdit && rowContent.canEdit)">
+					<a  href="#!profile/edit/{{profile_user_id}}" class="btn btn-sm btn-default profile-button" title="Edit Profile" style = "margin-top: -.5em;">
+								<i class="glyphicon glyphicon-pencil"></i>
+					</a>
+			</div>
+			<div class="panel-options" ng-if= "isEdit">
+				<a  href="#!profile/view/{{profile_user_id}}" class="btn btn-sm btn-default profile-button" title="View Profile" style = "margin-top: -.5em;">
+					<i class="glyphicon glyphicon-eye-open"></i>
+				</a>
+			</div>
+		</div>
+		<div class="content-box-large box-with-header" >
+			<div class="panel-body">
+				<div class="col-md-3 profile">
+					<div class="row">
+						<div class="panel-body">
+							<div class="profile-userpic">
+								<div  class="img-responsive profile-pic" ng-style="isUndefined(rowContent.profilePic) ? {'background-image': 'url(/static/portal/images/' + rowContent.PersonalDetails.Gender.name + '.jpg)'} : {'background-image' : 'url(' + rowContent.profilePic + ')'}" ng-click="profilePic()"> 								      
+									<span class="glyphicon glyphicon-camera" ng-if="isEdit && rowContent.canEdit" ></span>
+									<span ng-if="isEdit && rowContent.canEdit">Change Image</span>
+									<span ng-if="!isEdit" class="glyphicon"></span>
+								</div>
+							</div>
+							<br>
+						</div>
+						<!-- END SIDEBAR USERPIC -->
+						<!-- SIDEBAR USER TITLE -->
+						
+							<div class="col-md-16">
+								<p class="input-group" ng-if="isEdit && rowContent.canEdit" >
+									<input type="text" id="Name" name="name" class="form-control" ng-change="isValidName()" ng-model="rowContent.PersonalDetails.Name"
+										style="text-align: center;"> 
+									<span class="input-group-btn" class="">
+										<span type="button" class="btn btn-default">
+											<i ng-show="!isNameValid" class="glyphicon glyphicon-exclamation-sign" title ="Name must be of (5-25) characters"></i> 
+											<i ng-show="isNameValid" class="glyphicon glyphicon-check"></i>
+										</span>
+									</span>
+	                             </p>
+								<div ng-if="!isEdit || (isEdit && !rowContent.canEdit)" style= "text-align: center;">
+									<label class="control-label">{{rowContent.PersonalDetails.Name}}</label>
+								</div>
+							</div>
+							<div class="col-md-12"  >
+								<p class="input-group" ng-if= "isEdit && rowContent.isAdmin" >
+									<input type="text" id="designation" name="designation" class="form-control" ng-change="isValidDesignation()" ng-model="rowContent.PersonalDetails.Designation"
+										style="text-align: center;" maxlength="200"> 
+									<span class="input-group-btn" >
+										<span type="button" class="btn btn-default">
+											<i ng-show="!isDesignationValid" class="glyphicon glyphicon-exclamation-sign" title ="Designation must be of (5-25) characters"></i> 
+											<i ng-show="isDesignationValid" class="glyphicon glyphicon-check"></i>
+										</span>
+									</span>
+	                             </p>
+								<div ng-if="!isEdit || (isEdit && !rowContent.isAdmin)" style = "text-align: center;" maxlength="200">
+									<label class="">{{rowContent.PersonalDetails.Designation}}</label>
+								</div>
+							</div>
+						
+					</div>
+				</div>
+				<!-- END SIDEBAR USER TITLE -->
+				<!-- SIDEBAR BUTTONS -->
+	
+				<div class="col-md-9">
+					<div class="row">
+						<form class="form-horizontal" role="form" name="personalform">
+							<div class="form-group">
+								<label for="dob" class="col-sm-2 control-label">Date-Of-Birth</label>
+								<div class="col-sm-4">
+									<p class="input-group" ng-if="isEdit && rowContent.canEdit">
+										<input type="text" class="form-control" id="dob" name="dob"
+											ng-model="newDate.dobCopied"
+											uib-datepicker-popup="MM-dd-yyyy" is-open="dpObj.opened"
+											datepicker-options="dateOptions" ng-required="true"
+											 show-button-bar="false" required="required" ng-click="openDatePicker()" />
+										 <span class="input-group-btn">
+											<span class="btn btn-default" ng-click="openDatePicker()">
+												<i class="glyphicon glyphicon-calendar"></i>
+											</span>
+										</span>
+										<span class="input-group-btn">
+											<span class="btn btn-default">
+												<i ng-show="!isDOBValid" class="glyphicon glyphicon-exclamation-sign" title ="DOB excepted format(DD-MM-YYYY)"></i>
+												<i ng-show="isDOBValid" class="glyphicon glyphicon-check"></i>
+											</span>
+										</span>
+									</p>
+									<div class="form-control" id="dob" ng-if="!isEdit || (isEdit && !rowContent.canEdit)">{{rowContent.PersonalDetails.DOB}}</div>
+								</div>
+							</div>
+	
+							<div class="form-group">
+								<label class="col-sm-2 control-label">Blood-Group</label>
+								<div class="col-sm-2">
+									<p ng-if="(isEdit && rowContent.canEdit)" class="input-group">
+										<input type="text" class="form-control" id="BloodGroup"
+											name="BloodGroup" ng-change="isValidBloodGroup()"
+											ng-model="rowContent.PersonalDetails.BloodGroup"
+											ng-if="isEdit" maxlength="3"/>
+										 <span class="input-group-btn">
+											<button type="button" class="btn btn-default">
+												<i ng-show="!isBloodGroupValid" class="glyphicon glyphicon-exclamation-sign" title ="Please enter a valid BloodGroup"></i>
+												<i ng-show="isBloodGroupValid" class="glyphicon glyphicon-check"></i>
+											</button>
+										</span>
+									</p>
+									<div class="form-control" ng-if="!isEdit || (isEdit && !rowContent.canEdit)" >{{rowContent.PersonalDetails.BloodGroup}}</div>
+								</div>
+	
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">Gender</label>
+								<div class="col-md-10" ng-if="isEdit && rowContent.canEdit" >
+									<label class="radio radio-inline">
+										<input type="radio" name = "M" value="M" ng-model="rowContent.PersonalDetails.Gender.code">Male
+									</label> 
+									<label class="radio radio-inline">
+											<input type="radio"  name  = "F" value="F"
+												ng-model="rowContent.PersonalDetails.Gender.code"> Female
+									</label>
+								</div>
+								<div class="col-md-2" ng-if="!isEdit || (isEdit && !rowContent.canEdit)">
+									<div class="form-control" >{{rowContent.PersonalDetails.Gender.name}}</div>
+								</div>
+							</div>
+							<!-- only display passport details to self or admin role user -->
+							<div class="form-group" ng-if="rowContent.canEdit">
+								<label class="col-sm-2 control-label">Passport No.</label>
+								<div class="col-sm-3">
+									<p ng-if="isEdit" class="input-group">
+										<input type="text" class="form-control" id="PassportNo" name=""
+											PassportNo" ng-change="isValidPassport()"
+											placeholder="Enter Passport number (8 characters)"
+											ng-model="rowContent.PersonalDetails.PassportNo"
+											ng-if="isEdit" maxlength="8"/> <span class="input-group-btn">
+											<button type="button" class="btn btn-default">
+												<i ng-show="!isPassportValid"
+													class="glyphicon glyphicon-exclamation-sign" title ="Please enter a valid passport number(8 characters)"></i> <i
+													ng-show="isPassportValid" class="glyphicon glyphicon-check"></i>
+											</button>
+	
+										</span>
+									</p>
+	
+									<div class="form-control" id="dob" ng-if="!isEdit">{{rowContent.PersonalDetails.PassportNo}}</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- The Row for personal details end here -->
+	
+	<!-- The row for other details -->
+	<div>
+		<!-- Contact and address -->
+		<div class="" ng-class="{'col-md-6' : rowContent.canEdit, 'col-md-12' : !rowContent.canEdit}">
+			<div class="content-box-header">
+				<div class="panel-title" name="ContactDetails" id="ContactDetails">Contact Details</div>
+			</div>
+			<div class="content-box-large box-with-header">
+				<div class="panel-body">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+	
+							<label for="PersonalContact" class="col-sm-2 control-label">Personal
+								contact </label>
+							<div class="col-sm-10">
+								<p ng-if="(isEdit && rowContent.canEdit)" class="input-group">
+									<input type="text" class="form-control" ng-change="isValidPersonalContact()"
+										placeholder="Enter Personal Contact"
+										ng-model="rowContent.ContactDetails.PERSONAL.number"
+										ng-if="isEdit" maxlength="10"/> <span class="input-group-btn" >
+										<button type="button" class="btn btn-default">
+											<i ng-show="!isPersonalContactValid"
+												class="glyphicon glyphicon-exclamation-sign" title ="Please enter a contact number of 10 digits"></i> <i
+												ng-show="isPersonalContactValid"
+												class="glyphicon glyphicon-check"></i>
+										</button>
+									</span>
+	
+								</p>
+								<div class="form-control" ng-if="!isEdit || (isEdit && !rowContent.canEdit)" id="dob"
+									>{{rowContent.ContactDetails.PERSONAL.number}}</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="OfficeContact" class="col-sm-2 control-label">Office
+								Contact </label>
+							<div class="col-sm-10">
+								<p ng-if="(isEdit && rowContent.canEdit)" class="input-group">
+									<input type="text" class="form-control" id="OfficeContact"
+										name="" placeholder="Enter Office Contact"
+										ng-change="isValidOfficeContact()"
+										ng-model="rowContent.ContactDetails.OFFICE.number"
+										ng-if="isEdit" maxlength="10"/> <span class="input-group-btn">
+										<button type="button" class="btn btn-default">
+											<i ng-show="!isOfficeContactValid"
+												class="glyphicon glyphicon-exclamation-sign" title ="Please enter a contact number of 10 digits"></i> <i
+												ng-show="isOfficeContactValid"
+												class="glyphicon glyphicon-check"></i>
+										</button>
+									</span>
+								</p>
+								<div class="form-control" ng-if="!isEdit || (isEdit && !rowContent.canEdit)" id="dob">{{rowContent.ContactDetails.OFFICE.number}}</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="OtherContact" class="col-sm-2 control-label">Emergency
+								Contact </label>
+							<div class="col-sm-10">
+								<p ng-if="(isEdit && rowContent.canEdit)" class="input-group">
+									<input type="text" class="form-control" id="OtherContact"
+										placeholder="Enter Emergency Contact" name=""
+										ng-change="isValidOtherContact()"
+										ng-model="rowContent.ContactDetails.OTHER.number"
+										ng-if="isEdit" maxlength="10"/> <span class="input-group-btn">
+										<button type="button" class="btn btn-default">
+											<i ng-show="!isOtherContactValid"
+												class="glyphicon glyphicon-exclamation-sign" title ="Please enter a contact number of 10 digits"></i> <i
+												ng-show="isOtherContactValid"
+												class="glyphicon glyphicon-check"> </i>
+										</button>
+									</span>
+								</p>
+								<div class="form-control" id="dob" ng-if="!isEdit || (isEdit && !rowContent.canEdit)">{{rowContent.ContactDetails.OTHER.number}}</div>
+	
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	
+		<!-- -Adreess Details by user. Only visible to the self or admin user-->
+		<div class="col-md-6" ng-if="rowContent.canEdit">
+			<div class="content-box-header">
+				<div class="panel-title" name="AddressDetails" id="AddressDetails">Address
+					Details</div>
+			</div>
+			<div class="content-box-large box-with-header">
+				<div class="panel-body">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label for="HNo" class="col-sm-2 control-label">HouseNo/Street</label>
+							<div class="col-sm-10">
+								<p ng-if="(isEdit && rowContent.canEdit)" class="input-group">
+									<input type="text" class="form-control" id="HNo" name=""
+										placeholder="Enter House No and Street"
+										ng-change="isValidHno()"
+										ng-model="rowContent.AddressDetails.HNoStreet" ng-if="isEdit" maxlength="255" />
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default">
+											<i ng-show="!isHNoValid"
+												class="glyphicon glyphicon-exclamation-sign" title ="Field can not be empty"></i> <i
+												ng-show="isHNoValid" class="glyphicon glyphicon-check"></i>
+										</button>
+									</span>
+								</p>
+								<div class="form-control" id="dob" ng-if="!isEdit || (isEdit && !rowContent.canEdit)"
+									>{{rowContent.AddressDetails.HNoStreet}}</div>
+							</div>
+						</div>
+	
+						<div class="form-group">
+							<label for="State" class="col-sm-2 control-label">State</label>
+							<div class="col-sm-10">
+	
+								<p ng-if="(isEdit && rowContent.canEdit)" class="input-group">
+									<input type="text" class="form-control" id="State" name=""
+										placeholder="Enter State" ng-change="isValidState()"
+										ng-model="rowContent.AddressDetails.State" ng-if="isEdit" maxlength="50" /> <span
+										class="input-group-btn">
+										<button type="button" class="btn btn-default">
+											<i ng-show="!isStateValid"
+												class="glyphicon glyphicon-exclamation-sign" title ="Please enter a valid State"></i> <i
+												ng-show="isStateValid" class="glyphicon glyphicon-check"></i>
+										</button>
+									</span>
+								</p>
+								<div class="form-control" id="dob" ng-if="!isEdit || (isEdit && !rowContent.canEdit)"
+									>{{rowContent.AddressDetails.State}}</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="Pin" class="col-sm-2 control-label">PinCode</label>
+							<div class="col-sm-10">
+								<p ng-if="(isEdit && rowContent.canEdit)" class="input-group">
+									<input type="text" class="form-control" id="Pin" name=""
+										placeholder="Enter Pin Code" ng-change="isValidPin()"
+										ng-model="rowContent.AddressDetails.Pin" ng-if="isEdit" maxlength="6" /> <span
+										class="input-group-btn" >
+										<button type="button" class="btn btn-default">
+											<i ng-show="!isPinValid"
+												class="glyphicon glyphicon-exclamation-sign" title ="Please enter a pin code of 6 digits"></i> <i
+												ng-show="isPinValid" class="glyphicon glyphicon-check"></i>
+										</button>
+									</span>
+								</p>
+	
+								<div class="form-control" id="dob" ng-if="!isEdit || (isEdit && !rowContent.canEdit)"
+									>{{rowContent.AddressDetails.Pin}}</div>
+							</div>
+	
+						</div>
+						<div class="form-group">
+							<label for="Country" class="col-sm-2 control-label">Country</label>
+							<div class="col-sm-10">
+								<p ng-if="(isEdit && rowContent.canEdit)" class="input-group">
+									<input type="text" class="form-control" id="Country" name=""
+										placeholder="Enter County" ng-change="isValidCountry()"
+										ng-model="rowContent.AddressDetails.Country" ng-if="isEdit" maxlength="25"/>
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default">
+											<i ng-show="!isCountryValid"
+												class="glyphicon glyphicon-exclamation-sign" title ="Please enter a valid country"></i> <i
+												ng-show="isCountryValid" class="glyphicon glyphicon-check"></i>
+										</button>
+									</span>
+								</p>
+	
+								<div class="form-control" id="Country" ng-if="!isEdit || (isEdit && !rowContent.canEdit)"
+									>{{rowContent.AddressDetails.Country}}</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- address details ends here -->
+	
+	
+	<!-- Team details for the user starts here -->
+	<div>
+		<div class="col-md-12">
+			<div class="content-box-header">
+				<div class="panel-title" name="TeamDetails" id="TeamDetails">Team Details : {{rowContent.TeamDetails.length}}</div> 
+			</div>
+			<div class="content-box-large box-with-header">
+				<div class="panel-body">
+					<div class="rootwizard" ng-if="isEdit">
+					
+						<!--  navigation bar -->
+						<div class="navbar">
+							<div class="navbar-inner">
+								<ul class="nav nav-tabs">
+									<li class="active"><a href="#display" target="_self "
+										data-toggle="tab">Display</a></li>
+									<li class="" ng-if="rowContent.isAdmin"><a href="#addTeam" target="_self "
+										data-toggle="tab"> Add : {{sessionTeams.length}}</a></li>
+								</ul>
+							</div>
+						</div>
+						<!-- tab content of nav bar -->
+						<div class="tab-content" style="height: 13em;">
+							<!-- display team form -->
+							<div class="tab-pane active" id="display">
+								<div class="form-group" ng-if="rowContent.TeamDetails.length > 0 " style="height: 13em; overflow: auto;">
+						<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Team Name</th>
+								<th>Role</th>
+								<th ng-if="rowContent.isAdmin">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="teamName in rowContent.TeamDetails">
+								<td>{{$index + 1}}</td>
+								<td>{{teamName.TeamName}}</td>
+								<td ng-if="teamName.isSupervisor === false">Member</td>
+								<td ng-if="teamName.isSupervisor === true">Supervisor</td>
+								<td ng-if="rowContent.isAdmin">		
+									<p class="input-group">
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-danger"
+												ng-click="deleteUserTeam(teamName.TeamName)">
+												<i class="glyphicon glyphicon-trash"></i>
+											</button>
+										</span>
+									</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+								</div>
+								<div ng-if="rowContent.TeamDetails.length <= 0">No Teams present</div>
+							</div>
+							<!-- add team form tab of nav bar-->
+							<div class="tab-pane " id="addTeam" ng-if="rowContent.isAdmin">
+								<div class="form-group"
+									ng-show="sessionTeams.length > 0 " style="height: 13em; overflow: auto;">
+									<div ng-repeat="teamName in sessionTeams">
+										<label for="TeamName" class="col-sm-2 control-label">Team-Name</label>
+	
+										<!-- Edit only -->
+										<p class="input-group" ng-if="isEdit">
+											<input type="text" ng-model="teamName.TeamName"
+												class="form-control" ng-disabled="true"> <span
+												class="input-group-btn">
+												<button type="button" class="btn btn-danger"
+													ng-click="deleteUserSessionTeam(teamName.TeamName)">
+													<i class="glyphicon glyphicon-trash"></i>
+												</button>
+											</span>
+										</p>
+										<hr>
+									</div>
+								</div>
+								<div ng-show="sessionTeams.length <= 0">No New Team Added</div>
+								<form role="form" name="teamForm">
+									<div class="form-group">
+										<label class="col-sm-2 control-label">Team-Name</label>
+										<div class = "col-sm-10">
+										<p class="input-group ng-scope" ng-if="isEdit">
+											<input type="text" placeholder="Name of the team"
+												ng-model="_selectedTeam.TeamName" 
+												uib-typeahead="team.TeamName for team in getTeamName($viewValue)"
+												typeahead-loading="loadingTeams"  typeahead-no-results="noResults" typeahead-show-hint="true "
+												typeahead-min-length="3" 
+												class="form-control"
+												typeahead-on-select='onSelect($item, $model, $label)' /><i
+												ng-show="loadingTeams" class="glyphicon glyphicon-refresh"></i>
+												
+												<span ng-show="noResults" >
+											       <i class="glyphicon glyphicon-remove"></i> No Results Found
+												</span>
+												
+												
+													<span class="input-group-btn" ng-show = "testTeamNameflag">
+														<button type="button" class="btn btn-default"  ng-click="addTeam()">
+															<i class="glyphicon glyphicon-floppy-disk" ></i>
+													
+														</button>
+												    </span>
+											     
+											  
+											<span class = "input-group-btn" ng-show = "!testTeamNameflag" >
+											   <span class = "btn btn-default">
+											    <i class ="glyphicon glyphicon-exclamation-sign"title = "team selected already present" ></i>
+											    </span> 
+											 </span>
+									  </p>   
+										</div>	
+										<div ng-show="noResults" >
+											<i class="glyphicon glyphicon-remove"></i> No Results Found
+										</div>
+									 </div>
+								</form>
+							</div>
+                        </div>
+	                </div>
+					  <!-- rootwizard of tab content ends -->
+					  
+					   
+					<!--View only  -->
+					<table class="table table-striped" ng-if="(!isEdit && rowContent.TeamDetails.length > 0)">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th ng-click="sortTeamBy('TeamName')" title="click to sort by name">
+									Team Name
+									<span class="glyphicon" ng-show="sortTeamProperty === 'TeamName'" ng-class="{'glyphicon-arrow-up' : reverse,'glyphicon-arrow-down' : !reverse}"></span>
+								</th>
+								<th ng-click="sortTeamBy('EmailGroups')" title="click to sort by Team Email-Id">
+									Email Id
+									<span class="glyphicon" ng-show="sortTeamProperty === 'EmailGroups'" ng-class="{'glyphicon-arrow-up' : reverse,'glyphicon-arrow-down' : !reverse}"></span>
+								</th>
+								<th ng-click="sortTeamBy('Supervisor.name')" title="click to sort by Supervisor">
+									Team-Leader
+									<span class="glyphicon" ng-show="sortTeamProperty === 'Supervisor.name'" ng-class="{'glyphicon-arrow-up' : reverse,'glyphicon-arrow-down' : !reverse}"></span>								
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="teamName in rowContent.TeamDetails | orderBy:sortTeamProperty:reverse">
+								<td>{{$index + 1}}</td>
+								<td>{{teamName.TeamName}}</td>
+								<td>{{teamName.EmailGroups}}</td>
+								<td ng-if="teamName.isSupervisor === true">Self</td>
+								<td ng-if="!teamName.isSupervisor || teamName.isSupervisor === false">{{teamName.Supervisor.name}}</td>
+							</tr>
+						</tbody>
+					</table>
+						<div ng-if="!isEdit && rowContent.TeamDetails.length <= 0">No Teams Present</div>
+					<!--View ends  -->
+	
+				</div>
+			</div>
+	
+		</div>
+	</div>
+	<!-- Team details end -->
+	
+	<div ng-if="isEdit && rowContent.canEdit" class="col-md-12">
+		<div class="well">
+			<button type="button" class="btn-block btn btn-primary btn-lg"
+				ng-disabled="!isAllInputValid()"
+				ng-click="submit()">Submit</button>
+		</div>
+	
+	</div>
+	<!-- Profile View/Edit ends -->
+</div>
+
+
+<!-- MODEL FOR UPLOADING PROFILE PIC  -->
+
+<div id='profile_pic' class="row" style="display: none;" title="Profile Picture" ng-if="isEdit && rowContent.canEdit">
+	<div class="panel-body">
+<!-- 		<div class="col md-6">
+			<div class="panel-body">
+			
+				<form  method="post" enctype="multipart/form-data" name="profilePicForm" id="profilePicForm"> 
+					  <input type="file" name="file" id="file" accept=".jpg, .JPG, .jpeg, .JPEG, .png, .PNG" />
+
+						(Only image files(jpg/jpeg/png) allowed )					  
+						<button type="button" class="btn btn-primary btn-md"  ng-click = "upload()">
+							<i class="glyphicon glyphicon-cloud-upload" >  UPLOAD</i>
+						</button>
+						<button type="button" class="btn btn-danger btn-md"  ng-click = "remove()">
+							<i class="glyphicon glyphicon-remove-sign" >  REMOVE</i>
+						</button>
+				</form>
+				
+			</div>
+		</div> -->
+		
+	<div class="form-group" id="profilePicture">
+    	<input type="file" name="file" id="file" accept=".jpg, .JPG, .jpeg, .JPEG, .png, .PNG" class="file">
+    	<div class="input-group col-xs-12">
+			<span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+			<input type="text" class="form-control input-lg" disabled placeholder="(Only image files(jpg/jpeg/png) allowed)">
+			<span class="input-group-btn">
+				<button class="browse btn btn-primary input-lg" type="button"><i class="glyphicon glyphicon-search"></i> Browse</button>
+      		</span>
+    	</div>
+  </div>
+      	<div class="form-group">
+    	<button type="button" class="btn btn-primary btn-md"  ng-click = "upload()">
+							<i class="glyphicon glyphicon-cloud-upload" >  UPLOAD</i>
+						</button>
+						<button ng-if="rowContent.profilePic" type="button" class="btn btn-danger btn-md"  ng-click = "remove()">
+							<i class="glyphicon glyphicon-remove-sign" >  REMOVE</i>
+						</button>
+    	</div>
+		
+	</div>
+</div>
+<!-- MODEL FOR UPLOADINF PIC ENDS -->

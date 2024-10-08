@@ -1,0 +1,15 @@
+# Set root logger level to DEBUG and its only appender to A1.
+log4j.rootCategory=@LOGGING_LEVEL@, A1
+log4j.additivity.default=false
+
+# A1
+log4j.appender.A1=org.apache.log4j.RollingFileAppender
+log4j.appender.A1.File=@LOGGING_FILE@
+log4j.appender.A1.MaxFileSize=30MB
+log4j.appender.A1.MaxBackupIndex=10
+log4j.appender.A1.layout=org.apache.log4j.PatternLayout
+log4j.appender.A1.layout.ConversionPattern=%d [%t] %-5p %F - %m%n
+log4j.appender.A1.encoding=UTF-8
+
+# Other Custom Appenders
+@LOGGING_OTHER_APPENDERS@

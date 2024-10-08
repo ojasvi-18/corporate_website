@@ -1,0 +1,49 @@
+
+/* Desktop Carousel
+================================================================ */
+
+.project-carousel {
+
+	position: relative;
+
+	.nav-carousel {
+		[class*="nav-"] {
+			top: 36% !important;
+		}
+	}
+
+//-----------------------------------------------------------------
+// Smaller Resolutions
+//-----------------------------------------------------------------
+
+	@media (max-width: $breakpoint-3) {
+		.nav-carousel {
+			.nav-prev {
+				left: 0 !important;
+			}
+			.nav-next {
+				right: 0 !important;
+			}
+		}
+	}
+
+} // end .project-carousel
+
+.project-preview {
+
+	width: 65%;
+	margin: auto;
+	position: relative;
+
+	.previews {
+		position: absolute;
+		top: 4%;
+		left: 0;
+		right: 0;
+		margin: auto;
+		width: 92.5%;
+		height: 55.7%;
+		overflow: hidden;
+	}
+
+} // end .project-preview

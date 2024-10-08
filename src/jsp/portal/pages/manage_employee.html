@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Manage Employee</title>
+</head>
+<body>
+<h1>Employee</h1>
+<i th:text="${MSG_SUCCESS}">success message</i>
+<i th:text="${MSG_ERROR}">error message</i>
+
+<form th:object="${employee}" th:name="employeeForm" th:method="post" th:action="@{/portal/employees/add}">
+	<table border="2px">
+		<colgroup><col/><col /></colgroup>
+		<tr>
+            <td>Name</td>
+            <td><input type="text" th:field="*{name}"></td>
+          </tr>
+		<tr>
+            <td>Email</td>
+            <td><input type="text" th:field="*{email}" /></td>
+        </tr>
+        <tr>
+            <td>Mobile</td>
+            <td><input type="text" th:field="*{mobile}" /></td>
+        </tr>
+        <tr>
+            <td>Employee Code</td>
+            <td><input type="text" th:field="*{employeeCode}" /></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td><input type="text" th:field="*{address}" /></td>
+        </tr>
+        <tr>
+            <td>City</td>
+            <td><input type="text" th:field="*{city}" /></td>
+        </tr>
+        <tr>
+            <td>State</td>
+            <td><input type="text" th:field="*{state}" /></td>
+        </tr>
+        <tr>
+            <td>Country</td>
+            <td><input type="text" th:field="*{country}" /></td>
+        </tr>
+		<tr>
+		  <td></td>
+		  <td>
+		  	<button type="submit">Add Employee</button>
+		  </td>
+		</tr>
+	</table>
+</form>
+<div th:if="${results} != null">
+<h2>Employees</h2>
+    <table class="table table-striped" border="2px">
+        <thead>
+            <tr>
+                <th style="width: 150px;">S.No.</th>
+                <th style="width: 150px;">Name</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>Employee Code</th>
+                <th style="width: 200px;">Address</th>
+                <th>City</th>
+                <th style="width: 100px;">State</th>
+                <th style="width: 100px;">Country</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="employee : ${results}">
+            	<td th:text="${employee.id}">Id</td>
+            	<td th:text="${employee.name}">Name</td>
+            	<td th:text="${employee.email}">Email</td>
+            	<td th:text="${employee.mobile}">Mobile</td>
+            	<td th:text="${employee.employeeCode}">Employee Code</td>
+                <td th:text="${employee.address}">45, Oxford Street</td>
+                <td th:text="${employee.city}">Cambridge</td>
+                <td th:text="${employee.state}">555-555-555</td>
+                <td th:text="${employee.country}">Id</td>
+            </tr>
+        </tbody>
+    </table>    
+</div>
+</body>
+</html>

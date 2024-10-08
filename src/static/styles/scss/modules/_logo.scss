@@ -1,0 +1,59 @@
+
+/* Logo
+================================================================ */
+
+.logo {	
+
+	font-size: 1.65rem;
+	padding: 1.2em 0;
+	font-weight: 400;
+	a {
+		display: inline-block;
+		vertical-align: top;
+		color: white;
+		border-bottom: 0;
+		white-space: nowrap;
+		line-height: 1.3;
+		&:hover {
+			.fa {
+				transform: none;
+				transition: 0.4s;
+				&:before {					
+					content: "\f015";
+				}
+			}
+		}
+	}
+	.fa {
+		background: $brand-1;
+		position: relative;
+		height: 1.6em;
+		width: 1.6em;
+		border-radius: 0.25em;
+		font-size: 0.8em;
+		transition: 0.5s;
+		vertical-align: top;
+		text-align: center;
+		border: 2px solid transparent;
+		backface-visibility: hidden;
+		transform: rotate(360deg);
+		&:before {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			left: 0;
+			right: 0;
+			margin: auto;
+		}
+	}
+	img {
+		display: block;
+		max-height: 45px;
+		padding-bottom: 1px
+	}
+
+	@media (min-width: $breakpoint-2) {
+		padding: 1em 0;
+	}
+
+} // end .logo

@@ -1,0 +1,97 @@
+
+/* Scroll Down Mouse
+================================================================ */
+
+.mouse {
+    margin: auto;
+    display: inline-block;
+    position: relative;
+    font-size: $font-size-0;
+    width: 3.5em;
+    height: 5.5em;
+    border-radius: 6em;
+    border: 2px solid white;
+    &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+        top: 20%;
+        height: 0;
+        width: 18%;
+        padding-top: 18%;
+        background-color: white;
+        border-radius: 50%;
+        transition: 0.4s;
+    }
+    &:hover {
+        background-color: $white;
+        border-color: $white;
+        &:before {
+            background-color: darken($brand-1, 10%);  
+        }
+        [class*="mouse-scroll"] {
+            border-top-color: darken($brand-1, 10%);
+        }
+    }
+}
+
+.mouse-animations {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 22.5%;
+}
+
+[class*="mouse-scroll"] {
+    opacity:0;
+    margin: auto;
+    width: 0px;
+    height: 0px;
+    border-left: 0.35em solid transparent;
+    border-right: 0.35em solid transparent;
+    border-top: 0.4em solid white;
+    transition: 0.4s;
+}
+
+.mouse-scroll-l {
+    animation: down3 1s infinite;
+}
+.mouse-scroll-2 {
+    animation: down2 1s infinite;
+}
+.mouse-scroll-3 {
+    animation: down 1s infinite;
+}
+
+@keyframes down {
+    0%{
+        opacity:0;
+    }
+    100%{
+        opacity:1;
+        transform: translateY(2em);
+    }
+}
+
+@keyframes down2{
+    40%{
+        opacity:0;
+    }
+    100%{
+        opacity:0.5;
+        transform: translateY(2em);
+    }
+}
+
+@keyframes down3 {
+    60%{
+        opacity:0;
+    }
+    100%{
+        opacity:0.2;
+        transform: translateY(2em);
+    }
+}

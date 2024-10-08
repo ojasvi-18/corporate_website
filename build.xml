@@ -1,0 +1,369 @@
+<?xml version="1.0"?>
+
+<project name="corporate_website" default="build" basedir="./">
+	<description>Zillious Corporate Website</description>
+
+	<!-- Properties to be Overriden as per System Settings -->
+	<property name="catalina.home" location="G:/Program Files/apache-tomcat-8.0.30" />
+
+	<!-- Properties Relative to BaseDir -->
+	<property name="projectRoot" location="${basedir}" />
+	<property name="externalLib" location="${projectRoot}/libs" />
+	<property name="buildLib" location="${projectRoot}/libs/build-libs" />
+	<property name="srcDir" location="${projectRoot}/src" />
+	<property name="buildDir" location="${projectRoot}/webapp" />
+	<property name="classDir" location="${projectRoot}/classes" />
+	<property name="jspClassDir" location="${projectRoot}/jspClasses" />
+	<property name="jarDir" location="${projectRoot}/jar" />
+	<property name="resDir" location="${projectRoot}/res" />
+	<property name="releaseDir" location="${projectRoot}/release" />
+	<property name="yui-jar" location="${projectRoot}/libs/build-libs/yuicompressor-2.4.7.jar" />
+	<property name="dbDir" location="${projectRoot}/src/sql" />
+
+	<!-- Path for Compilation, Run, Axis, Etc -->
+	<path id="build.classpath">
+		<fileset dir="${externalLib}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	<path id="run.classpath">
+		<pathelement path="${resDir}/properties" />
+		<fileset dir="${jarDir}" />
+		<fileset dir="${externalLib}" />
+	</path>
+	<path id="jspc.classpath">
+		<fileset dir="${buildDir}/ROOT/WEB-INF/lib">
+			<include name="*.jar" />
+		</fileset>
+		<pathelement path="${buildDir}/ROOT/WEB-INF/classes" />
+	</path>
+	<path id="app.classpath">
+		<fileset dir="${externalLib}">
+			<include name="servlet-api.jar" />
+		</fileset>
+		<fileset dir="${buildDir}/ROOT/WEB-INF/lib">
+			<include name="*.jar" />
+		</fileset>
+		<pathelement path="${buildDir}/ROOT/WEB-INF/classes" />
+	</path>
+	<path id="db.liquibase.classpath">
+		<path refid="build.classpath" />
+		<fileset dir="${dbDir}">
+			<include name="*.xml" />
+			<include name="*.sql" />
+		</fileset>
+	</path>
+
+	<!-- Cleanup & Initialization tasks ========================================================= -->
+	<target name="init">
+		<echo message="Creating directories required for build" />
+		<echo message="=======================================" />
+		<mkdir dir="${classDir}" />
+		<mkdir dir="${jspClassDir}" />
+		<mkdir dir="${jarDir}" />
+		<mkdir dir="${buildDir}" />
+		<mkdir dir="${buildDir}/ROOT" />
+		<mkdir dir="${buildDir}/ROOT/static" />
+		<mkdir dir="${buildDir}/ROOT/static/css" />
+		<mkdir dir="${buildDir}/ROOT/WEB-INF" />
+		<mkdir dir="${buildDir}/ROOT/WEB-INF/classes" />
+		<mkdir dir="${buildDir}/ROOT/WEB-INF/lib" />
+		<mkdir dir="${buildDir}/ROOT/static/js" />
+		<mkdir dir="${buildDir}/ROOT/static/bundles" />
+	</target>
+
+	<target name="clean">
+		<echo message="Deleting all files created while building" />
+		<echo message="=========================================" />
+		<delete dir="${classDir}" />
+		<delete dir="${jspClassDir}" />
+		<delete dir="${jarDir}" />
+		<delete dir="${buildDir}" />
+		<delete dir="${releaseDir}" />
+	</target>
+
+	<target name="init.env" depends="init">
+		<echo>Initing environment: ${env}</echo>
+		<copy todir="${buildDir}//ROOT/WEB-INF/classes" overwrite="yes" verbose="yes">
+			<fileset dir="${resDir}/properties">
+				<include name="**/*.template" />
+			</fileset>
+			<filterset begintoken="@" endtoken="@">
+				<filtersfile file="${resDir}/env/${env}.env" />
+			</filterset>
+			<mapper type="glob" from="*.template" to="*" />
+		</copy>
+		
+		<antcall target="xml.env" />
+	</target>
+	
+	<target name="xml.env" depends="init">
+		<echo>Initing environment: ${env}</echo>
+		<copy todir="${resDir}/spring" overwrite="yes" verbose="yes">
+			<fileset dir="${resDir}/spring">
+				<include name="**/*.xmltemplate" />
+			</fileset>
+			<filterset begintoken="@" endtoken="@">
+				<filtersfile file="${resDir}/env/${env}.env" />
+			</filterset>
+			<mapper type="glob" from="*.xmltemplate" to="*" />
+		</copy>
+	</target>
+
+	<!-- Compilation tasks ========================================================= -->
+	<target name="dev.publish.jsp" depends="init">
+		<echo message="Copying JSP..." />
+		<copy todir="${buildDir}/ROOT/">
+			<fileset dir="${srcDir}/jsp/">
+				<include name="visible/**/*.jsp" />
+			</fileset>
+		</copy>
+		<copy todir="${buildDir}/ROOT/WEB-INF">
+			<fileset dir="${srcDir}/jsp/">
+				<include name="pages/**/*.jsp" />
+				<include name="tld/**/*.tld" />
+			</fileset>
+		</copy>
+		<copy todir="${buildDir}/ROOT/WEB-INF/portal">
+			<fileset dir="${srcDir}/jsp/portal">
+				<include name="**/*.html" />
+				<exclude name="includes/**/*" />
+			</fileset>
+		</copy>
+		<copy todir="${buildDir}/ROOT/portal-includes">
+			<fileset dir="${srcDir}/jsp/portal">
+				<include name="includes/**/*" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="dev.publish.js" depends="init">
+		<echo message="Copying JS..." />
+		<concat destfile="${buildDir}/ROOT/static/js/all1-min.js">
+			<fileset dir="${srcDir}/static/js">
+				<include name="owl.carousel.min.js" />
+				<!--<include name="owl-carousel-min.js" />-->
+				<include name="magnific-popup-min.js" />
+			</fileset>
+		</concat>
+		<echo message="Copying JS..." />
+		<concat destfile="${buildDir}/ROOT/static/js/all2.js">
+			<fileset dir="${srcDir}/static/js">
+				<include name="app.js" />
+				<include name="app_util.js" />
+				<include name="app_forms.js" />
+				<include name="google-map.js" />
+				<include name="js_utility.js" />
+				<include name="earth-slider.js" />
+				<include name="homepage.js" />
+			</fileset>
+		</concat>
+		<echo message="Copying JS..." />
+		<concat destfile="${buildDir}/ROOT/static/js/all3.js">
+			<fileset dir="${srcDir}/static/js">
+				<include name="raphael-min.js" />
+				<!--<include name="livicons-custom-min.js" />-->
+				<include name="livicons.js" />
+			</fileset>
+		</concat>
+
+		<copy todir="${buildDir}/ROOT/static/js">
+			<fileset dir="${srcDir}/static/js">
+				<include name="**/*.js" />
+			</fileset>
+		</copy>
+
+		<concat destfile="${buildDir}/ROOT/static/portal/js/angular/angular-specific.js">
+			<fileset dir="${srcDir}/static/portal/js/angular">
+				<include name="*.js" />
+			</fileset>
+		</concat>
+		<!--Portal specific javascripts -->
+		<copy todir="${buildDir}/ROOT/static/portal/js">
+			<fileset dir="${srcDir}/static/portal/js">
+				<exclude name="angular/*.js" />
+			</fileset>
+		</copy>
+		<echo message="Copying JS..." />
+		<java jar="${yui-jar}" fork="true" failonerror="true" dir="${buildDir}/ROOT/static/js">
+			<arg value="-o" />
+			<arg value="all2-min.js" />
+			<arg value="all2.js" />
+		</java>
+		<echo message="Copying JS..." />
+		<java jar="${yui-jar}" fork="true" failonerror="true" dir="${buildDir}/ROOT/static/js">
+			<arg value="-o" />
+			<arg value="all3-min.js" />
+			<arg value="all3.js" />
+		</java>
+	</target>
+
+	<target name="dev.publish.css" depends="init">
+		<echo message="Copying CSS..." />
+		<!--
+		Include SAAS compiler
+		-->
+
+		<copy todir="${buildDir}/ROOT/static/css">
+			<fileset dir="${srcDir}/static/styles/css">
+				<include name="**/*.css" />
+			</fileset>
+		</copy>
+		<copy todir="${buildDir}/ROOT/static/portal/css">
+			<fileset dir="${srcDir}/static/portal/css">
+				<include name="**/*.css" />
+				<exclude name="styles.css" />
+			</fileset>
+		</copy>
+
+		<copy todir="${buildDir}/ROOT/static/css/images">
+			<fileset dir="${srcDir}/static/styles/css/images">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+
+		<java jar="${yui-jar}" fork="true" failonerror="true" dir="${buildDir}/ROOT/static/portal/css">
+			<arg value="-o" />
+			<arg value="angular-styles-min.css" />
+			<arg value="${srcDir}/static/portal/css/styles.css" />
+		</java>
+
+		<java jar="${yui-jar}" fork="true" failonerror="true" dir="${buildDir}/ROOT/static/css">
+			<arg value="-o" />
+			<arg value="app-min.css" />
+			<arg value="app.css" />
+		</java>
+
+		<java jar="${yui-jar}" fork="true" failonerror="true" dir="${buildDir}/ROOT/static/css">
+			<arg value="-o" />
+			<arg value="browser-min.css" />
+			<arg value="browser.css" />
+		</java>
+	</target>
+
+	<target name="dev.publish.static" depends="init">
+		<echo message="Copying Static files..." />
+		<copy todir="${buildDir}/ROOT/static">
+			<fileset dir="${srcDir}/static">
+				<exclude name="js/**" />
+				<exclude name="portal/js/**" />
+				<exclude name="styles/**" />
+			</fileset>
+		</copy>
+		<copy todir="${buildDir}/ROOT">
+			<fileset dir="${srcDir}/static">
+				<include name="*.html" />
+				<include name="robots.txt" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="dev.publish.lib" depends="init">
+		<echo message="Copying Library files..." />
+		<copy todir="${buildDir}/ROOT/WEB-INF/lib">
+			<fileset dir="${externalLib}">
+				<exclude name="servlet-api.jar" />
+				<exclude name="build-libs/**" />
+				<exclude name="amazonS3/**" />
+				<exclude name="lib-sources/**" />
+			</fileset>
+			<fileset dir="${externalLib}/amazonS3">
+				<include name="*" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="dev.publish.res" depends="init">
+		<echo message="Copying Resource files..." />
+		<copy todir="${buildDir}/ROOT/WEB-INF/classes">
+			<fileset dir="${resDir}/properties">
+				<include name="**/*.properties" />
+				<include name="**/*.dat" />
+			</fileset>
+			<fileset dir="${resDir}/spring">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="dev.compile.java">
+		<javac srcdir="${srcDir}/java" destdir="${classDir}" includes="**/*.java" verbose="no" debug="yes" fork="true" memoryinitialsize="256m" memorymaximumsize="512m" includeantruntime="false">
+			<classpath refid="build.classpath" />
+		</javac>
+		<jar destfile="${jarDir}/corporate_website.jar" basedir="${classDir}" />
+
+		<copy todir="${buildDir}/ROOT/WEB-INF/lib">
+			<fileset dir="${jarDir}">
+				<include name="corporate_website.jar" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="build.actions" depends="init,dev.publish.static,dev.publish.jsp,dev.publish.js,dev.publish.css,dev.publish.lib,dev.publish.res">
+	</target>
+
+	<target name="build" depends="init,build.actions,dev.compile.java">
+		<echo message="Building WebApp directories" />
+		<echo message="===========================" />
+		<copy file="${srcDir}/web.xml" todir="${buildDir}/ROOT/WEB-INF" />
+	</target>
+
+	<target name="release-candidate" depends="clean,init,init.env,xml.env,build.actions">
+		<echo message="Building Release Candidate: ${ver}" />
+		<echo message="==================================" />
+
+		<copy todir="${resDir}/properties" overwrite="yes" verbose="yes">
+			<fileset dir="${resDir}/properties">
+				<include name="**/corporate_website_version.properties.template" />
+			</fileset>
+			<filterset begintoken="@" endtoken="@">
+				<filter token="CORPORATE_WEBSITE_VERSION" value="${ver}" />
+			</filterset>
+			<mapper type="glob" from="*.template" to="*" />
+		</copy>
+
+		<manifest file="${jarDir}/MANIFEST.MF">
+			<attribute name="Manifest-Version" value="${ver}" />
+			<attribute name="Created-By" value="Zillious Solutions Pvt Ltd (INDIA)" />
+		</manifest>
+
+		<javac srcdir="${srcDir}/java" destdir="${classDir}" includes="**/*.java" verbose="no" debug="yes" fork="true" memoryinitialsize="256m" memorymaximumsize="512m">
+			<classpath refid="build.classpath" />
+		</javac>
+
+		<jar destfile="${jarDir}/corporate_website_v${ver}.jar" basedir="${classDir}" manifest="${jarDir}/MANIFEST.MF" compress="true" index="true" update="true" />
+		<copy todir="${buildDir}/ROOT/WEB-INF/lib">
+			<fileset dir="${jarDir}">
+				<include name="corporate_website_v${ver}.jar" />
+			</fileset>
+		</copy>
+
+		<mkdir dir="${releaseDir}" />
+		<mkdir dir="${releaseDir}/corporate_website" />
+		<war destfile="${releaseDir}/corporate_website/corporate_website_${env}_v${ver}.war" webxml="${srcDir}/web.xml" manifest="${jarDir}/MANIFEST.MF">
+			<fileset dir="${buildDir}/ROOT" />
+		</war>
+
+		<!-- Include only customer specific files -->
+		<zip destfile="${releaseDir}/corporate_website/static_${env}_v${ver}.zip" basedir="${buildDir}/ROOT" includes="static/**" compress="true" />
+		<delete file="${jarDir}/MANIFEST.MF" />
+		<zip destfile="${releaseDir}/corporate_website_release_candidate_${env}_v${ver}.zip" basedir="${releaseDir}" includes="corporate_website/**" />
+	</target>
+
+
+	<target name="dev.compile.jsp" depends="dev.publish.jsp">
+		<echo message="Compiling JSPs..." />
+		<echo message="=================" />
+		<taskdef classname="org.apache.jasper.JspC" name="jasper2">
+			<classpath refid="jspc.classpath" />
+		</taskdef>
+
+		<jasper2 uriroot="${buildDir}/ROOT/" addWebXmlMappings="false" outputDir="${jspClassDir}/" />
+
+		<javac destdir="${jspClassDir}" fork="true" includes="**/*.java" verbose="no" debug="yes" memoryinitialsize="512m" memorymaximumsize="1024m">
+			<src path="${jspClassDir}" />
+			<classpath refid="jspc.classpath" />
+		</javac>
+	</target>
+
+</project>

@@ -1,0 +1,67 @@
+
+/* Skills
+================================================================ */
+
+.section.skills {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+	h5 {
+		font-family: $font-1;
+		font-size: $font-size-1;
+		margin-bottom: 0.5em;
+		top: 0;
+		transition: 0.4s;
+		position: relative;
+		opacity: 1;
+		transition: 0.4s;
+	}
+	
+	.progress-bars {
+		transition: 1s;
+	}
+	.progress {
+		transition: 1s;
+	}
+	.progress-bar {
+		transition: 0.4s;
+	}
+
+	&.inactive {
+		h5 {
+			opacity: 0;
+		}
+		.progress-bar {
+			background: transparent;
+			color: transparent;
+		}
+		.progress {
+			width: 0 !important;
+			padding: 0;
+		}
+	}
+
+//-----------------------------------------------------------------
+// Smaller Resolutions
+//-----------------------------------------------------------------
+
+	@media (max-width: $breakpoint-3) {
+		.progress-bars {
+			margin-top: 3em;
+		}
+	}
+
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+	@media (min-width: $breakpoint-3) {
+		.progress-bars {
+			padding-left: 3.5%;
+			vertical-align: middle;
+		}
+	}
+
+} // end .section.skills

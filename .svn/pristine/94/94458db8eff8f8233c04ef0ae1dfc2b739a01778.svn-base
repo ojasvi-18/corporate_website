@@ -1,0 +1,108 @@
+
+/* Blog Items
+================================================================ */
+
+.blog-items {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+	.blog-item {
+		position: relative;
+		h4, 
+		h5 {
+			margin: 0;
+		}
+		h4 {
+			font-size: $font-size-3;
+			font-family: $font-1;
+			font-weight: 900;
+			margin-bottom: 0.25em;
+			a {
+				color: $main-text-color;
+				border: none;
+			}
+		}
+		h5 {
+			font-size: $font-size-2;
+			font-weight: 300;
+		}
+		p {
+			font-weight: 100;
+		}
+		small {
+			position: absolute;
+			right: 0;
+			bottom: 1.1em;
+		}
+	}
+
+	.thumb {
+		height: 150px;
+		overflow: hidden;
+		margin-bottom: 1.5em;
+		display: block;
+		border: none;
+		img {
+			transition: 0.4s;
+			min-width: 100%;
+			position: relative;
+			transform: scale(1) translateY(-25%);
+		}
+		&:hover {
+			img {
+				transform: scale(1.25) translateY(-20%);
+			}
+		}
+	}
+
+	.profile {
+		height: 50px;
+		width: 50px;
+		position: absolute;
+		top: 6%;
+		left: -0.5em;
+	}
+
+	.date {
+		float: right;
+		width: 45px;
+		span {
+			display: block;
+			text-align: center;
+			&:first-child {
+				color: white;
+				background: $brand-1;
+				font-size: $font-size-0;
+			}
+			&:last-child {
+				line-height: 1.8;
+				font-size: $font-size-2;
+				color: rgba(0,0,0,0.5);
+				border: 1px solid rgba(0,0,0,0.1);
+				border-top: none;
+				font-weight: lighter;
+			}
+		}
+	}
+
+//-----------------------------------------------------------------
+// Smaller Resolutions
+//-----------------------------------------------------------------
+
+	@media (max-width: $breakpoint-3) {
+        .blog-item {
+            small {
+            	bottom: 4em;
+            }
+        }
+	}
+
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+	@media (min-width: $breakpoint-2) {}
+
+} // end .blog-items

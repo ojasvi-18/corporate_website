@@ -1,0 +1,52 @@
+
+/* Pricing Section
+================================================================ */
+
+.section.pricing {
+
+//-----------------------------------------------------------------
+// Core Styles
+//-----------------------------------------------------------------
+
+	overflow: hidden;
+
+	&.inactive {
+		.price-chart-container {
+			top: 3rem;
+			opacity: 0;
+		}
+	} 
+
+	.price-chart-container {
+		position: relative;
+		transition: 0.4s;
+		top: 0;
+		opacity: 1;
+		&:not(:last-child) {
+			margin-bottom: 4em;
+		}
+		&:nth-child(2) {
+			transition-delay: 0.4s;
+		}
+		&:nth-child(3) {
+			transition-delay: 0.8s;
+	
+		}
+	}
+	
+//-----------------------------------------------------------------
+// Larger Resolutions
+//-----------------------------------------------------------------
+
+	@media (min-width: $breakpoint-3) {
+		.price-chart-container {			
+			margin-bottom: 0 !important;	
+		}
+		.price-chart {	
+			&:hover {
+				transform: scale(1.1);
+			}
+		}
+	}
+
+} // end .section.pricing
